@@ -43,6 +43,14 @@ jobs:
       - name: Debug - Kategori adlarını göster
         run: python debug_kategoriler.py
 
+      - name: Debug output'u commit et
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add debug_output.txt
+          git diff --staged --quiet || git commit -m "debug output"
+          git push
+
       - name: Scraper'ları çalıştır ve Excel üret
         run: python main.py
 
