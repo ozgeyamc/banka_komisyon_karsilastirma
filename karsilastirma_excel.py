@@ -1,6 +1,5 @@
 """
 Bankalardan çekilen verileri karşılaştırmalı Excel formatında yazan modül.
-Eşleştirme: işlem tipi + tutar aralığı standardizasyonu ile yapılır.
 """
 
 import os
@@ -44,9 +43,12 @@ def _bugun() -> str:
 def _deger(s: UcretSatiri) -> str:
     t = (s.asgari_tutar or "").strip()
     o = (s.asgari_oran  or "").strip()
+    # Sadece gerçek değer varsa ekle, "-" veya boş ise ekleme
     parts = []
-    if t: parts.append(t)
-    if o: parts.append(o)
+    if t and t != "-":
+        parts.append(t)
+    if o and o != "-":
+        parts.append(o)
     return " / ".join(parts) if parts else ""
 
 
@@ -78,12 +80,20 @@ def _extract_tutar(m: str) -> Optional[str]:
 
 
 def _norm_deger(d: str) -> str:
+    """Karşılaştırma için değeri normalize et."""
     if not d:
         return ""
     d = d.strip().upper()
+    # Türkçe ondalık virgül → nokta (sadece rakamlar arasında)
     d = re.sub(r"(\d),(\d)", r"\1.\2", d)
-    d = d.replace(" ", "").replace("TL", "TRY")
+    # Boşlukları kaldır
+    d = d.replace(" ", "")
+    # TL → TRY
+    d = re.sub(r"\bTL\b", "TRY", d)
+    d = d.replace("TL", "TRY")
+    # Sadece anlamlı karakterler
     d = re.sub(r"[^0-9A-Z%./]", "", d)
+    # Float normalize: 7.97 == 7.970 == 7,97
     try:
         num = re.search(r"[\d.]+", d)
         if num:
@@ -407,6 +417,7 @@ def karsilastirma_excel_yaz(
 
     KAT_FONT = Font(bold=True, size=10)
     DATA_FONT = Font(size=10)
+    RED_FONT = Font(size=10, color="FF0000", bold=True)
     MASRAF_FONT = Font(size=10)
 
     yazilan = set()
@@ -442,6 +453,7 @@ def karsilastirma_excel_yaz(
                 degerler.append(bd.get("mobil", ""))
                 degerler.append(bd.get("sube", ""))
 
+            # Sadece dolu değerleri karşılaştır
             mobil_norm = [_norm_deger(degerler[i]) for i in range(0, 8, 2) if degerler[i]]
             sube_norm  = [_norm_deger(degerler[i]) for i in range(1, 8, 2) if degerler[i]]
             mobil_fark = len(set(mobil_norm)) > 1
@@ -449,15 +461,15 @@ def karsilastirma_excel_yaz(
 
             for i, d in enumerate(degerler):
                 c = ws.cell(row=row, column=col, value=d)
-                c.font = DATA_FONT
                 c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
                 sb(c)
+                # Sarı YOK — sadece kırmızı yazı farklı değerlerde
                 if i % 2 == 0 and mobil_fark and d:
-                    c.fill = YELLOW
-                    c.font = Font(size=10, color="FF0000", bold=True)
+                    c.font = RED_FONT
                 elif i % 2 == 1 and sube_fark and d:
-                    c.fill = YELLOW
-                    c.font = Font(size=10, color="FF0000", bold=True)
+                    c.font = RED_FONT
+                else:
+                    c.font = DATA_FONT
                 col += 1
 
             ws.row_dimensions[row].height = 20
