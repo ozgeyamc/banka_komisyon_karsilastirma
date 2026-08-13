@@ -1,5 +1,6 @@
 """
 Bankalardan çekilen verileri karşılaştırmalı Excel formatında yazan modül.
+Eşleştirme: masraf adı normalize edilerek yapılır.
 """
 
 import os
@@ -24,68 +25,22 @@ BANKA_RENKLER = {
     "YAPIKREDI": {"bg": "003087", "fg": "FFD700"},
 }
 
-# Kategori eşleştirme — her bankadan gelen kategori adlarını
-# ortak bir üst başlığa bağlar
-KATEGORI_MAP = {
-    "eft": "EFT Gönderimi",
-    "elektronik fon": "EFT Gönderimi",
-    "havale": "Havale Gönderimi",
-    "fast": "FAST",
-    "kiralik kasa": "Kiralık Kasa",
-    "kiralık kasa": "Kiralık Kasa",
-    "kıymetli maden": "Kıymetli Maden Teslimleri",
-    "kiymetli maden": "Kıymetli Maden Teslimleri",
-    "kredi risk": "Kredi Risk Raporu",
-    "fatura": "Fatura Ödemeleri",
-    "sgk": "SGK Prim Ödemeleri",
-    "hgs": "HGS Etiket Bedeli",
-    "sans oyunu": "Şans Oyunu Ödemeleri",
-    "şans oyunu": "Şans Oyunu Ödemeleri",
-    "aidat": "Aidat Ödemeleri",
-    "okul": "Özel Okul Ödeme",
-    "telefon": "Telefon Ödemeleri",
-    "vergi": "Vergi Tahsilat",
-    "arsiv": "Arşiv Araştırma",
-    "arşiv": "Arşiv Araştırma",
-    "mevduat": "Mevduat Araştırma",
-    "bakiye sorma": "Bakiye Sorma - ATM",
-    "cek defteri": "Çek Defteri ve Düzenleme",
-    "çek defteri": "Çek Defteri ve Düzenleme",
-    "cek duzenleme": "Çek Defteri ve Düzenleme",
-    "çek düzenleme": "Çek Defteri ve Düzenleme",
-    "cek tahsil": "Çek Tahsilat",
-    "çek tahsil": "Çek Tahsilat",
-    "cek belgelen": "Çek Belgelendirme",
-    "çek belgelen": "Çek Belgelendirme",
-    "senet iade": "Senet İade",
-    "senet protesto": "Senet Protesto",
-    "senet tahsil": "Senet Tahsile Alma",
-}
-
 KATEGORI_SIRA = [
     "EFT Gönderimi",
     "Havale Gönderimi",
     "FAST",
     "Kiralık Kasa",
-    "Kıymetli Maden Teslimleri",
-    "Kredi Risk Raporu",
+    "Kıymetli Maden",
+    "HGS",
     "Fatura Ödemeleri",
-    "SGK Prim Ödemeleri",
-    "HGS Etiket Bedeli",
-    "Şans Oyunu Ödemeleri",
-    "Aidat Ödemeleri",
-    "Özel Okul Ödeme",
-    "Telefon Ödemeleri",
-    "Vergi Tahsilat",
+    "SGK",
+    "Şans Oyunu",
     "Arşiv Araştırma",
-    "Mevduat Araştırma",
-    "Bakiye Sorma - ATM",
-    "Çek Defteri ve Düzenleme",
+    "Kredi Risk Raporu",
+    "Çek Defteri",
     "Çek Tahsilat",
-    "Çek Belgelendirme",
-    "Senet İade",
-    "Senet Protesto",
-    "Senet Tahsile Alma",
+    "Çek İşlemleri",
+    "Senet İşlemleri",
     "Diğer",
 ]
 
@@ -96,7 +51,6 @@ def _bugun() -> str:
 
 
 def _deger(s: UcretSatiri) -> str:
-    """Tek hücreye yazılacak kısa değer."""
     t = (s.asgari_tutar or "").strip()
     o = (s.asgari_oran or "").strip()
     if t and o:
@@ -104,44 +58,66 @@ def _deger(s: UcretSatiri) -> str:
     return t or o or ""
 
 
-def _norm(m: str) -> str:
+def _norm_masraf(m: str) -> str:
     m = m.lower().strip()
-    m = re.sub(r"\s+", " ", m)
-    for a, b in [("i̇","i"),("ı","i"),("ğ","g"),("ü","u"),("ş","s"),("ö","o"),("ç","c")]:
+    for a, b in [("ı","i"),("ğ","g"),("ü","u"),("ş","s"),("ö","o"),("ç","c"),
+                 ("â","a"),("î","i"),("û","u"),("i̇","i")]:
         m = m.replace(a, b)
+    m = re.sub(r"[,.\-/\\()\[\]]", " ", m)
+    # Banka adlarını çıkar
+    for banka in ["garanti bbva", "garanti", "akbank", "yapi kredi", "yapikredi",
+                  "isbank", "is bankasi", "iscep", "mobil bankacilık", "internet subesi",
+                  "internet sube", "sube cozum merkezi", "cozum merkezi",
+                  "musteri iletisim merkezi"]:
+        m = m.replace(banka, "")
+    m = re.sub(r"\s+", " ", m).strip()
     return m
 
 
-def _kategori_bul(kategori_adi: str) -> str:
-    k = _norm(kategori_adi)
-    for anahtar, ortak in KATEGORI_MAP.items():
-        if anahtar in k:
-            return ortak
+def _ust_kategori(masraf_norm: str) -> str:
+    m = masraf_norm
+    if "eft" in m and not "swift" in m:
+        return "EFT Gönderimi"
+    if "havale" in m:
+        return "Havale Gönderimi"
+    if "fast" in m:
+        return "FAST"
+    if "kiralik kasa" in m or "yillik kasa" in m or "kasa ucreti" in m or "kasa depozito" in m:
+        return "Kiralık Kasa"
+    if "altin" in m or "kiymetli maden" in m:
+        return "Kıymetli Maden"
+    if "hgs" in m:
+        return "HGS"
+    if "sans oyunu" in m or "piyango" in m:
+        return "Şans Oyunu"
+    if "fatura" in m and "kredi" not in m:
+        return "Fatura Ödemeleri"
+    if "sgk" in m:
+        return "SGK"
+    if "arsiv" in m:
+        return "Arşiv Araştırma"
+    if "kkb" in m or ("kredi" in m and "risk" in m):
+        return "Kredi Risk Raporu"
+    if "cek defteri" in m or "keside" in m:
+        return "Çek Defteri"
+    if "cek tahsil" in m or "cek odeme" in m:
+        return "Çek Tahsilat"
+    if "cek" in m:
+        return "Çek İşlemleri"
+    if "senet" in m:
+        return "Senet İşlemleri"
     return "Diğer"
 
 
-def _kanal_ayir(satirlar: List[UcretSatiri]) -> List[Tuple[str, str, str]]:
-    """[(masraf_adi, mobil_deger, sube_deger), ...]"""
-    seen: Dict[str, dict] = {}
-    order: List[str] = []
-    for s in satirlar:
-        key = s.masraf.strip()
-        if key not in seen:
-            seen[key] = {"mobil": "", "sube": "", "count": 0}
-            order.append(key)
-        deger = _deger(s)
-        kanal = (s.kanal or "").lower()
-        seen[key]["count"] += 1
-        if kanal == "mobil":
-            seen[key]["mobil"] = deger
-        elif kanal == "sube":
-            seen[key]["sube"] = deger
-        else:
-            if seen[key]["count"] == 1:
-                seen[key]["mobil"] = deger
-            else:
-                seen[key]["sube"] = deger
-    return [(k, seen[k]["mobil"], seen[k]["sube"]) for k in order]
+def _kanal_masraftan(masraf: str) -> str:
+    m = masraf.lower()
+    if any(k in m for k in ["mobil", "internet", "iscep", "dijital", "online", "e-"]):
+        return "mobil"
+    if "atm" in m:
+        return "mobil"  # ATM = self-service, mobil sütununa
+    if any(k in m for k in ["şube", "sube", "gişe", "gise", "çözüm", "cozum", "iletişim merkezi"]):
+        return "sube"
+    return ""
 
 
 def karsilastirma_excel_yaz(
@@ -151,141 +127,145 @@ def karsilastirma_excel_yaz(
     if os.path.exists(dosya_yolu):
         os.remove(dosya_yolu)
 
+    thin = Side(style="thin", color="CCCCCC")
+    border = Border(left=thin, right=thin, top=thin, bottom=thin)
+
+    def sb(cell):
+        cell.border = border
+
     wb = Workbook()
     ws = wb.active
     ws.title = SHEET_ADI
 
-    # Sütunlar: A=masraf, B-C=GAR, D-E=IS, F-G=AK, H-I=YK
-    MAX_COL = 9
+    MAX_COL = 9  # A + 4 banka x 2 kanal
 
-    thin = Side(style="thin", color="CCCCCC")
-    border = Border(left=thin, right=thin, top=thin, bottom=thin)
-
-    def set_border(cell):
-        cell.border = border
-
-    # ── Satır 1: Banka başlıkları ──
+    # ── Satır 1-2: Başlıklar ──
     ws.merge_cells("A1:A2")
     c = ws["A1"]
     c.value = "MASRAF"
     c.fill = PatternFill(start_color="1F3864", end_color="1F3864", fill_type="solid")
     c.font = Font(color="FFFFFF", bold=True, size=11)
     c.alignment = Alignment(horizontal="center", vertical="center")
-    set_border(c)
+    sb(c)
 
     col = 2
     for banka in BANKALAR:
         r = BANKA_RENKLER[banka]
         fill = PatternFill(start_color=r["bg"], end_color=r["bg"], fill_type="solid")
-        font_h = Font(color=r["fg"], bold=True, size=11)
-        font_s = Font(color=r["fg"], bold=True, size=10)
-
         l1 = get_column_letter(col)
         l2 = get_column_letter(col + 1)
         ws.merge_cells(f"{l1}1:{l2}1")
         c1 = ws[f"{l1}1"]
         c1.value = banka
         c1.fill = fill
-        c1.font = font_h
+        c1.font = Font(color=r["fg"], bold=True, size=11)
         c1.alignment = Alignment(horizontal="center", vertical="center")
-        set_border(c1)
-
+        sb(c1)
         for j, kanal in enumerate(["Mobil", "Şube"]):
             c2 = ws.cell(row=2, column=col + j)
             c2.value = kanal
             c2.fill = fill
-            c2.font = font_s
+            c2.font = Font(color=r["fg"], bold=True, size=10)
             c2.alignment = Alignment(horizontal="center", vertical="center")
-            set_border(c2)
+            sb(c2)
         col += 2
 
-    # ── Sütun genişlikleri ──
-    ws.column_dimensions["A"].width = 42
+    ws.column_dimensions["A"].width = 45
     for i in range(2, MAX_COL + 1):
         ws.column_dimensions[get_column_letter(i)].width = 18
     ws.row_dimensions[1].height = 22
     ws.row_dimensions[2].height = 18
     ws.freeze_panes = "A3"
 
-    # ── Veriyi işle ──
-    # Her banka → kategori → [(masraf, mobil, sube)]
-    banka_kat_data: Dict[str, Dict[str, List[Tuple[str,str,str]]]] = {}
+    # ── Veriyi işle: norm_masraf → {banka: {kanal: deger}} ──
+    # norm_masraf → display adı (ilk görülen)
+    norm_display: Dict[str, str] = {}
+    # norm_masraf → üst kategori
+    norm_kat: Dict[str, str] = {}
+    # kategori → [norm_masraf sırası]
+    kat_masraflar: Dict[str, List[str]] = {}
+    # norm_masraf → {banka: {"mobil": str, "sube": str}}
+    masraf_banka: Dict[str, Dict[str, Dict[str, str]]] = {}
+
     for banka in BANKALAR:
         satirlar = banka_verileri.get(banka, [])
-        kat_gruplar: Dict[str, List[UcretSatiri]] = {}
         for s in satirlar:
-            kat = _kategori_bul(s.kategori)
-            kat_gruplar.setdefault(kat, []).append(s)
-        banka_kat_data[banka] = {}
-        for kat, sat_list in kat_gruplar.items():
-            banka_kat_data[banka][kat] = _kanal_ayir(sat_list)
-
-    # Tüm kategorilerdeki tüm masraf adlarını norm→display eşleştir
-    # Her kategori için: norm_masraf → {banka: (mobil, sube)}
-    kat_masraf_banka: Dict[str, Dict[str, Dict[str, Tuple[str,str]]]] = {}
-    norm_display: Dict[str, str] = {}
-
-    for banka in BANKALAR:
-        for kat, triplets in banka_kat_data[banka].items():
-            if kat not in kat_masraf_banka:
-                kat_masraf_banka[kat] = {}
-            for masraf, mob, sub in triplets:
-                norm = _norm(masraf)
-                norm_display.setdefault(norm, masraf)
-                if norm not in kat_masraf_banka[kat]:
-                    kat_masraf_banka[kat][norm] = {}
-                kat_masraf_banka[kat][norm][banka] = (mob, sub)
+            norm = _norm_masraf(s.masraf)
+            if not norm:
+                continue
+            # display adı
+            norm_display.setdefault(norm, s.masraf.strip())
+            # üst kategori
+            if norm not in norm_kat:
+                kat = _ust_kategori(norm)
+                norm_kat[norm] = kat
+                if kat not in kat_masraflar:
+                    kat_masraflar[kat] = []
+                if norm not in kat_masraflar[kat]:
+                    kat_masraflar[kat].append(norm)
+            # kanal
+            kanal = (s.kanal or "").lower()
+            if not kanal:
+                kanal = _kanal_masraftan(s.masraf)
+            if kanal not in ("mobil", "sube"):
+                kanal = "mobil"
+            # değer
+            deger = _deger(s)
+            if norm not in masraf_banka:
+                masraf_banka[norm] = {}
+            if banka not in masraf_banka[norm]:
+                masraf_banka[norm][banka] = {"mobil": "", "sube": ""}
+            if deger:
+                masraf_banka[norm][banka][kanal] = deger
 
     # ── Satırları yaz ──
     KATEGORI_FILL = PatternFill(start_color="D9E1F2", end_color="D9E1F2", fill_type="solid")
     KATEGORI_FONT = Font(bold=True, size=10, color="1F3864")
-    DATA_FONT     = Font(size=10)
-    MASRAF_FONT   = Font(size=10)
+    DATA_FONT = Font(size=10)
+    MASRAF_FONT = Font(size=10)
 
-    # Kategori sırasına göre yaz
     yazilan_katlar = set()
     row = 3
+    toplam = 0
 
     for kat in KATEGORI_SIRA:
-        if kat not in kat_masraf_banka:
+        if kat not in kat_masraflar:
             continue
         yazilan_katlar.add(kat)
 
-        # Kategori başlık satırı
         ws.merge_cells(f"A{row}:{get_column_letter(MAX_COL)}{row}")
         cc = ws[f"A{row}"]
         cc.value = kat
         cc.fill = KATEGORI_FILL
         cc.font = KATEGORI_FONT
         cc.alignment = Alignment(horizontal="left", vertical="center", indent=1)
-        set_border(cc)
+        sb(cc)
         ws.row_dimensions[row].height = 16
         row += 1
 
-        for norm, banka_dict in kat_masraf_banka[kat].items():
+        for norm in kat_masraflar[kat]:
             display = norm_display.get(norm, norm)
             mc = ws.cell(row=row, column=1, value=display)
             mc.font = MASRAF_FONT
-            mc.alignment = Alignment(horizontal="left", vertical="center",
-                                     wrap_text=True, indent=2)
-            set_border(mc)
+            mc.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True, indent=2)
+            sb(mc)
 
             col = 2
             for banka in BANKALAR:
-                mob, sub = banka_dict.get(banka, ("", ""))
-                for val in [mob, sub]:
-                    dc = ws.cell(row=row, column=col, value=val)
+                bd = masraf_banka.get(norm, {}).get(banka, {"mobil": "", "sube": ""})
+                for kanal in ["mobil", "sube"]:
+                    dc = ws.cell(row=row, column=col, value=bd.get(kanal, ""))
                     dc.font = DATA_FONT
-                    dc.alignment = Alignment(horizontal="center", vertical="center",
-                                             wrap_text=True)
-                    set_border(dc)
+                    dc.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+                    sb(dc)
                     col += 1
 
-            ws.row_dimensions[row].height = 28
+            ws.row_dimensions[row].height = 22
             row += 1
+            toplam += 1
 
-    # Sırada olmayan kategoriler sona ekle
-    for kat, masraf_dict in kat_masraf_banka.items():
+    # Kalan kategoriler
+    for kat, normlar in kat_masraflar.items():
         if kat in yazilan_katlar:
             continue
         ws.merge_cells(f"A{row}:{get_column_letter(MAX_COL)}{row}")
@@ -294,34 +274,33 @@ def karsilastirma_excel_yaz(
         cc.fill = KATEGORI_FILL
         cc.font = KATEGORI_FONT
         cc.alignment = Alignment(horizontal="left", vertical="center", indent=1)
-        set_border(cc)
+        sb(cc)
         ws.row_dimensions[row].height = 16
         row += 1
 
-        for norm, banka_dict in masraf_dict.items():
+        for norm in normlar:
             display = norm_display.get(norm, norm)
             mc = ws.cell(row=row, column=1, value=display)
             mc.font = MASRAF_FONT
-            mc.alignment = Alignment(horizontal="left", vertical="center",
-                                     wrap_text=True, indent=2)
-            set_border(mc)
+            mc.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True, indent=2)
+            sb(mc)
 
             col = 2
             for banka in BANKALAR:
-                mob, sub = banka_dict.get(banka, ("", ""))
-                for val in [mob, sub]:
-                    dc = ws.cell(row=row, column=col, value=val)
+                bd = masraf_banka.get(norm, {}).get(banka, {"mobil": "", "sube": ""})
+                for kanal in ["mobil", "sube"]:
+                    dc = ws.cell(row=row, column=col, value=bd.get(kanal, ""))
                     dc.font = DATA_FONT
-                    dc.alignment = Alignment(horizontal="center", vertical="center",
-                                             wrap_text=True)
-                    set_border(dc)
+                    dc.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+                    sb(dc)
                     col += 1
 
-            ws.row_dimensions[row].height = 28
+            ws.row_dimensions[row].height = 22
             row += 1
+            toplam += 1
 
     ws.cell(row=row + 1, column=1,
             value=f"Son güncelleme: {_bugun()}").font = Font(size=9, color="888888")
 
     wb.save(dosya_yolu)
-    print(f"[excel] {dosya_yolu} kaydedildi. {row - 3} satır yazıldı.")
+    print(f"[excel] {dosya_yolu} kaydedildi. {toplam} satır yazıldı.")
