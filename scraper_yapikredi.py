@@ -79,9 +79,11 @@ def _extract(table, kat):
         if not tarih: tarih=at
         ml=masraf.lower()
         kanal="mobil" if ("mobil" in ml or "internet" in ml) else ("sube" if "şube" in ml else "")
-        satirlar.append(UcretSatiri(kategori=kat,masraf=masraf,asgari_tutar=g(ca1),asgari_oran=g(ca2),
-                                    azami_tutar=g(cz1),azami_oran=g(cz2),aciklama=aciklama,
-                                    site_guncelleme_tarihi=tarih,kanal=kanal))
+        # Kategori adını masraf adına prefix olarak ekle (eşleştirme için)
+        tam_masraf = f"{kat} | {masraf}"
+        satirlar.append(UcretSatiri(kategori=kat, masraf=tam_masraf, asgari_tutar=g(ca1), asgari_oran=g(ca2),
+                                    azami_tutar=g(cz1), azami_oran=g(cz2), aciklama=aciklama,
+                                    site_guncelleme_tarihi=tarih, kanal=kanal))
     return satirlar
 
 def scrape_yapikredi(url=YAPIKREDI_URL) -> List[UcretSatiri]:
