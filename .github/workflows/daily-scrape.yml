@@ -40,8 +40,8 @@ jobs:
             cp komisyon_karsilastirma.xlsx komisyon_karsilastirma_eski.xlsx
           fi
 
-      - name: Debug - Kategori adlarını göster
-        run: |
+            - name: Debug - Kategori adlarını göster
+        run: python debug_kategoriler.py
           python -c "
 import sys
 from scraper_garanti   import scrape_garanti_bbva
@@ -70,8 +70,8 @@ for banka, fn in bankalar.items():
         print(f'  HATA: {e}')
 "
 
-      - name: Scraper'ları çalıştır ve Excel üret
-        run: python main.py
+           - name: Debug - Kategori adlarını göster
+        run: python debug_kategoriler.py
 
       - name: Değişiklik kontrolü ve mail bildirimi
         env:
