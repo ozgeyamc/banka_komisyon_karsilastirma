@@ -56,9 +56,9 @@ def _find_category_title(table) -> str:
     for _ in range(8):
         if el is None:
             break
-        for sib in el.find_all_previous(["h1","h2","h3","h4","h5","button"], limit=3):
+        for sib in el.find_all_previous(["h1", "h2", "h3", "h4", "h5", "button"], limit=3):
             text = _normalize(sib.get_text())
-            if len(text) > 5 and text not in ["Müşteri Ol","Ara","Kapat"]:
+            if len(text) > 5 and text not in ["Müşteri Ol", "Ara", "Kapat"]:
                 return text
         el = el.parent
     return "Genel"
@@ -72,18 +72,18 @@ def _extract_rows(table, kategori) -> List[UcretSatiri]:
     if thead:
         hr = thead.find("tr")
         if hr:
-            headers = [_normalize(c.get_text(strip=True)).lower() for c in hr.find_all(["th","td"])]
+            headers = [_normalize(c.get_text(strip=True)).lower() for c in hr.find_all(["th", "td"])]
     if tbody:
         rows = tbody.find_all("tr")
         if not headers and rows:
-            headers = [_normalize(c.get_text(strip=True)).lower() for c in rows[0].find_all(["th","td"])]
+            headers = [_normalize(c.get_text(strip=True)).lower() for c in rows[0].find_all(["th", "td"])]
             rows = rows[1:]
     else:
         all_rows = table.find_all("tr")
         if not all_rows:
             return satirlar
         if not headers:
-            headers = [_normalize(c.get_text(strip=True)).lower() for c in all_rows[0].find_all(["th","td"])]
+            headers = [_normalize(c.get_text(strip=True)).lower() for c in all_rows[0].find_all(["th", "td"])]
         rows = all_rows[1:]
 
     def fc(keys):
@@ -91,25 +91,26 @@ def _extract_rows(table, kategori) -> List[UcretSatiri]:
             if all(k in h for k in keys): return i
         return -1
 
-    cm = fc(["masraf"]); ca1 = fc(["asgari","tutar"]); ca2 = fc(["asgari","oran"])
-    cz1 = fc(["azami","tutar"]); cz2 = fc(["azami","oran"])
+    cm = fc(["masraf"]); ca1 = fc(["asgari", "tutar"]); ca2 = fc(["asgari", "oran"])
+    cz1 = fc(["azami", "tutar"]); cz2 = fc(["azami", "oran"])
     cac = fc(["açıklama"]) if fc(["açıklama"]) >= 0 else fc(["aciklama"])
     ct = fc(["güncelleme"]) if fc(["güncelleme"]) >= 0 else fc(["tarih"])
     if cm == -1:
         cm, ca1, ca2, cz1, cz2, cac = 0, 1, 2, 3, 4, 5
 
     for row in rows:
-        cells = row.find_all(["th","td"])
+        cells = row.find_all(["th", "td"])
         if len(cells) < 2: continue
         v = [_normalize(c.get_text(strip=True)) for c in cells]
+
         def g(i): return v[i] if 0 <= i < len(v) else ""
+
         masraf = g(cm)
         if not masraf: continue
         tarih = g(ct) if ct >= 0 else ""
         aciklama, at = _parse_aciklama(g(cac))
         if not tarih: tarih = at
 
-        # kanal tespiti
         ml = masraf.lower()
         if "mobil" in ml or "internet" in ml:
             kanal = "mobil"
@@ -128,22 +129,37 @@ def _extract_rows(table, kategori) -> List[UcretSatiri]:
     return satirlar
 
 
-def scrape_garanti_bbva(url=GARANTI_URL) -> List[UcretSatiri]:
+def scrape_garanti_bbva(url: str = GARANTI_URL) -> List[UcretSatiri]:
     from playwright.sync_api import sync_playwright
     print(f"[garanti] {url} çekiliyor...", file=sys.stderr)
+
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         try:
             page = browser.new_page(user_agent=HEADERS["User-Agent"])
-            page.goto(url, timeout=60000, wait_until="networkidle")
-            for sel in ["button[aria-expanded='false']",".accordion-button.collapsed","[data-bs-toggle='collapse']"]:
+            # networkidle yerine domcontentloaded, timeout 120sn
+            page.goto(url, timeout=120000, wait_until="domcontentloaded")
+            page.wait_for_timeout(5000)
+
+            # Accordion'ları aç
+            for sel in [
+                "button[aria-expanded='false']",
+                ".accordion-button.collapsed",
+                "[data-bs-toggle='collapse']",
+                ".card-header button",
+            ]:
                 for el in page.query_selector_all(sel):
-                    try: el.click(timeout=2000); page.wait_for_timeout(400)
-                    except: pass
-            page.wait_for_timeout(2000)
+                    try:
+                        el.click(timeout=2000)
+                        page.wait_for_timeout(300)
+                    except:
+                        pass
+
+            page.wait_for_timeout(3000)
             html = page.content()
         finally:
             browser.close()
+
     soup = BeautifulSoup(html, "lxml")
     tables = soup.find_all("table")
     if not tables:
