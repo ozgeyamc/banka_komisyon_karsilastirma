@@ -63,8 +63,7 @@ def _norm(m: str) -> str:
 
 
 def _extract_tutar(m: str) -> Optional[str]:
-    """Masraf adından tutar aralığını çıkar: '0-8300', '8300-399000', '399000+' """
-    m = re.sub(r"[.,\s]", "", m)  # nokta/virgül/boşluk kaldır
+    m = re.sub(r"[.,\s]", "", m)
     patterns = [
         (r"0[-–]8300",        "0-8300"),
         (r"8300[-–]399000",   "8300-399000"),
@@ -84,10 +83,6 @@ def _extract_tutar(m: str) -> Optional[str]:
 
 
 def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
-    """
-    Masraf adından (kategori, standart_isim, kanal) döndür.
-    standart_isim = Excel'in A sütununa yazılacak temiz isim.
-    """
     n = _norm(masraf)
     tutar = _extract_tutar(re.sub(r"\s", "", masraf))
 
@@ -102,10 +97,10 @@ def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
 
     # EFT
     if "eft" in n and "swift" not in n and "uluslararasi" not in n:
-        if "duzenli" in n or "süpürme" in n or "supurme" in n:
+        if "duzenli" in n or "supurme" in n:
             label = f"Düzenli EFT - {tutar} TRY" if tutar else "Düzenli EFT"
             return "EFT Gönderimi", label, kanal()
-        if "odenmesi" in n or "ödenmesi" in n or "isime gelen" in n or "isme gelen" in n:
+        if "odenmesi" in n or "isme gelen" in n:
             return "EFT Gönderimi", "EFT İsme Gelen", "sube"
         label = f"EFT - {tutar} TRY" if tutar else "EFT Gönderimi"
         return "EFT Gönderimi", label, kanal()
@@ -176,15 +171,15 @@ def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
         return "Telefon Ödemeleri Aracılık", label, kanal()
 
     # Arşiv
-    if "arsiv" in n or "arşiv" in n:
+    if "arsiv" in n:
         return "Arşiv Araştırma Ücreti", "Arşiv Araştırma Ücreti", kanal()
 
     # Mevduat araştırma / referans mektubu
     if "referans" in n or "itibar" in n or "niyet" in n:
         return "Mevduat Araştırma", "Referans Mektubu -", kanal()
-    if "hesap ozeti" in n or "hesap özeti" in n:
+    if "hesap ozeti" in n:
         return "Mevduat Araştırma", "Hesap Özeti Verilmesi -", kanal()
-    if "hesap arastirma" in n or "hesap araştırma" in n:
+    if "hesap arastirma" in n:
         return "Mevduat Araştırma", "Hesap Araştırma Talebi -", kanal()
     if "borcu yok" in n:
         return "Mevduat Araştırma", "Borcu Yoktur Yazısı", kanal()
@@ -193,20 +188,21 @@ def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
 
     # Bakiye sorma ATM
     if "bakiye" in n and "atm" in n:
-        if "yurtici" in n or "yurt ici" in n or ("yurt" in n and "dis" not in n):
+        if "yurtici" in n or ("yurt" in n and "dis" not in n):
             return "Bakiye Sorma - Yurtiçi - ATM", "Bakiye Sorma - Yurtiçi - ATM", ""
         return "Bakiye Sorma - Yurtdışı - ATM", "Bakiye Sorma - Yurtdışı - ATM", ""
 
     # KKB / Kredi Risk
-        if "kkb" in n or ("kredi" in n and "risk" in n) or ("ucuncu" in n and "rapor" in n):
+    if "kkb" in n or ("kredi" in n and "risk" in n) or ("ucuncu" in n and "rapor" in n):
         return ("Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
-                "Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu", kanal())
+                "Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
+                kanal())
 
     # Çek Defteri
     if ("cek" in n or "çek" in n) and ("defteri" in n or "yaprak" in n or "teslim" in n):
         return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Defteri (Yaprak Başı) -", ""
     if ("cek" in n or "çek" in n) and "duzenleme" in n:
-        if "ozel" in n or "özel" in n or "nitelik" in n:
+        if "ozel" in n or "nitelik" in n:
             return "Çek Defteri ve Çek Düzenleme Ücreti", "Özel Nitelikli Çek Düzenleme -", ""
         return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Düzenleme -", ""
 
@@ -215,18 +211,18 @@ def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
         return "Çek İade Ücreti", "Çek İade Ücreti", ""
 
     # Çek Tahsilat
-    if ("cek" in n or "çek" in n) and ("tahsil" in n or "odeme" in n or "ödeme" in n):
+    if ("cek" in n or "çek" in n) and ("tahsil" in n or "odeme" in n):
         if "ayni banka" in n or "aynı banka" in n:
             return "Çek Tahsilat Ücreti", "Aynı Banka Çeki -", ""
-        if "diger banka" in n or "diğer banka" in n or "baska banka" in n or "başka banka" in n:
+        if "diger banka" in n or "baska banka" in n:
             return "Çek Tahsilat Ücreti", "Diğer Banka Çeki -", ""
-        if "doviz" in n or "döviz" in n or "yp" in n:
+        if "doviz" in n or "yp" in n:
             return "Çek Tahsilat Ücreti", "Döviz Çekleri Tahsilatı (Diğer Banka) -", ""
         return "Çek Tahsilat Ücreti", "Çek Tahsilat", ""
 
     # Çek Belgelendirme
-    if ("cek" in n or "çek" in n) and ("belgelend" in n or "karsiliksiz" in n or "karşılıksız" in n or "duzeltme" in n):
-        if "karsiliksiz" in n or "karşılıksız" in n:
+    if ("cek" in n or "çek" in n) and ("belgelend" in n or "karsiliksiz" in n or "duzeltme" in n):
+        if "karsiliksiz" in n:
             return "Çek Belgelendirme ve Düzeltme Ücreti", "Karşılıksız Çek Belgelendirme -", ""
         return "Çek Belgelendirme ve Düzeltme Ücreti", "Çek Düzeltme Hakkı -", ""
 
@@ -236,13 +232,13 @@ def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
 
     # Senet Protesto
     if "senet" in n and "protesto" in n:
-        if "kaldir" in n or "kaldır" in n:
+        if "kaldir" in n:
             return "Senet Protesto İşlemleri Ücreti", "Senet Protesto Kaldırma -", ""
         return "Senet Protesto İşlemleri Ücreti", "Senet Protesto -", ""
 
     # Senet Tahsil
     if "senet" in n and ("tahsil" in n or "tahsile" in n):
-        if "ayni" in n or "aynı" in n:
+        if "ayni" in n:
             return "Senet Tahsile Alma Ücreti", "Aynı Banka Senet Tahsili -", ""
         return "Senet Tahsile Alma Ücreti", "Muhabir Banka Senet Tahsili -", ""
 
@@ -293,7 +289,7 @@ def karsilastirma_excel_yaz(
     def sb(cell):
         cell.border = BORDER
 
-    # ── Başlık satırları ──
+    # Başlık satırları
     ws.merge_cells("A1:A2")
     c = ws["A1"]
     c.fill = PatternFill(start_color="1F3864", end_color="1F3864", fill_type="solid")
@@ -313,9 +309,9 @@ def karsilastirma_excel_yaz(
         c1.font = Font(color=r["fg"], bold=True, size=11)
         c1.alignment = Alignment(horizontal="center", vertical="center")
         sb(c1)
-        for j, kanal in enumerate(["Mobil", "Şube"]):
+        for j, kanal_adi in enumerate(["Mobil", "Şube"]):
             c2 = ws.cell(row=2, column=col + j)
-            c2.value = kanal
+            c2.value = kanal_adi
             c2.fill = fill
             c2.font = Font(color=r["fg"], bold=True, size=10)
             c2.alignment = Alignment(horizontal="center", vertical="center")
@@ -329,11 +325,9 @@ def karsilastirma_excel_yaz(
     ws.row_dimensions[2].height = 18
     ws.freeze_panes = "A3"
 
-    # ── Veriyi işle ──
-    # kat → [(standart_isim, kanal_adi)] sırası
+    # Veriyi işle
     kat_satirlar: Dict[str, List[str]] = {}
-    # (kat, standart_isim) → {banka: {kanal: deger}}
-    veri: Dict[Tuple[str,str], Dict[str, Dict[str,str]]] = {}
+    veri: Dict[Tuple[str, str], Dict[str, Dict[str, str]]] = {}
 
     for banka in BANKALAR:
         for s in banka_verileri.get(banka, []):
@@ -341,7 +335,6 @@ def karsilastirma_excel_yaz(
             if kat is None:
                 continue
             if kanal not in ("mobil", "sube"):
-                # scraper'dan gelen kanal bilgisine bak
                 k2 = (s.kanal or "").lower()
                 kanal = k2 if k2 in ("mobil", "sube") else "mobil"
 
@@ -360,7 +353,7 @@ def karsilastirma_excel_yaz(
             if d:
                 veri[key][banka][kanal] = d
 
-    # ── Satırları yaz ──
+    # Satırları yaz
     KAT_FONT = Font(bold=True, size=10)
     DATA_FONT = Font(size=10)
     MASRAF_FONT = Font(size=10)
@@ -375,7 +368,6 @@ def karsilastirma_excel_yaz(
             return
         yazilan.add(kat)
 
-        # Kategori başlık
         ws.merge_cells(f"A{row}:{get_column_letter(MAX_COL)}{row}")
         cc = ws[f"A{row}"]
         cc.value = kat
@@ -399,7 +391,6 @@ def karsilastirma_excel_yaz(
                 degerler.append(bd.get("mobil", ""))
                 degerler.append(bd.get("sube", ""))
 
-            # Sarı renk: aynı kanalda bankalar arasında fark var mı?
             mobil_degerler = [degerler[i] for i in range(0, 8, 2) if degerler[i]]
             sube_degerler  = [degerler[i] for i in range(1, 8, 2) if degerler[i]]
             mobil_fark = len(set(mobil_degerler)) > 1
@@ -410,7 +401,6 @@ def karsilastirma_excel_yaz(
                 c.font = DATA_FONT
                 c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
                 sb(c)
-                # Sarı: o sütun farklıysa
                 if i % 2 == 0 and mobil_fark and d:
                     c.fill = YELLOW
                     c.font = Font(size=10, color="FF0000", bold=True)
@@ -423,7 +413,7 @@ def karsilastirma_excel_yaz(
             row += 1
             toplam += 1
 
-        row += 1  # kategori arası boş satır
+        row += 1
 
     for kat in KATEGORI_SIRA:
         yaz_kategori_blogu(kat)
