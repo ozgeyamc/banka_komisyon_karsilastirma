@@ -1,0 +1,2260 @@
+
+============================================================
+  GARANTİ
+============================================================
+
+  [Başka Kuruluş Aracılığıyla Yapılan İşlemler]
+    - Bakiye Sorgulama Ücreti
+    - Para Çekme Ücreti
+    - Para Yatırma Ücreti
+
+  [İsme Gelen EFT Ödenmesi]
+    - EFT Ödenmesi - İsme Gelen - Şube
+
+  [Para ve Kıymetli Maden Yatırma/Çekme Ücreti]
+    - ATM'den Günlük Limit Üzeri Para Çekme (TL)
+    - ATM'den Günlük Limit Üzeri Para Çekme (USD)
+    - ATM'den Günlük Limit Üzeri Para Çekme (EUR)
+    - ATM'den Günlük Limit Üzeri Para Çekme (GBP)
+
+  [Elektronik Fon Transferi (EFT) Ücreti]
+    - Düzenli EFT (0 - 8300 TL)
+    - Düzenli EFT (8300,01 - 399000TL)
+    - Düzenli EFT (399000,01 TL ve üstü)
+    - EFT ATM (0-8300 TL)
+    - EFT ATM (8300,01-399000 TL)
+    ... (12 toplam)
+
+  [Havale Ücreti]
+    - Cebe Para Gönderme Garanti BBVA ATM
+    - Cebe Para Gönderme Mobil / İnternet
+    - Düzenli Havale (0 - 8300 TL)
+    - Düzenli Havale  (8300,01 - 399000 TL)
+    - Düzenli Havale (399000,01 TL ve üstü)
+    ... (14 toplam)
+
+  [Uluslararası Fon Transferi ve Mesajlaşma Ücreti]
+    - Garanti BBVA International'dan Gelen Havale (Şube)
+    - Western Union ile Para Gönderme (Şube)
+    - Uluslararası Fon Transferi Sorgulama/Mesajlaşma Ücreti
+    - Yurt Dışı Fast (Mobil) (0-40.000 TL)
+    - Yurt Dışı Fast (Mobil) (40.000,01 TL ve üstü)
+    ... (18 toplam)
+
+  [Kıymetli Maden Transferi Ücreti]
+    - Altın (0.00 - 10.00 g.)
+    - Altın (10.01 - 100.00 g.)
+
+  [Fonların Anlık ve Sürekli Transferi (FAST)]
+    - FAST İşlemleri - Mobil /İnternet Şubesi (0-8300 TL)
+    - FAST İşlemleri - Mobil /İnternet Şubesi (8300,01-399000 TL)
+
+  [Kiralık Kasa Ücreti]
+    - Hesaptan Yıllık Kasa Ücreti (Büyük)
+    - Hesaptan Yıllık Kasa Ücreti (Küçük)
+    - Hesaptan Yıllık Kasa Ücreti (Orta)
+    - Kiralık Kasa Depozito Ücreti (Büyük)
+    - Kiralık Kasa Depozito Ücreti (Orta)
+    ... (9 toplam)
+
+  [Belge ve Bilgilendirme Ücreti]
+    - Arşiv Araştırma Ücreti
+    - Konsolosluk İçin Mektup Düzenleme Ücreti
+
+  [Çek Defteri ve Çek Düzenleme Ücreti]
+    - Bloke/ Keşide Çeki Düzenleme
+    - Çek Defteri Teslimi (Yaprak Başına)
+    - Hediye Çeki Düzenleme
+    - Seyahat Çeki Düzenleme
+
+  [Çek İade Ücreti]
+    - Çek İade Ücreti- Tahsil ve Teminat Başka Banka/Garanti Bankası İadesi
+    - Çek İade Ücreti- Takas Günü Başka Banka/Garanti Bankası İadesi
+
+  [Çek Tahsilat Ücreti]
+    - Aynı Şube Gişeden Çek Ödemesi
+    - Başka Banka YP Çek Takasa Gönderme (Anlaşmalı Bankalar)
+    - Başka Şube Gişeden Çek Ödemesi
+    - Bloke/Keşide Çeki Ödemesi
+    - Seyahat Çeki Ödemesi
+    ... (8 toplam)
+
+  [Çek Belgelendirme ve Düzeltme İşlemleri Ücreti]
+    - Düzeltme Hakkı Kullandırma / Kısmi Ödeme
+    - Karşılıksız Çek Elden Ödeme
+
+  [Senet İade Ücreti]
+    - Protestosuz / Muamelesiz Senet İadesi
+
+  [Senet Protesto İşlemleri Ücreti]
+    - Senet Protesto Kaldirimi
+    - Senet Protesto Ücreti
+
+  [Senet Tahsile Alma Ücreti]
+    - GB Şubesinden Senet Tahsilatı
+    - Muhabirden (Ziraat bankası şubesi)
+
+  [Geçiş Ürünleri Ücretleri]
+    - HGS Etiket Ücreti
+    - HGS Kart Ücreti
+
+  [Raporlama Ücreti]
+    - KKB Çek / Risk Raporu (Şube)
+    - KKB Çek / Risk Raporu İnternet Şubesi
+
+  [PTT İşlemleri]
+    - PTT'den Para Gönderimi
+
+  [Havalimanı, Gümrük ve Sınır Bölgelerindeki Döviz / Efektif Alım Satımı]
+    - Havalimanı, Gümrük ve Sınır Bölgelerindeki Döviz / Efektif Alım Satımı
+
+  [Aracılık Ücreti]
+    - Güvenli Ödeme Sistemi Ücreti
+    - Hesaptan Fatura/Kurum Ödemesi (Mobil/ İnternet/ ATM)
+    - Kredi Kartından Fatura/Kurum Ödemesi (Mobil/ İnternet/ ATM)
+    - Nakit Fatura/Kurum Ödemesi (Şube/ATM)
+    - Şans Oyunları Ödemesi (Mobil/ İnternet/ ATM)
+
+  [Faiz Oranı]
+    - 36 ay vadeli 10.000 TL e-Kredi
+    - 36 ay vadeli 10.000 TL Tutarlı İhtiyaç Kredisi
+    - 36 ay vadeli 10.000 TL Tutarlı Kampanyalı İhtiyaç Kredisi
+    - 9 ay vadeli 3.000 TL Tutarlı Kampanyalı İhtiyaç Kredisi
+    - Avans Hesap
+    ... (19 toplam)
+
+  [Sigorta Tutarı]
+    - 36 ay vadeli 10.000 TL e-Kredi
+    - 36 ay vadeli 10.000 TL Tutarlı İhtiyaç Kredisi
+    - 36 ay vadeli 10.000 TL Tutarlı Kampanyalı İhtiyaç Kredisi
+    - 9 ay vadeli 3.000 TL Tutarlı Kampanyalı İhtiyaç Kredisi
+
+  [Toplam Masraf Tutarı]
+    - 36 ay vadeli 10.000 TL e-Kredi
+    - 36 ay vadeli 10.000 TL Tutarlı İhtiyaç Kredisi
+    - 36 ay vadeli 10.000 TL Tutarlı Kampanyalı İhtiyaç Kredisi
+    - 9 ay vadeli 3.000 TL Tutarlı Kampanyalı İhtiyaç Kredisi
+
+  [Kredi Tahsis Ücreti]
+    - 36 ay vadeli 10.000 TL e-Kredi
+    - 36 ay vadeli 10.000 TL Tutarlı İhtiyaç Kredisi
+    - 36 ay vadeli 10.000 TL Tutarlı Kampanyalı İhtiyaç Kredisi
+    - 9 ay vadeli 3.000 TL Tutarlı Kampanyalı İhtiyaç Kredisi
+    - Kredi Tahsis Ücreti
+
+  [Yıllık Maliyet Oranı]
+    - 36 ay vadeli 10.000 TL e-Kredi
+    - 36 ay vadeli 10.000 TL Tutarlı İhtiyaç Kredisi
+    - 36 ay vadeli 10.000 TL Tutarlı Kampanyalı İhtiyaç Kredisi
+    - 9 ay vadeli 3.000 TL Tutarlı Kampanyalı İhtiyaç Kredisi
+    - 36 ay vadeli 10.000 TL e-Kredi
+    ... (18 toplam)
+
+  [Tahsis Ücreti]
+    - 24 ay vadeli 20.000 TL tutarlı 0 KM Taşıt Kredisi
+    - 24 ay vadeli 20.000 TL tutarlı 2. el Taşıt Kredisi (Bankamızdan kaskolu 2. el araçlar için)
+    - 24 ay vadeli 20.000 TL tutarlı 2. el Taşıt Kredisi (Bankamızdan kaskosu olmayan 2. el araçlar için)
+    - 36 ay vadeli 30.000 TL tutarlı 0 KM Taşıt Kredisi
+    - 36 ay vadeli 30.000 TL tutarlı 2. el Taşıt Kredisi (Bankamızdan kaskolu 2. el araçlar için)
+    ... (14 toplam)
+
+  [Yıllık Toplam Maliyet Oranı]
+    - 24 ay vadeli 20.000 TL tutarlı 0 KM Taşıt Kredisi
+    - 24 ay vadeli 20.000 TL tutarlı 2. el Taşıt Kredisi (Bankamızdan kaskolu 2. el araçlar için )
+    - 24 ay vadeli 20.000 TL tutarlı 2. el Taşıt Kredisi (Bankamızdan kaskosu olmayan 2. el araçlar için)
+    - 36 ay vadeli 30.000 TL tutarlı 0 KM Taşıt Kredisi
+    - 36 ay vadeli 30.000 TL tutarlı 2. el Taşıt Kredisi (Bankamızdan kaskolu 2. el araçlar için)
+    ... (6 toplam)
+
+  [Rehin Ücreti]
+    - 24 ay vadeli 20.000 TL tutarlı 0 KM Taşıt Kredisi
+    - 24 ay vadeli 20.000 TL tutarlı 2. el Taşıt Kredisi ( Bankamızdan kaskosu olmayan 2. el araçlar için)
+    - 24 ay vadeli 20.000 TL tutarlı 2. el Taşıt Kredisi (Bankamızdan kaskolu 2. el araçlar için)
+    - 24 ay vadeli 20.000 TL tutarlı 0 KM Taşıt Kredisi Rehin Kaldırma Ücreti
+    - 24 ay vadeli 20.000 TL tutarlı 2. el Taşıt Kredisi ( Bankamızdan kaskosu olmayan 2. el araçlar için) Rehin Kaldırma Ücreti
+    ... (6 toplam)
+
+  [Taşınmaz Rehin Ücreti]
+    - 120 ay vadeli 100.000 TL tutarlı Sabit Faizli Mortgage (GENEL)
+    - 96 ay vadeli 100.000 TL Tutarlı İşyeri Mortgage (GENEL)
+    - 36 ay vadeli 125.000 TL tutarlı Sabit Faizli Evini Gösterene Mortgage (GENEL)
+    - 36 ay vadeli 125.000 TL Tutarlı Değişken Faizli Evini Gösterene Mortgage
+    - 36 ay vadeli 125.000 TL tutarlı Evini Gösterene Hazır Mortgage
+    ... (9 toplam)
+
+  [Ekspertiz Ücreti]
+    - % 100 Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Değişken Faizli Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Kiracıya Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Sabit Faizli Mortgage (GENEL)
+    - 60 ay vadeli 100.000 TL Tutarlı İşyeri Mortgage (GENEL)
+    ... (17 toplam)
+
+  [Değişken Faiz Oranı]
+    - 120 ay vadeli 100.000 TL tutarlı Değişken Faizli Mortgage
+    - 36 ay vadeli 125.000 TL Tutarlı Değişken Faizli Evini Gösterene Mortgage
+    - 60 ay vadeli 100.000 TL Tutarlı İşyeri Mortgage (GENEL)
+    - 96 ay vadeli 100.000 TL Tutarlı İşyeri Mortgage (GENEL)
+
+  [İpotek Fek Ücreti]
+    - 60 ay vadeli 100.000 TL Tutarlı İşyeri Mortgage (GENEL)
+    - 96 ay vadeli 100.000 TL Tutarlı İşyeri Mortgage (GENEL)
+    - % 100 Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Değişken Faizli Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Kiracıya Mortgage
+    ... (14 toplam)
+
+  [Hayat Sigortası]
+    - % 100 Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Değişken Faizli Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Kiracıya Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Sabit Faizli Mortgage (GENEL)
+    - 36 ay vadeli 50.000 TL Tutarlı Evini Gösterene Otomatik Hazır Mortgage
+    ... (12 toplam)
+
+  [Konut Sigortası]
+    - % 100 Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Değişken Faizli Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Kiracıya Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Sabit Faizli Mortgage (GENEL)
+    - 36 ay vadeli 50.000 TL Tutarlı Evini Gösterene Otomatik Hazır Mortgage
+    ... (12 toplam)
+
+  [Faiz İndirimi]
+    - % 100 Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Değişken Faizli Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Kiracıya Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Sabit Faizli Mortgage (GENEL)
+    - 36 ay vadeli 50.000 TL Tutarlı Evini Gösterene Otomatik Hazır Mortgage
+    ... (12 toplam)
+
+  [Vade Değişikliği]
+    - 60 ay vadeli 100.000 TL Tutarlı İşyeri Mortgage (GENEL)
+    - 96 ay vadeli 100.000 TL Tutarlı İşyeri Mortgage (GENEL)
+
+  [Erken Ödeme Tazminatı]
+    - % 100 Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Değişken Faizli Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Kiracıya Mortgage
+    - 120 ay vadeli 100.000 TL tutarlı Sabit Faizli Mortgage (GENEL)
+    - 36 ay vadeli 50.000 TL Tutarlı Evini Gösterene Otomatik Hazır Mortgage
+    ... (12 toplam)
+
+  [Kredi Kullandırım Ücreti]
+    - 60 ay vadeli 100.000 TL Tutarlı İşyeri Mortgage (GENEL)
+    - 96 ay vadeli 100.000 TL Tutarlı İşyeri Mortgage (GENEL)
+
+  [İhtiyaç Kredileri - 24 Ay Vadeli 50.000 TL Tutarlı İhtiyaç Kredisi]
+    - Faiz Oranı
+    - Sigorta Tutarı
+    - Kredi Kullandırım Ücreti
+
+  [İhtiyaç Kredileri - 36 ay vadeli 50.000 TL tutarlı İhtiyaç Kredisi]
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+    - Sigorta Tutarı
+
+  [İhtiyaç Kredileri - Avans Hesap]
+    - Faiz Oranı
+
+  [Taşıt Kredileri - 12 ay vadeli 10.000TL tutarlı 0 KM Taşıt Kredisi (0 KM Bankamızdan Kaskosuz Araç)]
+    - Rehin Ücreti
+    - Tahsis Ücreti
+    - Toplam Masraf Tutarı
+    - Vergi
+    - Yıllık Toplam Maliyet Oranı
+    ... (6 toplam)
+
+  [Taşıt Kredileri - 24 ay vadeli 20.000TL tutarlı 0 KM Taşıt Kredisi (0 KM Bankamızdan Kaskosuz Araç)]
+    - Faiz Oranı
+    - Rehin Ücreti
+    - Tahsis Ücreti
+    - Toplam Masraf Tutarı
+    - Vergi
+    ... (6 toplam)
+
+  [Taşıt Kredileri - 36 ay vadeli 30.000TL tutarlı 0 KM Taşıt Kredisi (0 KM Bankamızdan Kaskosuz Araç)]
+    - Faiz Oranı
+    - Rehin Ücreti
+    - Tahsis Ücreti
+    - Toplam Masraf Tutarı
+    - Vergi
+    ... (6 toplam)
+
+  [DEK Destek Kredisi (EUR)]
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+
+  [DEK Destek Kredisi (USD)]
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+
+  [TL Taşıt Kredisi]
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+    - Teminat Tesis Ücreti
+
+  [TL İşyeri Kredisi]
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+
+  [TL Rotatif Krediler]
+    - Belge ve Bilgilendirme Ücreti (Ekstre Ücreti)
+    - Kredi Faizi
+    - Kredi Kullandırım Ücreti
+
+  [TL İskonto İştira]
+    - Kredi Faizi
+    - Kredi Kullandırım Ücreti
+
+  [TL SPOT]
+    - Kredi Faizi
+    - Kredi Kullandırım Ücreti
+
+  [Avans Hesap (Kredili Mevduat Hesabı)]
+    - Belge ve Bilgilendirme Ücreti (Ekstre Ücreti)
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+
+  [TL Teminat Mektubu]
+    - Gayrinakdi Kredi - Dönem Ücreti
+
+  [YP Teminat Mektubu]
+    - Gayrinakdi Kredi - Dönem Ücreti
+
+  [Ortak Ücretler (Firma kullanımı amaçlı kredilerde çek, senet, taşıt rehni ve ipotek alınması durumunda her bir kredinin altındaki maliyetlere ek olarak Ortak Ücretler tablosundaki ücretler uygulanabilecektir.)]
+    - Ekspertiz, Teminat Tesis, Değişiklik ve İptal Ücreti (Ekspertiz Ücreti)
+    - Ekspertiz, Teminat Tesis, Değişiklik ve İptal Ücreti (İpotek Fek Ücreti – İşyeri Kredileri)
+    - Ekspertiz, Teminat Tesis, Değişiklik ve İptal Ücreti (Rehin Çözme Ücreti)
+    - Ekspertiz, Teminat Tesis, Değişiklik ve İptal Ücreti (Taşınmaz Rehin Ücreti - İşyeri Kredileri)
+    - Ekspertiz, Teminat Tesis, Değişiklik ve İptal Ücreti (Ticari Nitelikli İpotek Tesis Ücreti)
+
+  [Diğer Nakit TL Ticari Krediler]
+    - Belge ve Bilgilendirme Ücreti (Ekstre Ücreti)
+    - Kredi Faizi
+    - Kredi Kullandırım Ücreti
+
+  [Diğer Nakit DEK/YP Ticari Krediler]
+    - Belge ve Bilgilendirme Ücreti (Ekstre Ücreti)
+    - Kredi Faizi USD
+    - Kredi Kullandırım Ücreti
+    - Kredi Faizi EUR
+
+  [Diğer Gayrinakit Ticari Krediler]
+    - Akreditif Açılış Ücreti
+    - Aval Kabul Ücreti
+    - Değişiklik Ücreti
+    - İhbar Ücreti (Akreditif)
+    - İhbar Ücreti (Standby/Kontrgaranti)
+    ... (24 toplam)
+
+  [Referans Mektubu]
+    - İtibar/Niyet/Referans Mektubu Düzenleme Ücreti
+
+  [Yapılandırma, Temdit/Ödeme Planı ve Faiz Değişikliği Ücreti]
+    - Yapılandırma, Temdit/Ödeme Planı ve Faiz Değişikliği Ücreti
+
+  [Ticari Kredi Erken Kapama Ücreti]
+    - Nakdi Kredi Erken Kapama (Sabit Faizli Döviz Cinsi veya Dövize Endeksli Krediler)
+    - 1 Temmuz 2024 tarihinden itibaren kullandırılan Değişken faizli krediler için
+    - 1 Temmuz 2024 tarihinden itibaren kullandırılan Sabit faizli Türk Llirası krediler için
+    - 1 Temmuz 2024 tarihinden itibaren kullandırılan Sabit faizli döviz cinsi veya DEK krediler için
+    - Nakdi Kredi - Ara/Kısmi Ödeme Ücreti
+    ... (17 toplam)
+
+  [Faizler]
+    - Alışveriş Faizi
+    - Ek Taksit
+    - Ekstre Atlat
+    - Ekstre Taksitlendir
+    - Fatura
+    ... (12 toplam)
+
+  [TL Ticari Amaçlı Destek Kredisi - 36 ay vadeli 75.000 TL tutarlı Destek Kredisi]
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+    - Sigorta Tutarı
+
+  [TL Ticari Amaçlı Destek Kredisi - 12 ay vadeli 75.000 TL tutarlı Destek Kredisi]
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+    - Sigorta Tutarı
+
+  [Kredi Kartı Borç Ödeme / Sorgulama]
+    - Bakiye/Borç/Limit Sorgulama
+    - Başka banka ATM'den Borç Ödeme
+
+  [Basılı Ekstre Ücreti]
+    - Basılı Ekstre Ücreti
+
+  [Diğer Ücretler]
+    - Ekstre Gönderim Ücreti
+    - Fatura/Vergi/SGK
+    - Kart Yenileme Ücreti
+    - Kredi Kartı ile Gönderilen Uluslararası Para Transferi
+    - Kredi Kartına Gelen Uluslararası Para Transferi
+    ... (31 toplam)
+
+  [Yıllık Kart Ücreti]
+    - Kredi Kartı / Bonus Business
+    - Kredi Kartı / Bonus Business Troy
+    - Kredi Kartı / Dragon Bonus Business
+    - Kredi Kartı / EASY Bonus
+    - Kredi Kartı / Bonus Business American Express
+    ... (103 toplam)
+
+  [Garantörlük Ücreti]
+    - Gayrinakdi Kredi - Garantörlük Ücreti
+
+  [Taahhüt/Taahhüde Uymama Ücreti]
+    - Taahhüt Ücreti
+    - Taahhüte Uymama Ücreti
+
+  [Shop & Fly]
+    - Shop&Fly Gold
+    - Shop&Fly Gold-Ek Kart
+    - Shop&Fly Gold
+    - Shop&Fly Gold-Ek Kart
+    - Shop&Fly Platinum
+    ... (12 toplam)
+
+  [Miles&Smiles]
+    - Miles&Smiles Gold
+    - Miles&Smiles Gold-Ek Kart
+    - Miles&Smiles Gold
+    - Miles&Smiles Gold-Ek Kart
+    - Miles&Smiles Platinum
+    ... (30 toplam)
+
+  [Money Bonus]
+    - Money Bonus
+    - Money Bonus-Ek Kart
+    - Money Bonus Gold
+    - Money Bonus Gold-Ek Kart
+    - Money Bonus Platinum
+    ... (6 toplam)
+
+  [Paracard]
+    - Paracard
+    - Paracard - Ek Kart
+    - Paracard Trink
+    - Paracard Trink - Ek Kart
+    - GS Paracard Debit
+    ... (6 toplam)
+
+  [GarantiOne Kartları]
+    - iGaranti BBVA Kredi Kartı
+
+  [Alışveriş Faizi]
+    - Alışveriş Faizi
+
+  [Nakit Avans Faizi]
+    - Nakit Avans Faizi
+
+  [Gecikme Faizi]
+    - Gecikme Faizi
+
+  [Limit Aşım Faizi]
+    - Limit Aşım Faizi
+
+  [Taksitli Nakit Avans Faizi]
+    - Taksitli Nakit Avans Faizi
+    - Taksitli Nakit Avans Gecikme Faizi
+
+  [Diğer Faizler]
+    - Ekstre Atlat
+
+  [İşlem Atlat]
+    - İşlem Atlat
+
+  [İşlem Taksitlendir]
+    - İşlem Taksitlendir
+
+  [Ekstre Taksitlendir]
+    - Ekstre Taksitlendir
+
+  [Ek Taksit]
+    - Ek Taksit
+
+  [Otomatik Fatura Ödemeleri]
+    - Otomatik Fatura Ödemeleri
+
+  [POS Ücretleri]
+    - POS yazılım/donanım/bakım ücreti-Fiziki POS
+    - POS yazılım/donanım/bakım ücreti-Fiziki POS-e-Faturalı Cihaz
+    - POS yazılım/donanım/bakım ücreti-Sanal POS
+    - Kayıp/hasarlı pos ve aksesuar bedeli
+
+  [Üye İşyeri Ücretleri]
+    - 2 Taksit
+    - 3 Taksit
+    - 4 Taksit
+    - 5 Taksit
+    - 6 Taksit
+    ... (26 toplam)
+
+  [Hesap İşletim Ücreti - TL ve YP Hesaplar]
+    - TL ve DTH Hesaplar
+    - Kıbrıs Şubelerindeki TL ve DTH Hesaplar
+
+  [TL Hesaplar]
+    - KMH Ekstresi
+    - Vadesiz TL Hesap Ekstresi- Gerçek Kişiler
+
+  [YP Hesaplar]
+    - Vadesiz YP Hesap Ekstresi - Gerçek Kişiler
+
+  [Hisse Senedi Sabit Komisyon Oranı]
+    - Garanti BBVA eTrader
+    - Garanti BBVA İnternet
+    - Garanti BBVA Mobil
+    - Garanti BBVA Müşteri İletişim Merkezi
+    - Garanti BBVA Yatırım Şubesi
+    ... (6 toplam)
+
+  [Hisse Senedi Hacimsel Komisyon Oranı]
+    - Son 3 Aylık Ortalama İşlem Hacmi 0-500.000 TL
+    - Son 3 Aylık Ortalama İşlem Hacmi 500.001-1.000.000 TL
+    - Son 3 Aylık Ortalama İşlem Hacmi 1.000.001 – 2.500.000 TL
+    - Son 3 Aylık Ortalama İşlem Hacmi 2.500.001 – 5.000.000 TL
+    - Son 3 Aylık Ortalama İşlem Hacmi 5.000.001 – 7.500.000 TL
+    ... (10 toplam)
+
+  [VİOP Komisyon Oranı]
+    - Garanti BBVA eTrader
+    - Garanti BBVA İnternet
+    - Garanti BBVA Mobil
+    - Garanti BBVA Müşteri İletişim Merkezi
+    - Garanti BBVA Yatırım Şubesi
+
+  [Hisse Senedi Kredi Faizi]
+    - Garanti Yatırım Şubesi
+    - İnternet
+
+  [Erken Çıkış Ücretleri]
+    - Garanti Portföy Ağustos 2024 Serbest (Döviz-ABD Doları) Fon
+    - Garanti Portföy Şubat 2025 Serbest (Döviz-ABD Doları) Fon
+    - Garanti Portföy Haziran 2025 Serbest (Döviz-Avro) Fon
+    - Garanti Portföy Ocak 2026 Serbest (Döviz-ABD Doları) Fon
+    - Garanti Portföy Ekim 2026 Serbest (Döviz-ABD Doları) Fon
+
+  [BYF Varant]
+    - Varant Saklama Ücreti
+
+  [ÖSBA Kupon]
+    - ÖSBA Kupon Saklama Ücreti
+
+  [Sermaye Arttırımı Açık Bedelli]
+    - Açık Hisse Sermaye Artırım (Bedelli)
+
+  [Sermaye Arttırımı Açık Bedelsiz]
+    - Açık Hisse Sermaye Artırım (Bedelsiz)
+
+  [Kapalı Hisse Sermaye Artırım Bedeli]
+    - Kapalı Hisse Sermaye Artırım Bedeli
+
+  [Kapalı Hisse Sermaye Artırım Bedelsiz]
+    - Kapalı Hisse Sermaye Artırım Bedelsiz
+
+  [ÖSBA Kupon Ayrıştırma]
+    - OSBA Kupon Ayrıştırma Ücreti
+
+  [Alım Satım]
+    - BYF Alım Satım Ücreti
+
+  [Sermaye Azaltımı Açık Paylar]
+    - Açık Hisse Sermaye Azaltım Ücreti
+
+  [Hesap Bakım]
+    - Hesap Bakım Ücreti
+
+  [Sermaye Azaltımı Kapalı Paylar]
+    - Kapalı Hisse Sermaye Azaltım Ücreti
+
+  [İtfa Kupon Ödemesi]
+    - ÖSBA Kupon İtfa Ücreti
+
+  [Temettü Açık]
+    - Açık Hisse Temettü Ücreti
+
+  [Temettü Kapalı]
+    - Kapalı Hisse Temettü Ücreti
+
+  [Yatırım Fonu İşlemleri (Üyeler)]
+    - Yatırım Fonu Payı Alım Satım İşlem Ücreti
+
+  [Kapalıdan açığa dönüşüm]
+    - Kapalıdan Açığa Dönüşüm Ücreti
+
+  [İntifa]
+    - İntifa Ücreti
+    - Hapis Ücreti
+
+  [EMKT Depo Devri]
+    - EMKT Depo Devri
+
+  [Hesap Açım]
+    - Hesap Açım Ücreti
+
+  [Üyelerarası Kıymet Transfer]
+    - Üyelerarası Virman Ücreti
+
+  [Üyeiçi Kıymet Transfer]
+    - Üyeiçi Virman Ücreti
+
+  [Uluslararası Menkul İşlemleri Gönderim]
+    - Uluslararası Gönderim Ücreti
+
+  [Uluslararası Menkul İşlem Kabul]
+    - Uluslararası Kabul Ücreti
+
+  [Yasaklı Paya Dönüşüm]
+    - Yasaklı Paya Dönüşüm Ücreti
+
+  [Yasaklıdan Kapalıya Dönüşüm]
+    - Yasaklıdan Kapalıya Dönüşüm Ücreti
+
+  [Saklama Takasbank Şartlı Virman]
+    - Saklama Takasbank Şartlı Virman
+
+  [Açık Hisse]
+    - Açık Hisse Saklama Ücreti
+
+  [Kapalı Hisse]
+    - Kapalı Hisse Saklama Ücreti
+
+  [Yatırım Fonu]
+    - Pay Senedi ve Katılım Şemsiye Fonuna Bağlı Yatırım Fonları ile Girişim Sermayesi Yatırım Fonları Saklama Ücreti
+    - Diğer Yatırım Fonları Saklama Ücreti
+
+  [ÖSBA Anapara]
+    - ÖSBA Saklama Ücreti
+
+  [Yatırımcı Bilgilendirme Hizmeti]
+    - MKK Nezdinde Adına İlk Kez Sicil Açılan Yatırımcıların Bilgilendirilmesi
+
+  [BIST Bonu Orders]
+    - Ozel Bankacilik(YP)
+    - Özel Bankacılık
+    - Yatırım Merkezi
+    - Yatırım Merkezi (YP)
+
+  [DİBS İhalesi Katılımı]
+    - Ozel Bankacilik
+    - Ozel Bankacilik (YP)
+    - Yatırım Merkezi
+    - Yatırım Merkezi (YP)
+    - Şube
+    ... (6 toplam)
+
+  [E-trader Veri Yayın Paketi]
+    - Takas Analiz Veri Yayın Paketi
+    - Pay İşlem Tarafı Gün Sonu Veri Yayın Paketi
+    - Karma Düzey 1 Veri Yayın Paketi
+    - Pay Düzey 1 + Veri Yayın Paketi
+    - Pay Düzey 2 Veri Yayın Paketi
+    ... (11 toplam)
+
+  [Genel Saklama Ücreti]
+    - Genel Saklama Ücreti
+
+  [Yabancı/Yurt Dışı Kartlarla Yurtiçi ATM'lerden Para Çekme]
+    - Yabancı/Yurt Dışı Kartlarla Yurt içi ATM'lerden Para Çekme
+
+  [Şubeden Hesap Ekstresi]
+    - Kredi Kartı Geçmiş Ekstre Ücreti
+
+============================================================
+  İŞBANKASI
+============================================================
+
+  [Para Aktarma - Havale - Havale Ücreti / Şube-Çözüm Merkezi]
+    - Havale Gönderilmesi - 0-8.300 TL
+    - Havale Gönderilmesi - 8.300,01- 399.000 TL
+    - Havale Gönderilmesi - 399.000,01 TL ve Üzeri
+    - Düzenli Havale / Süpürme Talimatı Verilmesi- 0-8.300 TL
+    - Düzenli Havale / Süpürme Talimatı Verilmesi - 8.300,01-399.000 TL
+    ... (7 toplam)
+
+  [Para Aktarma - Havale - Havale Ücreti / İnternet Şube ve Mobil Bankacılık Kanalları]
+    - Havale Gönderilmesi - 0-8.300 TL
+    - Havale Gönderilmesi - 8.300,01-399.000 TL
+    - Havale Gönderilmesi - 399.000,01 TL ve Üzeri
+    - Düzenli Havale Talimatı Verilmesi- 0-8.300 TL
+    - Düzenli Havale Talimatı Verilmesi - 8.300,01-399.000 TL
+    ... (13 toplam)
+
+  [Para Aktarma - Havale - Havale Ücreti / ATM Kanalı]
+    - Havale Gönderilmesi - 0-8.300 TL
+    - Havale Gönderilmesi - 8.300,01-399.000 TL
+    - Havale Gönderilmesi - 399.000,01 TL ve Üzeri
+    - Düzenli Havale Talimatı Verilmesi- 0-8.300 TL
+    - Düzenli Havale Talimatı Verilmesi - 8.300,01-399.000 TL
+    ... (10 toplam)
+
+  [Para Aktarma - Havale - Kıymetli Maden Transfer Ücreti- Şube ve Çözüm Merkezi Kanalı]
+    - Havale Gönderilmesi - 0-8.300 TL
+    - Havale Gönderilmesi - 8.300,01-399.000 TL
+    - Havale Gönderilmesi - 399.000,01 TL ve Üzeri
+
+  [Para Aktarma - Havale - Kıymetli Maden Transfer Ücreti- İnternet Şube ve Mobil Bankacılık Kanalları]
+    - Havale Gönderilmesi - 0-8.300 TL
+    - Havale Gönderilmesi - 8.300,01-399.000 TL
+    - Havale Gönderilmesi - 399.000,01 TL ve Üzeri
+
+  [Para Aktarma - Havale - API]
+    - İş Bankası İle Ödeme
+
+  [Para Aktarma - EFT / FAST - EFT-FAST Ücreti  / Şube-Çözüm Merkezi]
+    - EFT Gönderilmesi - 0- 8.300 TL
+    - EFT Gönderilmesi - 8.300,01-399.000 TL
+    - EFT Gönderilmesi - 399.000,01 TL ve Üzeri
+    - Düzenli EFT / Süpürme Talimatı  Verilmesi- 0-8.300 TL
+    - Düzenli EFT /Süpürme Talimatı Verilmesi - 8.300,01-399.000 TL
+    ... (6 toplam)
+
+  [Para Aktarma - EFT / FAST - EFT- FAST  Ücreti / İnternet Şube ve Mobil Bankacılık Kanalları]
+    - EFT Gönderilmesi - 0- 8.300 TL
+    - EFT Gönderilmesi - 8.300,01-399.000 TL
+    - EFT Gönderilmesi - 399.000,01 TL ve Üzeri
+    - Düzenli EFT Talimatı Verilmesi- 0- 8.300 TL
+    - Düzenli EFT Talimatı Verilmesi - 8.300,01-399.000 TL
+    ... (11 toplam)
+
+  [Para Aktarma - EFT / FAST - EFT Ücreti / ATM Kanalı]
+    - EFT Gönderilmesi - 0- 8.300 TL
+    - EFT Gönderilmesi - 8.300,01-399.000 TL
+    - EFT Gönderilmesi - 399.000,01 TL ve Üzeri
+    - Düzenli EFT Talimatı Verilmesi- 0- 8.300 TL
+    - Düzenli EFT Talimatı Verilmesi - 8.300,01-399.000 TL
+    ... (6 toplam)
+
+  [Para Aktarma - EFT / FAST - Kıymetli Maden Transferi - Altın Transfer Sistemi Ücreti- Şube Kanalı]
+    - ATS ile altın gönderimi 1-10 gr
+    - ATS ile altın gönderimi 11-100 gr
+
+  [Para Aktarma - Swift - Uluslararası Fon Transferi ve Mesajlaşma Ücreti / Gelen SWIFT]
+    - Yurtdışı/Yurtiçi Diğer Bankadan Gelen Döviz Havalesi - Ödeme
+    - Yurtdışı/Yurtiçi Diğer Bankadan Gelen Döviz Havalesi - Ödeme
+    - İşbank AG'den Gelen Döviz Havalesi Ödeme - İsme/Kasaya
+    - İşbank AG'den Gelen Döviz Havalesi Ödeme - Hesaba
+
+  [Para Aktarma - Swift - Uluslararası Fon Transferi ve Mesajlaşma Ücreti / Giden SWIFT - Şube Kanalı]
+    - Hesaptan Giden SWIFT
+    - Hesaptan Giden SWIFT
+
+  [Para Aktarma - Swift - Uluslararası Fon Transferi ve Mesajlaşma Ücreti / Giden SWIFT - İnternet/İşCep  Kanalı]
+    - Hesaptan Giden SWIFT
+    - Hesaptan Giden SWIFT
+
+  [Para Aktarma - Swift - Uluslararası Fon Transferi ve Mesajlaşma Ücreti / Giden SWIFT - NYDO Toplu Ödeme Kanalı]
+    - Hesaptan Giden SWIFT
+
+  [Bireysel Krediler - Konut Kredileri - Ev Kredisi]
+    - Tahsis Ücreti
+    - 1-120 Ay Vade Faiz Oranı
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Ekspertiz Ücreti
+    ... (11 toplam)
+
+  [Bireysel Krediler - Konut Kredileri - Ev Kredisi Kampanyası-(Evi Yoksa )Hayat Sigortalı-Tahsis Ücretli-5.000 TL  üzeri]
+    - Tahsis Ücreti
+    - 1-120 Ay Vade Faiz Oranı(5.000 TL üstü)
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Ekspertiz Ücreti
+    ... (11 toplam)
+
+  [Bireysel Krediler - Konut Kredileri - Ev Kredisi Kampanyası-(Evi Varsa )Hayat Sigortalı-Tahsis Ücretli- 5.000 TL  üzeri]
+    - Tahsis Ücreti
+    - 1-120 Ay Vade Faiz Oranı(5.000 TL üstü)
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Ekspertiz Ücreti
+    ... (11 toplam)
+
+  [Bireysel Krediler - Konut Kredileri - Tüketici Destek Kredisi]
+    - Tahsis Ücreti
+    - 1 - 60 Ay Vade Faiz Oranı
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Ekspertiz Ücreti
+    ... (10 toplam)
+
+  [Bireysel Krediler - Konut Kredileri - İpotekli Hazır Kredi]
+    - Tahsis Ücreti
+    - 1 - 60 Ay Vade Faiz Oranı
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Ekspertiz Ücreti
+    ... (10 toplam)
+
+  [Bireysel Krediler - Konut Kredileri - Kentsel Dönüşüm Konut Yapım / Satın Alma- Hayat Sigortalı-Tahsis Ücretli- Evi Yok]
+    - Tahsis Ücreti
+    - 1-120 Ay Vade Faiz Oranı-5.000 TL üstü
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Ekspertiz Ücreti
+    ... (8 toplam)
+
+  [Bireysel Krediler - Konut Kredileri - Kentsel Dönüşüm Konut Yapım/ Satın Alma Hayat Sigortalı-Tahsis Ücretli- Evi Var]
+    - Tahsis Ücreti
+    - 1-120 Ay Vade Faiz Oranı-5.000 TL üstü
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Ekspertiz Ücreti
+    ... (8 toplam)
+
+  [Bireysel Krediler - Konut Kredileri - Kentsel Dönüşüm İşyeri Yapım-Hayat Sigortalı-Tahsis Ücretli]
+    - Tahsis Ücreti
+    - 1-84 Ay Vade Faiz Oranı
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Ekspertiz Ücreti
+    ... (8 toplam)
+
+  [Bireysel Krediler - Konut Kredileri - Kentsel Dönüşüm İşyeri Satın Alma -Hayat Sigortalı-Tahsis Ücretli]
+    - Tahsis Ücreti
+    - 1-120 Ay Vade Faiz Oranı
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Konut Finansmanı Kredisi Erken Ödeme Tazminatı ve Yeniden Yapılandırma
+    - Ekspertiz Ücreti
+    ... (8 toplam)
+
+  [Bireysel Krediler - Taşıt Kredileri - 0 km. Taşıt Kredisi]
+    - 1-48 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    - Kasko Sigortası Bedeli
+    - Taşınır ve Taşınmaz Rehin Tesis Ücreti
+    - Yıllık Maliyet
+    ... (7 toplam)
+
+  [Bireysel Krediler - Taşıt Kredileri - 0 km. Taşıt Kredisi-Hayat Sigortalı]
+    - 1-23 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    - Kasko Sigortası Bedeli
+    - Taşınır ve Taşınmaz Rehin Tesis Ücreti
+    - Yıllık Maliyet
+    ... (16 toplam)
+
+  [Bireysel Krediler - Taşıt Kredileri - 2. El Taşıt Kredisi]
+    - 1-48 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    - Kasko Sigortası Bedeli
+    - Taşınır ve Taşınmaz Rehin Tesis Ücreti
+    - Yıllık Maliyet
+    ... (7 toplam)
+
+  [Bireysel Krediler - Taşıt Kredileri - 2. El Taşıt Kredisi-Hayat Sigortalı]
+    - 1-23 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    - Kasko Sigortası Bedeli
+    - Taşınır ve Taşınmaz Rehin Tesis Ücreti
+    - Yıllık Maliyet
+    ... (16 toplam)
+
+  [Bireysel Krediler - İhtiyaç Kredileri - Anında Kredi]
+    - Faiz Oranı (1-12 ay 1.000 TL-250.000 TL)-Sigortalı
+    - Tahsis Ücreti
+    - Yıllık Maliyet Oranı
+    - Faiz Oranı (25-36 ay 1.000 TL-250.000 TL)-Sigortalı
+    - Tahsis Ücreti
+    ... (11 toplam)
+
+  [Bireysel Krediler - İhtiyaç Kredileri - Anında Alışveriş Kredi]
+    - Faiz Oranı (2-36 ay 500 TL-50.000 TL)
+    - Tahsis Ücreti
+    - Yıllık Maliyet Oranı
+    - Tüketici Kredisi Ve Kredili Mevduat Hesabı İhbarname/İhtarname Ücretleri (Gecikme Bildirim Ücreti)
+
+  [Bireysel Krediler - İhtiyaç Kredileri - İhtiyaç Kredisi]
+    - 1-12 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    - Yıllık Maliyet Oranı
+    - 13-36 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    ... (8 toplam)
+
+  [Bireysel Krediler - İhtiyaç Kredileri - Bireysel İşyeri Kredisi]
+    - 1-120 Ay Vade Faiz Oranı(5.000 TL üstü)
+    - Tahsis Ücreti
+    - Ekspertiz Ücreti
+    - Taşınır ve Taşınmaz Rehin Tesis Ücreti (İpotek Tesis Ücreti)
+    - Yıllık Maliyet Oranı
+    ... (6 toplam)
+
+  [Bireysel Krediler - İhtiyaç Kredileri - 2/B Kredisi]
+    - 1-120 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    - Yıllık Maliyet Oranı
+    - Tüketici Kredisi Ve Kredili Mevduat Hesabı İhbarname/İhtarname Ücretleri (Gecikme Bildirim Ücreti)
+
+  [Bireysel Krediler - İhtiyaç Kredileri - Yat Kredisi (Nakit karşılık alınması durumunda)]
+    - 1-36 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    - Yıllık Maliyet Oranı
+    - Tüketici Kredisi Ve Kredili Mevduat Hesabı İhbarname/İhtarname Ücretleri (Gecikme Bildirim Ücreti)
+
+  [Bireysel Krediler - İhtiyaç Kredileri - Yat Kredisi (Müşterinin mevcut konutu üzerine ipotek tesis edilmesi durumunda)]
+    - 1-36 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    - Ekspertiz Ücreti
+    - Taşınır ve Taşınmaz Rehin Tesis Ücreti (İpotek Tesis Ücreti)
+    - Yıllık Maliyet Oranı
+    ... (6 toplam)
+
+  [Bireysel Krediler - İhtiyaç Kredileri - Eğitim Kredisi]
+    - Faiz Oranı (1-36 ay)
+    - Tahsis Ücreti
+    - Yıllık Maliyet Oranı
+    - Gecikme Bildirim Ücreti - Mektup
+
+  [Bireysel Krediler - İhtiyaç Kredileri - Arsa Kredisi]
+    - Faiz Oranı (1-60 ay)
+    - Tahsis Ücreti
+    - Taşınır ve Taşınmaz Rehin Tesis Ücreti (İpotek Tesis Ücreti)
+    - Ekspertiz Ücreti
+    - Yıllık Maliyet Oranı
+    ... (6 toplam)
+
+  [Bireysel Krediler - İhtiyaç Kredileri - BES Teminatlı İhtiyaç Kredisi]
+    - 1-12 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    - Yıllık Maliyet Oranı
+    - 13-36 Ay Vade Faiz Oranı
+    - Tahsis Ücreti
+    ... (9 toplam)
+
+  [Bireysel Krediler - Ek Hesap - Ek Hesap]
+    - Faiz Oranı
+    - Gecikme Faiz Oranı
+    - Tüketici Kredisi Ve Kredili Mevduat Hesabı İhbarname/İhtarname Ücretleri (Gecikme Bildirim Ücreti)
+
+  [Kobi Kredileri - Taksit Ödemeli TL Ticari Krediler - TL Taksitli Ticari Krediler]
+    - Faiz Oranı
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (10 toplam)
+
+  [Kobi Kredileri - Taksit Ödemeli TL Ticari Krediler - İşyeri Kredisi]
+    - Faiz Oranı (1-84 Ay)
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (10 toplam)
+
+  [Kobi Kredileri - Taksit Ödemeli TL Ticari Krediler - Kira Temlikli Kredi]
+    - Faiz Oranı
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (10 toplam)
+
+  [Kobi Kredileri - Taksit Ödemeli TL Ticari Krediler - Ticari Arsa Kredisi]
+    - Faiz Oranı
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (10 toplam)
+
+  [Kobi Kredileri - Taksit Ödemeli TL Ticari Krediler - Şehir İçi Yolcu Taşımacılığı Kredisi]
+    - Faiz Oranı
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (10 toplam)
+
+  [Kobi Kredileri - Taksit Ödemeli TL Ticari Krediler - Traktör Kredisi]
+    - Faiz Oranı
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (10 toplam)
+
+  [Kobi Kredileri - Taksit Ödemeli TL Ticari Krediler - 0 km. Ticari Taşıt Kredisi]
+    - Faiz Oranı
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (10 toplam)
+
+  [Kobi Kredileri - Taksit Ödemeli TL Ticari Krediler - 2. El Ticari Taşıt Kredisi]
+    - 1-48 Ay Vade Faiz Oranı
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (10 toplam)
+
+  [Kobi Kredileri - Diğer TL Ticari Krediler - İhbarlı BCH]
+    - Faiz Oranı ( Yıllık )
+    - Kullandırım Ücreti
+
+  [Kobi Kredileri - Diğer TL Ticari Krediler - Spot]
+    - Faiz Oranı ( Yıllık )
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (9 toplam)
+
+  [Kobi Kredileri - Diğer TL Ticari Krediler - İskonto / İştira Kredisi]
+    - Faiz Oranı (Yıllık)
+    - Kullandırım Ücreti
+    - Senet İskontosu / İştirası İşlem Ücreti
+    - Senet İskontosu / İştirası Protesto-Muamelesiz İade Masrafı
+
+  [Kobi Kredileri - Diğer TL Ticari Krediler - Diğer TL Ticari Krediler]
+    - Faiz Oranı ( Yıllık )
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (9 toplam)
+
+  [Kobi Kredileri - Diğer TL Ticari Krediler - TL Kredili Ticari Mevduat Hesabı (KTMH)]
+    - Faiz Oranı
+    - Kullandırım Ücreti
+
+  [Kobi Kredileri - Taksit Ödemeli YP Ticari Krediler - YP Taksitli Ticari Krediler (RUBLE Hariç)]
+    - Faiz Oranı
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (11 toplam)
+
+  [Kobi Kredileri - Taksit Ödemeli YP Ticari Krediler - YP Taksitli Ticari Krediler (RUBLE)]
+    - Faiz Oranı
+    - Kullandırım Ücreti
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa )
+    ... (11 toplam)
+
+  [Kobi Kredileri - Diğer YP Ticari Krediler - YP Ticari Krediler (RUBLE Hariç)]
+    - Faiz Oranı (Yıllık)
+    - Kullandırım Ücreti
+    - Kullandırım Ücreti (Rotatif Kullandırımlı Krediler İçin)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    ... (11 toplam)
+
+  [Kobi Kredileri - Diğer YP Ticari Krediler - YP Ticari Krediler (RUBLE)]
+    - Faiz Oranı (Yıllık)
+    - Kullandırım Ücreti
+    - Kullandırım Ücreti (Rotatif Kullandırımlı Krediler İçin)
+    - Erken Kapama Ücreti (Kalan Vade 24 ay dahil kısa)
+    - Erken Kapama Ücreti (Kalan Vade 24 aydan uzun)
+    ... (11 toplam)
+
+  [Kobi Kredileri - Gayrinakdi Krediler - Teminat Mektupları]
+    - TL Teminat Mektubu Dönem Ücreti - 0-50.000 TL arası
+    - TL Teminat Mektubu Dönem Ücreti - 50.001 ve üzeri
+    - Gayrinakdi Kredi - Dönem Ücreti - Dijital Teminat Mektubu- Yurtiçi Geçici / Kesin / Avans 0 - 50.000 TL arası
+    - Gayrinakdi Kredi - Dönem Ücreti - Dijital Teminat Mektubu- Yurtiçi Geçici / Kesin / Avans  50.001 ve üzeri
+    - YP Teminat Mektubu Dönem Ücreti / Yurtiçi Teminat Mektupları
+    ... (6 toplam)
+
+  [Kobi Kredileri - Gayrinakdi Krediler - Garantörlük]
+    - Gayri Nakdi Kredi Garantörlük Ücreti
+
+  [Kobi Kredileri - Gayrinakdi Krediler - İthalat Akreditifi]
+    - Akreditif Açılış Ücreti
+    - Değişiklik Komisyonu
+    - İşlem Ücreti
+
+  [Kobi Kredileri - Gayrinakdi Krediler - Aval ve Cirolar]
+    - Aval/Kabul Ücreti
+
+  [Kobi Kredileri - Ortak Ücretler - Ticari Kredi Kullandırım Ücreti]
+    - Ticari Kredi Kullandırım Ücreti (Rotatif Kullanmlı Krediler)
+    - Ticari Kredi Kullandırım Ücreti (Rotatif Kullanmlı Olmayan Krediler)
+    - Ticari Kredi Kullandırım Ücreti
+
+  [Kobi Kredileri - Ortak Ücretler - Kredi Tahsis Ücreti]
+    - Kredi Tahsis Ücreti
+
+  [Kobi Kredileri - Ortak Ücretler - Taahhüt/Taahhüde Uymama Üceti]
+    - Taahhüt Ücreti
+    - Taahhüde Uymama Ücreti
+
+  [Kobi Kredileri - Ortak Ücretler - Yapılandırma, Temdit/Ödeme Planı ve Faiz Değişikliği Ücreti:]
+    - Yapılandırma, Temdit/Ödeme Planı ve Faiz Değişikliği Ücreti:
+
+  [Kobi Kredileri - Ortak Ücretler - İtibar/Niyet/Referans Mektubu Düzenleme Ücreti:]
+    - İtibar Mektubu Düzenleme Ücreti
+    - Referans Mektubu Düzenleme Ücreti
+    - Niyet Mektubu Düzenleme Ücreti (Türkiye İhracat Kredi Bankasına)
+    - Niyet Mektubu Düzenleme Ücreti (Tarım ve Kırsal Kalkınmayı Destekleme Kurumuna)
+
+  [Kobi Kredileri - Ortak Ücretler - Ekspertiz,Teminat Tesis, Değişiklik ve İptal Ücreti]
+    - Ekspertiz Ücreti
+    - İpotek Tesis Ücreti
+    - İpotek Fek İşlem Ücreti
+    - Taşıt Rehin Tesis Ücreti
+    - Taşıt Rehin Muvafakat Ücreti
+    ... (8 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Kredi Kartı Yıllık Ücreti / Maximum]
+    - Mastercard Gold Asıl Kart Yıllık Ücreti
+    - Mastercard Gold Temassız Asıl Kart Yıllık Ücreti
+    - Mastercard Gold Ek Kart Yıllık Ücreti
+    - Mastercard Gold Temassız Ek Kart Yıllık Ücreti
+    - Mastercard Platinum Asıl Kart Yıllık Ücreti
+    ... (48 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Kredi Kartı Yıllık Ücreti / Maximiles]
+    - Mastercard Maximiles Asıl Kart Yıllık Ücreti
+    - Mastercard Maximiles Temassız Asıl Kart Yıllık Ücreti
+    - Mastercard Maximiles Ek KartYıllık Ücreti
+    - Mastercard Maximiles Temassız Ek Kart Yıllık Ücreti
+    - Mastercard Maximiles Select Asıl Kart Yıllık Ücreti
+    ... (30 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Alışveriş Faiz Oranı]
+    - Hesap Özeti Borcu 30.000 TL Altında Olan Kredi Kartları İçin Alışveriş Faiz Oranı TL
+    - Hesap Özeti Borcu 30.000 TL Altında Olan Kredi Kartları İçin Alışveriş Gecikme Faiz Oranı TL
+    - Hesap Özeti Borcu 30.000 TL ve 180.000 TL Arasında Olan Kredi Kartları İçin Alışveriş Faiz Oranı TL
+    - Hesap Özeti Borcu 30.000 TL ve 180.000 TL Arasında Olan Kredi Kartları İçin Alışveriş Gecikme Faiz Oranı TL
+    - Hesap Özeti Borcu 180.000 TL Üzerinde Olan Kredi Kartları İçin Alışveriş Faiz Oranı TL
+    ... (6 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Alışveriş Faiz Oranı (KKTC)]
+    - Alışveriş Faiz Oranı TL
+    - Alışveriş Gecikme Faiz Oranı TL
+    - Alışveriş  Faiz Oranı YP
+    - Alışveriş Gecikme Faiz Oranı YP
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Nakit Çekim Faiz Oranı]
+    - Nakit Çekim Faiz Oranı TL
+    - Nakit Çekim Gecikme Faiz Oranı TL
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Nakit Çekim Faiz Oranı (KKTC)]
+    - Nakit Çekim Faiz Oranı TL
+    - Nakit Çekim Gecikme Faiz Oranı TL
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Nakit Avans Ücreti]
+    - Bankamız Kanalları- Türkiye Kredi Kartları
+    - Bankamız Kanalları - KKTC Kredi Kartları
+    - Yurtiçi diğer Banka ATM ve Şubeleri-Türkiye Kredi Kartları
+    - Yurtiçi diğer Banka ATM ve Şubeleri-KKTC Kredi Kartları
+    - Yurtdışı Banka ATM ve Şubeleri-KKTC Kredi Kartları
+    ... (8 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Artı Bakiye Nakit Çekim Ücreti]
+    - Bankamız ATM'leri- KKTC Kredi Kartları
+    - Çözüm Merkezi-KKTC Kredi Kartları
+    - İnternet Şubesi-KKTC Kredi Kartları
+    - Mobil Kanallardan (Maximum Mobil'den)-KKTC Kredi Kartları
+    - Bankamız Şubeleri-KKTC Kredi Kartları
+    ... (19 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Taksitlendirme Erteleme Faizi]
+    - Hesap Özeti Borcu 30.000 TL Altında Olan Kredi Kartları İçin Peşin İşlemlerin Taksitlendirilmesi  (3, 4,5, 6, 9, 10,11, 12 Ay)
+    - Hesap Özeti Borcu 30.000 TL Altında Olan Kredi Kartları İçin Peşin İşlemlerin Ertelenmesi  (1, 2, 3 Ay)
+    - Hesap Özeti Borcu 30.000 TL ve 180.000 TL Arasında Olan Kredi Kartları İçin Peşin İşlemlerin Taksitlendirilmesi  (3, 4,5, 6, 9, 10,11, 12 Ay)
+    - Hesap Özeti Borcu 30.000 TL ve 180.000 TL Arasında Olan Kredi Kartları İçin Peşin İşlemlerin Ertelenmesi  (1, 2, 3 Ay)
+    - Hesap Özeti Borcu 180.000 TL Üzerinde Olan Kredi Kartları İçin Peşin İşlemlerin Taksitlendirilmesi  (3, 4,5, 6, 9, 10,11, 12 Ay)
+    ... (6 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Taksitlendirme-Erteleme Faizi (KKTC)]
+    - Peşin İşlemlerin Taksitlendirilmesi  (3, 4, 6, 9, 10, 12 Ay)
+    - Peşin İşlemlerin Ertelenmesi  (1, 2, 3 Ay)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Hesap Özeti Erteleme Faiz Oranı]
+    - Hesap Özeti Borcu 30.000 TL Altında Olan Kredi Kartları İçin Hesap Özeti Erteleme Faiz Oranı (1, 2, 3 Ay)
+    - Hesap Özeti Borcu 30.000 TL ve 180.000 TL Arasında Olan Kredi Kartları İçin Hesap Özeti Erteleme Faiz Oranı (1, 2, 3 Ay)
+    - Hesap Özeti Borcu 180.000 TL Üzerinde Olan Kredi Kartları İçin Hesap Özeti Erteleme Faiz Oranı (1, 2, 3 Ay)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Hesap Özeti Erteleme Faiz Oranı (KKTC)]
+    - Hesap Özeti Erteleme Faiz Oranı (1, 2, 3 Ay)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Hesap Özeti Taksitlendirme Faiz Oranı]
+    - Hesap Özeti Borcu 30.000 TL Altında Olan Kredi Kartları İçin Hesap Özeti Taksitlendirme Faiz Oranı (2, 3, 4, 5, 6 Ay)
+    - Hesap Özeti Borcu 30.000 TL ve 180.000 TL Arasında Olan Kredi Kartları İçin Hesap Özeti Taksitlendirme Faiz Oranı (2, 3, 4, 5, 6 Ay)
+    - Hesap Özeti Borcu 180.000 TL Üzerinde Olan Kredi Kartları İçin Hesap Özeti Taksitlendirme Faiz Oranı (2, 3, 4, 5, 6 Ay)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Hesap Özeti Taksitlendirme Faiz Oranı (KKTC)]
+    - Hesap Özeti Taksitlendirme Faiz Oranı (2, 3, 4, 5, 6 Ay)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Artı Taksit Faiz Oranı]
+    - Hesap Özeti Borcu 30.000 TL Altında Olan Kredi Kartları İçin Artı Taksit Faiz Oranı (2-16 Taksit)
+    - Hesap Özeti Borcu 30.000 TL ve 180.000 TL Arasında Olan Kredi Kartları İçin Artı Taksit Faiz Oranı (2-16 Taksit)
+    - Hesap Özeti Borcu 180.000 TL Üzerinde Olan Kredi Kartları İçin Artı Taksit Faiz Oranı (2-16 Taksit)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Artı Taksit Faiz Oranı (KKTC)]
+    - Artı Taksit Faiz Oranı (2-16 Taksit)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Otomatik Fatura Tahsilatı Faiz Oranı]
+    - Kredi Kartından Otomatik Fatura Tahsilatı Faizi 0-1.000,00 TL Arası
+    - Kredi Kartından Otomatik Fatura Tahsilatı Faizi 1.000,01 ve üzeri
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Otomatik Fatura Tahsilatı Faiz Oranı (KKTC)]
+    - Kredi Kartından Otomatik Fatura Tahsilatı Faizi 0-1.000,00 TL Arası
+    - Kredi Kartından Otomatik Fatura Tahsilatı Faizi 1.000,01 ve üzeri
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Anında Fatura Tahsilatı]
+    - Kredi Kartından Anında Fatura Ödeme Ücreti (Bankamız Kartları ile)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Limit Aşımı]
+    - Limit Aşım Ücreti
+    - Hesap Özeti Borcu 30.000 TL Altında Olan Kredi Kartları İçin Limit Aşım Faizi
+    - Hesap Özeti Borcu 30.000 TL ve 180.000 TL Arasında Olan Kredi Kartları İçin Limit Aşım Faizi
+    - Hesap Özeti Borcu 180.000 TL Üzerinde Olan Kredi Kartları İçin Limit Aşım Faizi
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Limit Aşımı (KKTC)]
+    - Limit Aşım Ücreti
+    - Limit Aşım Faizi
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Taksitli Nakit Avans]
+    - Taksitli Nakit Avans Faiz Oranı
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Taksitli Nakit Avans (KKTC)]
+    - Taksitli Nakit Avans Faiz Oranı
+    - Taksitli Nakit Avans Ücreti
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Nakit Avans Taksitlendirme]
+    - Nakit Avans Taksitlendirme Faiz Oranı
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Nakit Avans Taksitlendirme (KKTC)]
+    - Nakit Avans Taksitlendirme Faiz Oranı
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Karttan Karta Para Transferi Ücreti]
+    - Karttan Karta Para Transferi Ücreti (Bankamız Kanalları ve BKM Ekspress Kanalı ile) - KKTC Kartları
+    - Karttan Karta Para Transferi Faizi (Bankamız Kanalları ve BKM Ekspress Kanalı ile)-  KKTC Kartları
+    - Kredi Kartı Limitinden Bankamız Diğer Kartına-Türkiye Kartları
+    - Kredi Kartı Artı Bakiyesinden Bankamız Diğer Kartına-Türkiye Kartları
+    - Kredi Kartı Limitinden Diğer Banka Kartına-Türkiye Kartları
+    ... (7 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Moneysend]
+    - Kredi Kartı Limitinden ve Artı Bakiyesinden Yurtdışı Banka Kartına(0,01-749 TL)- KKTC Kartları
+    - Kredi Kartı Limitinden ve Artı Bakiyesinden Yurtdışı Banka Kartına (749,01-2.000 TL)- KKTC Kartları
+    - Kredi Kartı Limitinden ve Artı Bakiyesinden Yurtdışı Banka Kartına (2.000,01 TL ve üzeri)-KKTC Kartları
+    - Kredi Kartı Limitinden Yurtdışı Banka Kartına-(0,01-749 TL)-Türkiye  Kartları
+    - Kredi Kartı Limitinden Yurtdışı Banka Kartına- (749,01-2.000 TL)-Türkiye  Kartları
+    ... (12 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - İstanbulkart Yükleme Ücreti]
+    - İstanbulkart Yükleme-Maximum Mobil uygulaması üzerinden yapılan işlemlerde-Türkiye ve KKTC Bireysel Kredi Kartları
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Yıldız Teknik Üniversitesi Kampüskart yükleme ücreti]
+    - YıldızTeknik Üniversitesi Kampüskart yükleme ücreti - Türkiye ve KKTC kartları
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - İnternet Şube ve İşcep Aracılığıyla Kredi Kartından SGK Prim Ödemesi]
+    - İnternet Şube, İşcep ve www.sgk.gov.tr Aracılığıyla Kredi Kartından SGK Prim Ödemesi
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Yeniden Yapılandırma Komisyonu]
+    - Yeniden Yapılandırma Komisyonu
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Geçmiş Dönem Kredi Kartı Hesap Özeti Gönderimi]
+    - Geçmiş Dönem Kredi Kartı Hesap Özeti Ücreti-Türkiye Kredi Kartları
+    - Geçmiş Dönem Kredi Kartı Hesap Özeti Ücreti-KKTC Kredi Kartları
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Kart Yenileme Ücreti]
+    - Asıl Kart Yenileme Ücreti- Türkiye Kredi Kartları
+    - Ek Kart Yenileme Ücreti-Türkiye Kredi Kartları
+    - Asıl Kart Yenileme Ücreti-KKTC Kredi Kartları
+    - Ek Kart Yenileme Ücreti-KKTC Kredi Kartları
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Kart Basım ve Gönderim Ücreti (KKTC)]
+    - Kart Basım ve Gönderim Ücreti
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - DCC İşlemleri]
+    - DCC POS Alışveriş Komisyonu
+    - DCC ATM Nakit Çekme Komisyonu
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - ORTAK ATM/Kredi Kartı ile  Kredi Kartı Borç Sorgulama Ücreti]
+    - Diğer banka ATM cihazlarından  Kredi Kartıyla yapılan borç sorgulama ücreti (Standart ATM)
+    - Diğer banka ATM cihazlarından  Kredi Kartıyla yapılan borç sorgulama ücreti  (Tek  ATM)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - ORTAK ATM/Kredi Kartı ile Kredi Kartı Limit Sorgulama Ücreti]
+    - Diğer Banka ATM cihazlarından Kredi Kartı limit sorgulama ücreti (Standart ATM)
+    - Diğer Banka ATM cihazlarından Kredi Kartı limit sorgulama ücreti (Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - ATM’den Yapılan  Limit Üstü  Para Çekme]
+    - ATM’den Yapılan  Limit Üstü  Para Çekme
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Ortak ATM/Kredi Kartı ile Borç Ödeme]
+    - Diğer Banka ATM cihazlarından Kredi Kartıyla yapılan Kredi Kartı Borç Ödeme Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM cihazlarından Kredi Kartıyla yapılan Kredi Kartı Borç Ödeme Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Tek ATM)
+    - Diğer Banka ATM cihazlarından Kredi Kartıyla  -yapılan Kredi Kartı Borç Ödeme Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM cihazlarından Kredi Kartıyla  -yapılan Kredi Kartı Borç Ödeme Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için)(Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Yurt Dışı ATM Kredi Kartı Limit Sorgulama]
+    - Yurt dışı ATM cihazlarından Kredi Kartı limit sorgulama ücreti- Türkiye Bireysel Kredi Kartları
+    - Yurt dışı ATM cihazlarından Kredi Kartı limit sorgulama ücreti- KKTC Kredi Kartları
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Ortak ATM/Kredi Kartıyla Cari Hesap Bakiye Sorgulama Ücreti]
+    - Yurt içi diğer Banka ATM cihazlarından Kredi Kartıyla yapılan VACH bakiye sorgulama ücreti (Standart ATM)
+    - Yurt içi diğer Banka ATM cihazlarından Kredi Kartıyla yapılan VACH bakiye sorgulama ücreti (Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - ORTAK ATM / Kredi Kartı ile Cari Hesaptan Para Çekme Ücreti]
+    - Diğer Banka ATM'sinden Kredi Kartı ile başlatılan (Türkiye Şubelerinden Verilmiş Kartlar İçin)Para Çekme- TP (Standart ATM)
+    - Diğer Banka ATM'sinden Kredi Kartı ile başlatılan (Türkiye Şubelerinden Verilmiş Kartlar İçin)Para Çekme- TP (Tek ATM)
+    - Diğer Banka  ATM' sinden Kredi Kartı ile başlatılan (Kıbrıs Şubelerinden Verilmiş Kartlar İçin) Para Çekme- TP (Standart ATM)
+    - Diğer Banka  ATM' sinden Kredi Kartı ile başlatılan (Kıbrıs Şubelerinden Verilmiş Kartlar İçin) Para Çekme- TP (Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Ortak ATM/Kredi Kartı ile Cari Hesaba Para Yatırma Ücreti]
+    - Diğer Banka ATM cihazlarından Kredi Kartıyla yapılan Cari Hesaba Para Yatırma Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM cihazlarından Kredi Kartıyla yapılan Cari Hesaba Para Yatırma Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Tek ATM)
+    - Diğer Banka ATM cihazlarından Kredi Kartıyla yapılan Cari Hesaba Para Yatırma Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM cihazlarından Kredi Kartıyla yapılan Cari Hesaba Para Yatırma Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Kredi Kartları - Ekstre: Güncel Borç Bilgisi/Dönemiçi Hareketler/Hesap Özeti Yazdırılması Ücreti (ATM)(KKTC)]
+    - Ekstre: Güncel Borç Bilgisi/Dönemiçi Hareketler/Hesap Özeti Yazdırılması Ücreti (ATM)(KKTC)
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Yurtdışı Nakit Çekim]
+    - Yurtdışı Banka Şubeleri, ATM'leri veya nakit ödeme ofislerinden Yapılan Nakit Çekim İşlem Komisyonu- Türkiye Bireysel Kartları ile
+    - Yurtdışı Banka Şubeleri, ATM'leri veya nakit ödeme ofislerinden Yapılan Nakit Çekim İşlem Komisyonu- KKTC Bireysel Kartları ile
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Ortak ATM/Bankamatik Kartı ile Kredi Kartı Borç Ödeme]
+    - Diğer Banka ATM Cihazlarından Banka Kartıyla Yapılan Kredi Kartı Borç Ödeme Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM Cihazlarından Banka Kartıyla Yapılan Kredi Kartı Borç Ödeme Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Tek ATM)
+    - Diğer Banka ATM Cihazlarından Banka Kartıyla Yapılan Kredi Kartı Borç Ödeme Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM Cihazlarından Banka Kartıyla Yapılan Kredi Kartı Borç Ödeme Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Tek  ATM)
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Ortak ATM/Bankamatik Kartı ile Cari Hesaba Para Yatırma]
+    - Diğer Banka ATM Cihazlarından Banka Kartıyla yapılan Cari Hesaba Para Yatırma Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM Cihazlarından Banka Kartıyla yapılan Cari Hesaba Para Yatırma Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Tek ATM)
+    - Diğer Banka ATM Cihazlarından Banka Kartıyla yapılan Cari Hesaba Para Yatırma  Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM Cihazlarından Banka Kartıyla yapılan Cari Hesaba Para Yatırma  Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Ortak ATM/Bankamatik kartı ile Cari Hesaptan Para Çekme Ücreti]
+    - Diğer Banka ATM'sinden Banka Kartı ile başlatılan (Türkiye Şubelerinden Verilmiş Kartlar İçin)Cari Hesaptan Para Çekme- TP (Standart ATM)
+    - Diğer Banka ATM'sinden Banka Kartı ile başlatılan (Türkiye Şubelerinden Verilmiş Kartlar İçin)Cari Hesaptan Para Çekme- TP (Tek ATM)
+    - Diğer Banka  ATM' sinden Banka Kartı ile başlatılan (Kıbrıs Şubelerinden Verilmiş Kartlar İçin)Cari Hesaptan Para Çekme- TP (Standart ATM)
+    - Diğer Banka  ATM' sinden Banka Kartı ile başlatılan (Kıbrıs Şubelerinden Verilmiş Kartlar İçin)Cari Hesaptan Para Çekme- TP (Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Ortak ATM/Bankamatik Kartı ile Cari Hesap Bakiye Sorgulama Ücreti]
+    - Yurt içi diğer Banka ATM cihazlarından Banka Kartıyla yapılan VACH bakiye sorgulama ücreti (Sandart ATM)
+    - Yurt içi diğer Banka ATM cihazlarından Banka Kartıyla yapılan VACH bakiye sorgulama ücreti (Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Yurt Dışı ATM Bakiye Sorgulama Ücreti]
+    - Yurt dışı ATM cihazlarında VACH bakiye sorgulama ücreti-Türkiye Bireysel Kartları
+    - Yurt dışı ATM cihazlarında VACH bakiye sorgulama ücreti- Türkiye Bireysel Kartları
+    - Yurt dışı ATM cihazlarında VACH bakiye sorgulama ücreti-KKTC Kartları
+    - Yurt dışı ATM cihazlarında VACH bakiye sorgulama ücreti- KKTC Kartları
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Ortak ATM/Bankamatik Kartı ile Kredi Kartı Borç Sorgulama Ücreti]
+    - Diğer banka ATM cihazlarından Banka Kartıyla yapılan kredi kartı borç sorgulama ücreti (Standart ATM)
+    - Diğer banka ATM cihazlarından Banka Kartıyla yapılan kredi kartı borç sorgulama ücreti (Tek  ATM)
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Banka’ya Ait Yurtdışı ATM’lerde Yapılan Nakit Çekme]
+    - Banka’ya Ait Yurtdışı ATM’lerde Yapılan Nakit Çekme
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Karttan Karta Para Transferi]
+    - Bankamız Kartlarından Bankamız Kartlarına - Karttan Karta Para Transferi Ücreti (Bankamız Kanalları ve BKM Ekspress Kanalı ile)- Türkiye Kartları
+    - Bankamız Kartlarından Diğer Banka Kartlarına - Karttan Karta Para Transferi Ücreti (Bankamız Kanalları ve BKM Ekspress Kanalı ile)- Türkiye Kartları
+    - Karttan Karta Para Transferi Ücreti (Bankamız Kanalları ve BKM Ekspress Kanalı ile)- KKTC Kartları
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Moneysend]
+    - Bankamatik Kartından (0,01-749 TL) - Türkiye Kartları
+    - Bankamatik Kartından(749,01-2.000 TL) - Türkiye Kartları
+    - Bankamatik Kartından (2.000,01 TL ve üzeri) - Türkiye Kartları
+    - Bankamatik Kartından(0-100 USD) -Türkiye Kartları
+    - Bankamatik Kartından (100,01-300 USD)- Türkiye Kartları
+    ... (18 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Anında Fatura Tahsilatı (Bireysel Bankamatik Kartları)]
+    - Anında Fatura Ödeme Ücreti (Bankamız Kartları ile)
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Limit Üstü Para Çekme]
+    - Limit Üstü Para Çekme
+
+  [Kredi Kartları ve Banka Kartları - Bankamatik Kartı - Kart Yenileme Ücreti]
+    - Kart Yenileme Ücreti- Türkiye
+    - Kart Yenileme Ücreti-KKTC
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Yurtdışı Nakit Çekim]
+    - Yurtdışı Banka Şubeleri, ATM'leri veya nakit ödeme ofislerinden Yapılan Nakit Çekim İşlem Komisyonu- Türkiye Kartları ile
+    - Yurtdışı Banka Şubeleri, ATM'leri veya nakit ödeme ofislerinden Yapılan Nakit Çekim İşlem Komisyonu- KKTC Kartları ile
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Yurt Dışı ATM Bakiye Sorgulama Ücreti]
+    - Yurt dışı ATM cihazlarında VACH bakiye sorgulama ücreti-Türkiye Kartları
+    - Yurt dışı ATM cihazlarında VACH bakiye sorgulama ücreti- Türkiye Kartları
+    - Yurt dışı ATM cihazlarında VACH bakiye sorgulama ücreti-KKTC Kartları
+    - Yurt dışı ATM cihazlarında VACH bakiye sorgulama ücreti- KKTC Kartları
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Karttan Karta Para Transferi]
+    - Bankamız Kartlarından Bankamız Kartlarına - Karttan Karta Para Transferi Ücreti (Bankamız Kanalları ve BKM Ekspress Kanalı ile)- Türkiye Kartları
+    - Bankamız Kartlarından Diğer Banka Kartlarına - Karttan Karta Para Transferi Ücreti (Bankamız Kanalları ve BKM Ekspress Kanalı ile)- Türkiye Kartları
+    - Karttan Karta Para Transferi Ücreti (Bankamız Kanalları ve BKM Ekspress Kanalı ile)- KKTC Kartları
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Moneysend]
+    - Ön Ödemeli Karttan Yurtdışı Kartına(0,01-749 TL)-Türkiye Kartları
+    - Ön Ödemeli Karttan Yurtdışı Kartına(749,01-2.000 TL)-Türkiye Kartları
+    - Ön Ödemeli Karttan Yurtdışı Kartına (2.000,1 TL ve üzeri)-Türkiye Kartları
+    - Ön Ödemeli Karttan Yurtdışı Kartına(0,01-749 TL)-KKTC Kartları
+    - Ön Ödemeli Karttan Yurtdışı Kartına(749,01-2.000 TL)-KKTC Kartları
+    ... (6 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Ön Ödemeli Karta Para Transferi Ücreti (Tekil) - Karta başvuranın ve kart kullacısının kendi kartına veya 18 yaşından küçük çocukları adına olan kartlar için yaptığı yüklemeler]
+    - Bankamatik'ten QR veya kart okutarak Nakit para yükleme
+    - Bankamatik'ten Kart Numarası Tuşlayarak Nakit para yükleme
+    - Şubeden Nakit para yükleme
+    - İşCep,Maximum Mobil ve İnternet Şubeden hesaptan yükleme
+    - Şubeden hesaptan yükleme
+    ... (8 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Ön Ödemeli Karta Para Transferi Ücreti (Tekil) - Başvuranın 18 yaşından büyük çocukları adına olan kartlar için ve 3. şahısların tüm kartlar için yaptığı yüklemeler]
+    - Bankamatik'ten QR veya kart okutarak Nakit para yükleme
+    - Bankamatik'ten Kart Numarası Tuşlayarak Nakit para yükleme
+    - Şubeden Nakit para yükleme
+    - İşCep,Maximum Mobil ve İnternet Şubeden hesaptan yükleme
+    - Şubeden hesaptan yükleme
+    ... (8 toplam)
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Ön Ödemeli Karta Para Transferi Ücreti (Talimatlı) -  Karta başvuranın ve kart kullacısının kendi kartına veya 18 yaşından küçük çocukları adına olan kartlar için yaptığı yüklemeler]
+    - İşCep,Maximum Mobil ve İnternet Şubeden hesaptan yükleme
+    - Şubeden hesaptan talimatlı yükleme
+    - İşCep, Maximum Mobilden kredi kartından talimatlı yükleme
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Ön Ödemeli Karta Para Transferi Ücreti (Talimatlı) - Başvuranın 18 yaşından büyük çocukları adına olan kartlar için ve 3. şahısların tüm kartlar için yaptığı yüklemeler]
+    - İşCep,Maximum Mobil ve İnternet Şubeden hesaptan talimatlı yükleme
+    - Şubeden hesaptan talimatlı yükleme
+    - İşCep, Maximum Mobilden kredi kartından talimatlı yükleme
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Ortak ATM/MaxiPara Kart ile  Kredi Kartı Borç Ödeme]
+    - Diğer Banka ATM Cihazlarından MaxiPara Kart ile Yapılan Kredi Kartı Borç Ödeme Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM Cihazlarından MaxiPara Kart ile Yapılan Kredi Kartı Borç Ödeme Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Tek ATM)
+    - Diğer Banka ATM Cihazlarından MaxiPara Kart ile Yapılan Kredi Kartı Borç Ödeme Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM Cihazlarından MaxiPara Kart ile Yapılan Kredi Kartı Borç Ödeme Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Tek  ATM)
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Ortak ATM/MaxiPara Karta Para Yatırma]
+    - Diğer Banka ATM Cihazlarından MaxiPara Karta Para Yatırma Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM Cihazlarından MaxiPara Karta Para Yatırma Ücreti (T.C. Şubelerinden verilmiş kartlar için) (Tek ATM)
+    - Diğer Banka ATM Cihazlarından MaxiPara Karta Para Yatırma  Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Standart ATM)
+    - Diğer Banka ATM Cihazlarından MaxiPara Karta Para Yatırma  Ücreti (K.K.T.C. Şubelerinden verilmiş kartlar için) (Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Ortak ATM/MaxiPara Kart ile  Para Çekme Ücreti]
+    - Diğer Banka ATM'sinden MaxiPara Kart ile    (Türkiye Şubelerinden Verilmiş Kartlar İçin) Para Çekme- TP (Standart ATM)
+    - Diğer Banka ATM'sinden MaxiPara Kart ile (Türkiye Şubelerinden Verilmiş Kartlar İçin) Para Çekme- TP (Tek ATM)
+    - Diğer Banka  ATM' sinden MaxiPara Kart ile (Kıbrıs Şubelerinden Verilmiş Kartlar İçin) Para Çekme- TP (Standart ATM)
+    - Diğer Banka  ATM' sinden MaxiPara Kartı ile (Kıbrıs Şubelerinden Verilmiş Kartlar İçin) Para Çekme- TP (Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Ortak ATM/MaxiPara Kart Bakiye Sorgulama Ücreti]
+    - Yurt içi diğer Banka ATM cihazlarından MaxiPara Kart bakiye sorgulama ücreti (Sandart ATM)
+    - Yurt içi diğer Banka ATM cihazlarından MaxiPara Kart bakiye sorgulama ücreti (Tek ATM)
+
+  [Kredi Kartları ve Banka Kartları - Ön Ödemeli Kart - Ortak ATM/MaxiPara Kart ile Kredi Kartı Borç Sorgulama Ücreti]
+    - Diğer banka ATM cihazlarından MaxiPara Kart ile yapılan kredi kartı borç sorgulama ücreti (Standart ATM)
+    - Diğer banka ATM cihazlarından MaxiPara Kart ile yapılan kredi kartı borç sorgulama ücreti (Tek  ATM)
+
+  [Mevduat Hesapları - Ekstre - Şube]
+    - Ekstre - TP/YP
+    - MT-940 / MT-942 Elektronik Ekstre - Yıllık
+    - MT-940 / MT-942 Elektronik Ekstre - Aylık
+    - Online XML Biçiminde Hesap Özeti - Yıllık
+    - Online XML Biçiminde Hesap Özeti - Aylık
+
+  [Mevduat Hesapları - Ekstre - Yatırım Hesabı Ekstre]
+    - Ekstre - TP
+
+  [Mevduat Hesapları - Ekstre - Bankamatik]
+    - Ekstre - TP/YP
+
+  [Mevduat Hesapları - Para Çekme - Para Çekme]
+    - Yurtiçi Diğer Şubeden - TP/YP
+    - Yurtdışı Diğer Şube Hesabından - TP/YP
+    - Yurtdışı Diğer Şubeden -TP / YP
+    - Grup Nakli İle Ödeme Yapılması - TP/YP
+
+  [Mevduat Hesapları - Özel Rapor Ücretleri - Arşiv - Araştırma Ücretleri]
+    - Sözleşme, dekont vb. doküman talebi
+
+  [Mevduat Hesapları - ATM - ATM Limit Üstü Para Çekme Ücreti]
+    - Bankamatik veya kredi kartı ile mevduat hesabından günlük 20.000 TL üzerinde para çekme ücreti - Türkiye Bireysel-Ticari Kartları
+    - Bankamatik veya kredi kartı ile mevduat hesabından günlük 20.000 TL üzerinde para çekme ücreti - KKTC Bireysel Kartları
+
+  [Mevduat Hesapları - ATM - Yurt Dışı Kartlar ile Bankamız ATM'lerinden Nakit Çekim Ücreti]
+    - Yurt Dışı Kartlar ile Bankamız ATM'lerinden Nakit Çekim Ücreti
+
+  [Kiralık Kasa Ücretleri - Kiralık Kasa - Kiralık Kasa(Yıllık)]
+    - Büyük Boy Kasa
+    - Orta Boy Kasa
+    - Küçük Boy Kasa
+    - Büyük Boy Özel Kasa
+    - Orta Boy Özel Kasa
+    ... (6 toplam)
+
+  [Kiralık Kasa Ücretleri - Kiralık Kasa - Kiralık Kasa (Aylık)]
+    - Büyük Boy Kasa
+    - Orta Boy Kasa
+    - Küçük Boy Kasa
+    - Büyük Boy Özel Kasa
+    - Orta Boy Özel Kasa
+    ... (6 toplam)
+
+  [Kiralık Kasa Ücretleri - Kiralık Kasa - Kiralık Kasa Depozito]
+    - Kiralık Kasa - Standart Kasa Depozito
+    - Kiralık Kasa - Özel Kasa Depozito
+
+  [Menkul Kıymet İşlemleri - Altın İşlemleri - İstanbul Altın Borsası’nda Altın Alış-Satışı]
+    - Aracılık Komisyonu
+
+  [Menkul Kıymet İşlemleri - Altın İşlemleri - Fiziki Altın Teslimatı]
+    - Müşteriye fiziki altın teslimat masrafı
+    - Müşteriden fiziki altın kabul masrafı
+
+  [Menkul Kıymet İşlemleri - Altın İşlemleri - Altın - Altın Kredisi Fiziki Teslim]
+    - Altın Kredisi Fiziki Teslim
+
+  [Menkul Kıymet İşlemleri - DİBS İhaleleri - Çözüm Merkezi Aracılığıyla Hazine İhalesi Katılma]
+    - İhale katılım işlem masrafı
+    - Rekabetçi Olmayan Teklif (ROT) İhale katılım işlem masrafı
+
+  [Menkul Kıymet İşlemleri - DİBS İhaleleri - Şube Aracılığıyla Hazine İhalesine Katılma]
+    - İhale katılım işlem masrafı
+    - Rekabetçi Olmayan Teklif (ROT) İhale katılım işlem masrafı
+
+  [Menkul Kıymet İşlemleri - DİBS İhaleleri - İnternet Şb Aracılığıyla Hazine İhalesi Katılma]
+    - İhale katılım işlem masrafı
+    - Rekabetçi Olmayan Teklif (ROT) İhale katılım işlem masrafı
+
+  [Menkul Kıymet İşlemleri - Hisse Senedi Alış - Satış Emirleri - Çağrı Hisse Senet Alış-Satış]
+    - Standart Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    ... (6 toplam)
+
+  [Menkul Kıymet İşlemleri - Hisse Senedi Alış - Satış Emirleri - İnternet Şb Hisse Senedi ve Varant  Alış-Satış]
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    ... (7 toplam)
+
+  [Menkul Kıymet İşlemleri - Hisse Senedi Alış - Satış Emirleri - İşCep Sen. Alış-Satış]
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    - işlem Hacmine Göre Alım-Satım Komisyonu
+    ... (7 toplam)
+
+  [Menkul Kıymet İşlemleri - Yurt Dışı Piyasalar - Pay İşlemleri]
+    - Alım Satım Aracılık Hizmeti
+    - American Stock Exchange (AMEX)
+    - NASDAQ
+    - New York Stock Exchange (NYSE)
+    - Wiener Börse (Vienna) Stock Exchange
+    ... (24 toplam)
+
+  [Menkul Kıymet İşlemleri - Yurt Dışı Piyasalar - Türev Araç Alım-Satım Aracılık İşlemi]
+    - Alım-Satım Aracılık İşlemi - Vadeli İşlem Sözleşmeleri
+
+  [Menkul Kıymet İşlemleri - Yurt Dışı Piyasalar - Saklama ve Hak Kullanım Hizmetleri Masrafları]
+    - Pay (Saklama - Yurt Dışı) (ABD, İngiltere, İtalya, Fransa, Almanya, Avusturya)
+    - Pay (Saklama - Yurt Dışı) (Diğer Ülkeler)
+    - Pay (ADR-GDR Depo Saklama Masrafı)
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Yatırım Hesabı Saklama]
+    - Yatırım Hesabı Saklama Sistemi (0 – 1.000 TL arası)
+    - Yatırım Hesabı Saklama Sistemi (1.000,01 – 10.000 TL arası)
+    - Yatırım Hesabı Saklama Sistemi (10.000,01 – 50.000 TL arası)
+    - Yatırım Hesabı Saklama Sistemi (50.000,01 – 250.000 TL arası)
+    - Yatırım Hesabı Saklama Sistemi (250.000,01 - 500.000 TL arası)
+    ... (10 toplam)
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Yatırım Hesabı  Altın Saklama]
+    - Yatırım Hesabı Altın Saklama Sistemi (1.001-3.000 TL arası)
+    - Yatırım Hesabı Altın Saklama Sistemi (3.001-5.000 TL arası)
+    - Yatırım Hesabı Altın Saklama Sistemi (5.001-10.000 TL arası)
+    - Yatırım Hesabı Altın Saklama Sistemi (10.001-40.000 TL arası)
+    - Yatırım Hesabı Altın Saklama Sistemi (40.001-150.000 TL arası)
+    ... (7 toplam)
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Anapara Tahsili]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Devlet İç Borçlanma Senedi Saklanması]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Eurobond Saklama]
+    - Eurobond saklama masrafı
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Diğer Menkul Kıymetlerin Saklanması]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - MKK Sicil Şifre Gönderim]
+    - Yatırım Hesabı Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - MKK Saklama Komisyonu]
+    - Yatırım Hesabı Saklama Sistemi
+    - Yatırım Hesabı Saklama Sistemi
+    - Yatırım Hesabı Saklama Sistemi
+    - Yatırım Hesabı Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Hisse Senedi Saklanması]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Yatırım Hesaplarında Kapalı Pay Saklanması]
+    - Yatırım Hesabı Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Kupon Faizi Tahsili]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Kupon Kesim İşlemi]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Fiziki Bankamız Hisse Senedi Teslim Alınması]
+    - Yatırım Hesabı Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Fiz. BİST İşl. Görmeye Hazır Olm. Hisse Senet Al.]
+    - Yatırım Hesabı Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Müşteriye Fiziki Hisse Senedi Teslimi]
+    - Yatırım Hesabı Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Müşteriye Fiziki Kıymet Teslimi]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Rüçhan Hakkı Kullanmı ve Bedelsiz Hisse Dağıtımı]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Saklama Masrafları]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Senet Değişim İşlemi]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Saklanması - Temettü Kuponu Tahsili]
+    - Aynen Saklama Sistemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Virman İşlemleri - Yatırım Kuruluşlarından Bankamıza Hisse Senedi, Varant Virmanı]
+    - Virman İşlemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Virman İşlemleri - Yatırım Kuruluşlarından Bankamıza Sb.Get.Men.Kıym.Öz.Sektör Tah. Virmanı]
+    - Virman İşlemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Virman İşlemleri - Yatırım Hesabı Altın Ürünlerinin Farklı Kişilere Ait  Vadesiz Altın Mevduat Hesaplarına Aktarımı]
+    - Virman İşlemi
+    - Virman İşlemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Virman İşlemleri - Bankamızda Saklanan Eurobondların Diğer Bankalara veya Diğer Bankalarda Saklanan Eurobondların Bankamıza Virmanı]
+    - Eurobond virmanı
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Virman İşlemleri - Yatırım Kuruluşlarına ve/veya Bankamız Yatırım Hesapları Arası Hisse Senedi - Varant Virman İşlemleri]
+    - Virman İşlemi
+
+  [Menkul Kıymet İşlemleri - Menkul Kıymet Virman İşlemleri - Bankamızdan Yatırım Kuruluşlarına ve/veya Bankamız Yatırım Hesapları Arası Sb.Get.Men.Kıym.Öz.Sektör Tah.Virmanı]
+    - Virman İşlemi
+
+  [Menkul Kıymet İşlemleri - Repo - Repo İptal Edilmesi]
+    - Çözüm Merkezi Aracılığıyla Otomatik Repo Talimatı İptali
+    - Şube Aracılığıyla Repo İptali
+
+  [Menkul Kıymet İşlemleri - Repo - Repo-Ters Repo Müşteri Aracılık İşlemleri]
+    - Aracılık Komisyonu
+
+  [Menkul Kıymet İşlemleri - Sabit Getirili Menkul Kıymet Alış - Satış - Şube - Sab. Get. Men. Kıymet BİST’de Alış–Satış]
+    - Aracılık Komisyonu
+
+  [Menkul Kıymet İşlemleri - TL DİBS İhaleleri - Çözüm Merkezi İhale Talebinin Gerçekleşmesi]
+    - İhale komisyonu
+    - İhale komisyonu
+    - İhale komisyonu
+    - İhale komisyonu
+    - İhale komisyonu
+
+  [Menkul Kıymet İşlemleri - TL DİBS İhaleleri - İnternet Şb İhale Talebinin Gerçekleşmesi]
+    - İhale komisyonu
+    - İhale komisyonu
+
+  [Menkul Kıymet İşlemleri - Vadeli İşlem ve Opsiyon Piyasası (VİOP) İşlemleri - Vadeli İşlem ve Opsiyon Alış-Satış/Pozisyon Kapama]
+    - İşlem komisyonu
+
+  [Menkul Kıymet İşlemleri - YP DİBS İhaleleri - Çözüm Merkezi İhale Talebinin Gerçekleşmesi]
+    - İhale komisyonu
+    - İhale komisyonu
+
+  [Menkul Kıymet İşlemleri - YP DİBS İhaleleri - Şube İhale Talebinin Gerçekleşmesi]
+    - İhale komisyonu
+    - İhale komisyonu
+    - İhale komisyonu
+
+  [Menkul Kıymet İşlemleri - YP DİBS İhaleleri - İnternet Şb İhale Talebinin Gerçekleşmesi]
+    - İhale komisyonu
+    - İhale komisyonu
+
+  [Menkul Kıymet İşlemleri - ELÜS İşlemleri - Ticaret Borsası'nda Müşteri tarafından Gerçekleştirilen İşlemin Takası]
+    - İşlem komisyonu
+
+  [Menkul Kıymet İşlemleri - ELÜS İşlemleri - İptal Komisyonu]
+    - İptal komisyonu
+
+  [Menkul Kıymet İşlemleri - ELÜS İşlemleri - Saklama Komisyonu]
+    - Saklama Sistemi
+
+  [Çekler ve Senetler - Çek Tahsilatı - Çek Tahsilatı]
+    - Farklı Şube Çek Ödeme - TP/YP
+    - Aynı Şube Çek Ödeme - TP/YP
+    - Tahsile Alınan Bankamız Çeki - TP/YP
+    - Teminata Alınan Bankamız Çeki - TP/YP
+    - Tahsile Alınan Diğer Banka Çeki - TP
+    ... (7 toplam)
+
+  [Çekler ve Senetler - Çek Tahsilatı - Dövizli Çek Ödeme İşlemleri]
+    - Bankamız Üzerine Keşideli Dövizli Çek Alışı
+    - Yabancı Banka Üzerine Keşideli Döviz Çeki Alışı - YP
+    - Yurt Dışı Yabancı Banka Döviz Çeki Tahsile Alınması
+
+  [Çekler ve Senetler - Çek Tahsilatı - Dövizli Çek Düzenleme]
+    - Dövizli Çek Düzenleme - YP
+
+  [Çekler ve Senetler - Çek İşlemleri - Bloke Çek]
+    - Ödeme - TP/YP
+    - Düzenleme - TP/YP
+
+  [Çekler ve Senetler - Çek İşlemleri - Karşılıklı Çek Düzenleme]
+    - Karşılıklı Çek Düzenleme
+
+  [Çekler ve Senetler - Çek İşlemleri - Çek Muamelesiz İade]
+    - Çek Muamelesiz İade
+
+  [Çekler ve Senetler - Çek Defteri - Karekodlu Çek Defteri]
+    - 10 Yapraklı
+    - 25 Yapraklı
+    - 50-350 Yapraklı
+
+  [Çekler ve Senetler - Senet Tahsil ve Ödeme - Senet Tahsili]
+    - Aynı Şube - TP/YP
+    - Diğer Şube - TP/YP
+
+  [Çekler ve Senetler - Senet Tahsil ve Ödeme - Senet İade]
+    - Senet İade - TP/YP
+
+  [Çekler ve Senetler - Senet Tahsil ve Ödeme - Senet Protestosu]
+    - Senet Protesto Kaldırma
+    - Senet Protestosu - TP/YP
+
+  [Diğer - Ödemeler - Fatura Ödemeleri - Şube]
+    - Fatura Ödemeleri
+
+  [Diğer - Ödemeler - Fatura Ödemeleri - Bankamatik]
+    - Fatura Ödemeleri
+
+  [Diğer - Ödemeler - Fatura Ödemeleri - İnternet Şube, İşCep, Çözüm Merkezi]
+    - Fatura Ödemeleri
+
+  [Diğer - Ödemeler - Telefon Operatörleri Ödemelerine Aracılık - Bankamatik]
+    - TL/Paket Yükleme
+
+  [Diğer - Ödemeler - Telefon Operatörleri Ödemelerine Aracılık -  İnternet Şube, İşCep, Çözüm Merkezi]
+    - TL/Paket Yükleme
+
+  [Diğer - Ödemeler - Kurum  Ödemeleri - Şube]
+    - Kurum Ödemeleri
+
+  [Diğer - Ödemeler - HGS Ücretleri - Şube]
+    - HGS Etiket Ücretleri
+    - HGS Kart Ücretleri
+
+  [Diğer - Ödemeler - HGS Ücretleri - İnternet]
+    - HGS Etiket Ücretleri
+    - HGS Kart Ücretleri
+
+  [Diğer - Ödemeler - HGS Ücretleri - Mobil Bankacılık]
+    - HGS Etiket Ücretleri
+    - HGS Kart Ücretleri
+
+  [Diğer - Ödemeler - Ödemeler]
+    - Hediye Çeki Düzenlenmesi
+
+  [Diğer - Ödemeler - Şans Oyunu Ödemeleri]
+    - Şans Oyunu Ödemeleri
+
+  [Diğer - Ödemeler - Güvenli Araç Alım Satım Ödemeleri]
+    - Güvenli Araç Alım Satım Ödemeleri
+
+  [Diğer - Efektif Alım Satım - Şube - Efektif Alım Satım]
+    - Efektif Alım Satım
+    - Efektif Alım Satım
+
+  [Diğer - Efektif Alım Satım - ATM - Efektif Alım Satım]
+    - Efektif Alım Satım - 50 USD/EUR/GBP ve altı işlemler
+    - Efektif Alım Satım - 50 USD/EUR/GBP üzeri işlemler
+    - Efektif Alım Satım - 50 USD/EUR/GBP ve altı işlemler
+    - Efektif Alım Satım - 50 USD/EUR/GBP üzeri işlemler
+
+  [Diğer - Özel Rapor Ücretleri - Arşiv - Araştırma Ücretleri]
+    - Geçmiş Dönem Bankacılık İşlemleri Bildirimi
+    - Vize ve Özel Okullar İçin Düzenlenen Mektuplar
+    - Merkezden / Şubeden Şube Bazında Yapılan - TP/YP
+    - Merkezden Banka Bazında Yapılan - TP/YP
+    - Borcu Yoktur Yazısı
+    ... (9 toplam)
+
+  [Diğer - Haberleşme / Bildirim Ücretleri - Özel Rapor Ücretleri]
+    - Haberleşme/Bildirim Ücreti-Zamanaşımı İhbarname - Bedelli Sermaye Artırımı İhbarname Ücreti - TP/YP
+
+  [Diğer - SMS Bilgilendirme - Gelen Havale EFT Bildirimi]
+    - İşlem Ücreti
+
+============================================================
+  AKBANK
+============================================================
+
+  [Havale Ücreti]
+    - Akbank Mobil'den ve İnternet'ten Hesaptan Hesaba / İsme TL ve YP Havale-Düzenli Havale (8.300 TL ve Altı)
+    - Akbank Mobil'den ve İnternet'ten Hesaptan Hesaba / İsme TL ve YP Havale-Düzenli Havale (8.300,01 TL - 399.000 TL arasında)
+    - Akbank Mobil'den ve İnternet'ten Hesaptan Hesaba / İsme TL ve YP Havale-Düzenli Havale (399.000,01 TL ve Üstü)
+    - Müşteri İletişim Merkezi'nden Hesaptan Hesaba / İsme TL ve YP Havale (8.300 TL ve Altı)
+    - Müşteri İletişim Merkezi'nden Hesaptan Hesaba / İsme TL ve YP Havale (8.300,01 TL - 399.000 TL arasında)
+    ... (35 toplam)
+
+  [Elektronik Fon Transferi EFT Ücreti]
+    - Akbank Mobil'den, İnternet'ten ve Asistan'dan EFT-Düzenli EFT (8.300 TL ve Altı)
+    - Akbank Mobil'den, İnternet'ten ve Asistan'dan EFT - Düzenli EFT (8.300,01 TL - 399.000 TL arasında)
+    - Akbank Mobil'den, İnternet'ten ve Asistan'dan EFT-Düzenli EFT (399.000,01 TL ve Üstü)
+    - Akbank Mobil'den, İnternet'ten ve Asistan'dan Geç EFT (8.300 TL ve Altı / 16:00 -17:15 arasında)
+    - Akbank Mobil'den, İnternet'ten ve Asistan'dan Geç EFT (8.300,01 TL - 399.000 TL arasında) / 16:00 -17:15 arasında)
+    ... (23 toplam)
+
+  [Uluslararası Fon Transferi ve Mesajlaşma Ücreti]
+    - Giden - 30.000 TL altı
+    - Giden - 30.000 TL üstü
+    - Yurtdışından/Yurtiçi Diğer Bankalardan  Gelen Döviz Havalesi - Hesaba
+    - Yurtdışından/Yurtiçi Diğer Bankalardan Gelen Döviz Havalesi - İsme
+    - Akbank İnternet Başka Bankaya Döviz Transferi (15.000,01 TL ve Üzeri)
+    ... (10 toplam)
+
+  [Kıymetli Maden Transferi Ücreti]
+    - Altın Transferi 1-10 gr
+    - Altın Transferi 11-100 gr
+    - Altın Transferi 501 gr ve Üstü
+
+  [Akbank Hesap Özeti]
+    - Posta İle Aylık Hesap Özeti Gönderimi
+
+  [Mevduat Hesapları]
+    - 1 Yıldan Eski İşlemlere Ait Geçmişe Yönelik Dekont-Ekstre Verilmesi
+
+  [Para Çekme Ücreti]
+    - Atm Limit Üstü Para Çekme
+    - Yabancı-Yurtdışı Kartlar İle Yurtiçi ATM Para Çekme
+
+  [Kart ve Hizmet Ücretleri]
+    - Free kart kampanya katılım ücreti (Anlık işlem olmayan)
+    - Kayıp Çalıntı Kart Basım Ücreti
+    - Axess
+    - Wings
+    - Axess Klasik Kart Ücreti
+    ... (38 toplam)
+
+  [Bireysel Kredi Kartları Faiz Oranları]
+    - Nakit Çekim veya Kullanım İşlemleri Hariç Uygulanacak Akdi Faiz Oranı
+    - Nakit Çekim veya Kullanım İşlemleri Hariç Uygulanacak Gecikme Faiz Oranı
+    - Taksit İste Faiz Oranı
+    - Nakit Avans Faiz Oranı
+    - Taksitli Avans Faiz Oranı
+    ... (17 toplam)
+
+  [Konut Kredileri]
+    - Tüm vade ve Tutarlarda Konut Kredisi Kredi Tahsis Ücreti
+    - Tüm vadelerde Yurtdışı Yerleşiklere USD tutarlarda Konut Kredisi Kredi Tahsis Ücreti
+    - Tüm vadelerde Yurtdışı Yerleşiklere EUR tutarlarda Konut Kredisi Kredi Tahsis Ücreti
+    - Tüm vade ve tutarlar işyeri yatırım kredisi tahsis ücreti
+    - Taşınır Taşınmaz Rehin ücreti
+    ... (60 toplam)
+
+  [Taşıt Kredileri]
+    - 1-24 ay vadeli Taşıt Kredisi Faiz Oranı )
+    - 25- 48 ay vadeli Taşıt Kredisi Faiz Oranı )
+    - 24 ay vadeli Kaskosu Akbank'tan ( 50.000 TL tutarındaki) Taşıt Kredisi Yıllık Maliyet Oranı
+    - 48 ay vadeli Kaskosu Akbank'tan ( 50.000 TL tutarındaki) Taşıt Kredisi Yıllık Maliyet Oranı
+    - 12 ay vadeli 0 Km Taşıt Kredisi ( 50.000 TL tutarındaki)Kredi Tahsis Ücreti
+    ... (30 toplam)
+
+  [İhtiyaç Kredileri]
+    - Artı Para (Kredili Mevduat Hesabı)
+    - Tüm vade ve Tutarlarda İhtiyaç Kredisi Kredi Tahsis Ücreti
+    - Tüm vade ve Tutarlar Akbank Mobil ve İnternet İhtiyaç Kredisi Kredi Tahsis Ücreti
+    - Tüm vade ve Tutarlar İpotekli İhtiyaç / Ev Geliştirme Kredisi Kredi Tahsis Ücreti
+    - Faiz Değişiklikiğinde Erken Kapama Ücreti (36 ay vade ve altı )
+    ... (17 toplam)
+
+  [Çekler ve Senetler]
+    - 10 Yapraklı Çek Karnesi
+    - 25 yapraklı çek karnesi
+    - TL ve YP Tahsile Alınan Çek (hesaba yatan)
+    - TL ve YP Tahsile Alınan Çek (nakit ödenen)
+    - Bloke Çek Ödeme
+    ... (22 toplam)
+
+  [Kiralık Kasa Ücretleri]
+    - Küçük Boy Kiralık Kasa Hesaptan Ödeme
+    - Küçük Boy Kiralık Kasa Kredi Kartından Ödeme
+    - Orta Boy Kiralık Kasa Hesaptan Ödeme
+    - Orta Boy Kiralık Kasa Kredi Kartından Ödeme
+    - Büyük Boy Kiralık Kasa Hesaptan Ödeme
+    ... (6 toplam)
+
+  [Menkul Kıymet İşlemleri]
+    - MKK Hesap Bakım Ücreti (günlük)
+    - MKK Hesap Açma Ücreti
+    - MKK Şifre Ücreti
+    - VİOP İşlem Komisyonu
+    - Saklama Ücreti - Hisse Senetleri (Halka Acik)
+    ... (37 toplam)
+
+  [Başka Kuruluş ATMsinden Yapılan İşlem Ücreti]
+    - Ortak ATM Para Çekme
+    - Yurt Dışı Nakit Çekim Ücreti
+    - Ortak ATM Bakiye Sorgulama
+    - Ortak ATM Para Yatırma
+    - Düzey 1+ (Yurtiçi yerleşik müşterilerimiz için)
+    ... (36 toplam)
+
+  [Kampanyalı Ürün veya Hizmetler Ücreti]
+    - Şanj Bürosu Efektif Alış/Satış/Arbitraj İşlemleri
+    - KKB Risk Raporu Hizmet Bedeli (Gerçek kişiler için)-Şube
+    - KKB Risk Raporu Hizmet Bedeli (Gerçek kişiler için)-Akbank Mobil
+    - KKB Risk Raporu Hizmet Bedeli (Gerçek kişiler için)-Akbank İnternet
+    - Fiziki Altın Teslim Etme
+    ... (11 toplam)
+
+  [Kredi Kartları]
+    - Axess Business
+    - Wings Business
+    - Axess Kobi
+    - Nakit Çekim veya Kullanım İşlemleri Hariç Uygulanacak Akdi Faiz Oranı
+    - Nakit Çekim veya Kullanım İşlemleri Hariç Uygulanacak Gecikme Faiz Oranı
+    ... (52 toplam)
+
+  [Ortak Ücretler]
+    - Kredi Tahsis
+    - Ticari ve Taksitli Ticari Kredi Erken Kapama Komisyonu (TL)
+    - Aylık Hesap Özeti (Ticari Müşteri)
+    - KGF komisyonu
+    - Doğrudan Borçlandırma Sistemi Dönem Ücreti
+    ... (10 toplam)
+
+  [Gayrinakit Krediler]
+    - Teminat Mektubu Teslim/Güncelleme/İade Ücreti
+    - Teminat Mektubu Komisyonu
+    - Teminat Mektubu Teyit Yazısının Hazırlanması Masrafı
+    - Teminat Mektubu Uzatım Yazısının Hazırlanması Masrafı
+    - Aval Kredileri
+    ... (7 toplam)
+
+  [Nakit Krediler]
+    - Faiz Oranı
+    - Faiz Oranı
+    - İşlek Kredi (TL) Kullandırım Ücreti
+    - Faiz Oranı
+    - İşlek Kredi (YP/DEK) Kullandırım Ücreti
+    ... (25 toplam)
+
+  [Tarım Kart]
+    - Tarım Kart Üyelik Ücreti
+
+  [Ürün ve Hizmet Paketleri]
+    - Esnaf Kota
+    - Şirket Kota
+    - Çek/senet Paketi 1
+    - Çek/senet Paketi 2
+    - Çek/senet Paketi 3
+    ... (27 toplam)
+
+============================================================
+  YAPIKREDI
+============================================================
+
+  [Fonların Anlık ve Sürekli Transferi (FAST)]
+    - İnternet/Mobil – 0 - 8.300 TL
+    - İnternet/Mobil – 8.300,01 TL – 399.000 TL
+
+  [Uluslararası Fon Transferi ve Mesajlaşma Ücreti / SWIFT]
+    - İnternet / Mobil / Telefon Bankacılığından - Aynı Gün Valörlü
+    - İnternet / Mobil / Telefon Bankacılığından - 1 Gün Valörlü
+    - İnternet / Mobil / Telefon Bankacılığından - İleri Gün Valörlü
+    - Şubeden - Aynı Gün Valörlü
+    - Şubeden - 1 Gün Valörlü
+    ... (21 toplam)
+
+  [Havale]
+    - İnternet/Mobil – 0 - 8.300 TL
+    - İnternet/Mobil – 8.300,01 TL – 399.000 TL
+    - İnternet/Mobil – 399.000,01 TL ve Üzeri
+    - ATM – 0 - 8.300 TL
+    - ATM – 8.300,01 TL – 399.000 TL
+    ... (9 toplam)
+
+  [İhtiyaç Kredileri]
+    - Faiz Oranı
+    - Faiz Oranı - Bireysel İhtiyaç Kredisi (1-12 Ay) (1.000 TL – 49.999 TL  arası tutarlar için)
+    - Faiz Oranı - Bireysel İhtiyaç Kredisi (13 – 24 Ay) (1.000 TL – 49.999 TL arası tutarlar için)
+    - Faiz Oranı - Bireysel İhtiyaç Kredisi (25 – 36 Ay) (1.000 TL – 49.999 TL  arası tutarlar için)
+    - Faiz Oranı - Bireysel İhtiyaç Kredisi (1-12 Ay) (50.000 TL –99.999 TL  arası tutarlar için)
+    ... (40 toplam)
+
+  [Taşıt Kredileri]
+    - Rehin Değişiklik Ücreti
+    - Rehin Fek Ücreti
+    - Faiz Oranı (37-48 ay)
+    - Rehin Tesis Ücreti
+    - Faiz Oranı (1-36  ay)
+    ... (7 toplam)
+
+  [Konut Kredileri]
+    - Tahsis Ücreti
+    - Ekspertiz Ücreti
+    - İpotek Tesis Ücreti
+    - Erken Ödeme Tazminatı
+    - Faiz Oranı- 36 Ay
+    ... (23 toplam)
+
+  [Banka Kartı]
+    - TLcard
+    - Play TLcard
+    - Platinum TLcard
+    - Ortak ATM'lerden Para Çekme
+    - TLcard
+    ... (10 toplam)
+
+  [Diğer Ücretler]
+    - Kart Yenileme Ücreti
+    - Banka Dışı Kanallardan Ticari Kart Borç Ödeme Ücreti
+    - Ticari Kart Yenileme Ücreti
+    - Ticari Kart Geçmiş Dönem Ekstre Ücreti
+    - Geçmiş Dönem Ekstre Arşiv Araştırma Ücreti (kart hamilinin talebinin olması halinde)
+
+  [Kredi Kartı Yıllık Üyelik Ücreti]
+    - World Business Kart
+    - Worldcard
+    - World Gold
+    - World Platinum
+    - Crystal
+    ... (33 toplam)
+
+  [Kredi Kartı Nakit Çekim Ücreti]
+    - Kredi Kartı Nakit Çekim Ücreti -İnternet Bankacılığından
+    - Döviz Hesap Özeti Nakit Çekim Ücreti (EUR para birimi)
+    - Döviz Hesap Özeti Nakit Çekim Ücreti (USD ve diğer para birimleri (EUR hariç))
+    - Kredi Kartı Nakit Çekim Ücreti - Mobil Bankacılıktan
+    - Kredi Kartı Nakit Çekim Ücreti -Telefon Bankacılığından
+    ... (9 toplam)
+
+  [Kredi Kartı İşlem Ücretleri]
+    - Şube veya sgk.gov.tr sitesinden yapılan prim ödemeleri
+    - 0 - 150 TL arası anlaşmalı kurum fatura ödemeleri
+    - 150,01 TL ve üzeri anlaşmalı kurum fatura ödemeleri
+
+  [Kredi Kartı Faiz Oranları]
+    - World Business Kart
+    - Dönem borcu 30.000 TL altında olan bireysel kredi kartları
+    - Dönem borcu 30.000 - 180.000 TL arasında olan bireysel kredi kartları
+    - Dönem borcu 180.000 TL üzerinde olan bireysel kredi kartları
+    - World Business Kart
+    ... (17 toplam)
+
+  [Para Yatırma]
+    - Hesaba Para Yatırma
+
+  [Para Çekme]
+    - Para Çekme
+    - Külçe Altın Çekme
+    - Yurt Dışı Kart ile ATM’den Para Çekme - Kur Dönüşüm Ücreti
+    - Yurt Dışı Kart ile ATM’den Para Çekme
+    - ATM Günlük Limit Üzeri Para Çekme Ücreti
+
+  [Hesap İşletim Ücreti]
+    - -
+
+  [Ekstre Masrafı]
+    - KMH Hesap Özeti (Esnek Hesap Özeti)
+    - Ekstre Masrafı (Şubeden Verilen)
+    - Ekstre Masrafı (Merkezi Gönderim)
+
+  [Dekont Masrafı]
+    - Dekont Masrafı - Geçmişe Yönelik Olarak Basılan
+
+  [ATM Kartlı/Kartsız Havale]
+    - ATM Kartlı Havale - 399.000,01 TL ve üzeri
+    - ATM Kartlı Havale - 8.300 TL ve altı
+    - ATM Kartlı Havale - 8.300,01 TL - 399.000 TL
+    - ATM Kartsız Havale - 399.000,01 TL ve üzeri
+    - ATM Kartsız Havale - 8.300 TL ve altı
+    ... (6 toplam)
+
+  [Ortak ATM Kullanımı]
+    - Ortak ATM'lerden Limit Sorgulama
+    - Ortak ATM'lerden Para Yatırma
+    - Ortak ATM'lerden Para Çekme
+    - Ortak ATM'lerden Bakiye Sorgulama
+
+  [Kasa24 Ücretleri]
+    - E Tipi Kasa24 Depozito Ücreti
+    - D Tipi Kasa24 Depozito Ücreti
+    - C Tipi Kasa24 Depozito Ücreti
+    - B Tipi Kasa24 Depozito Ücreti
+    - A Tipi Kasa24 Depozito Ücreti
+    ... (10 toplam)
+
+  [Kiralık Kasa]
+    - Depozito Ücreti Büyük Boy
+    - Depozito Ücreti Orta Boy
+    - Depozito Ücreti Küçük Boy
+    - Büyük Boy
+    - Orta Boy
+    ... (6 toplam)
+
+  [Merkezi Kayıt Kuruluşu Ücretleri]
+    - Hesap Açma
+    - Yatırımcı Bilgilendirme Hizmeti
+    - Hesap Bakım
+    - Pay Senedi ve Katılım Şemsiye Fonuna Bağlı Yatırım Fonları ile Girişim Sermayesi Yatırım Fonları
+    - Diğer Yatırım Fonları
+    ... (25 toplam)
+
+  [Sabit Getirili Menkul Kıymet İşlem Ücretleri]
+    - BİST Emir İletimi Aracılık Ücreti
+    - T.C. Hazine ve Maliye Bakanlığı Tarafından Yapılan İhalelere Aracılık Ücreti
+    - Başka Kuruma Bono/Tahvil Virmanı
+    - Başka Kuruma Eurobond Virmanı
+
+  [Hisse Senedi İşlemleri]
+    - Temettü Ödemeleri
+    - Virman
+    - İnternet Bankacılığı / Mobil Bankacılık
+    - Diğer Kanallar
+    - Sermaye Artırma Komisyonu
+
+  [Senetler]
+    - Senet Tahsili (Muhabir Bankada)
+    - Senet Tahsili (Bankamızda)
+    - Senet İade (Protestolu/Protestosuz)
+    - Senet Protesto Kaldırma
+    - Senet Protestosu
+
+  [Çekler]
+    - Aynı Şube Karşılıksız Çek Elden Ödeme Tl
+    - Aynı Şube Karşılıksız Çek Elden Ödeme Yp
+    - Aynı Şube Çek Ödeme TL / YP
+    - Başka Şube Çek Ödeme TL/YP
+    - Başka Şube Karşılıksız Çek Elden Ödeme Tl
+    ... (31 toplam)
+
+  [Global Fast Para Aktarma İşlemleri]
+    - Global Fast - Karta Para Gönderim İşlemleri
+    - Global Fast - Hesaba Para Gönderim İşlemleri
+
+  [Western Union Para Gönderme İşlemleri]
+    - EUR Gönderimlerde
+    - USD Gönderimlerde
+    - TL Gönderimlerde
+    - TL Gönderimlerde
+    - USD Gönderimlerde
+    ... (6 toplam)
+
+  [Findeks Paket Ücretleri]
+    - Premium
+    - Ticari Karma Paket
+    - Yılda 50 Rapor
+    - Yılda 100 Rapor
+    - Yılda 500 Rapor
+    ... (29 toplam)
+
+  [Kurum Tahsilatları]
+    - Fatura ve Anlaşmalı Kurum Ödemeleri
+    - Konsolosluk Vize Randevu Bedeli Tahsilat Komisyonu
+
+  [Referans Mektubu]
+    - Bireysel Müşteriler için Referans Mektubu / Yazısı
+
+  [Mutabakat / Teyit yazıları]
+    - Denetim Firmalarına Verilen Mutabakatlar
+    - Müşterilere Verilen Vergi Yazısı(Vergi/Stopaj)
+
+  [Ürün ve Hizmet Paketleri]
+    - KOBİ Aktif Paket
+    - Maxi Swift
+    - Sınırları Kaldıran Kadınlar Paketi
+    - Midi Swift
+    - Mini Swift
+    ... (18 toplam)
+
+  [Taksitli Ticari Kredi]
+    - Nakdi Kredi Erken Kapama (Değişken Faizli Döviz Cinsi veya Dövize Endeksli Krediler)
+    - Nakdi Kredi Erken Kapama (Değişken Faizli Türk Lirası Krediler)
+    - 1 Temmuz 2024 - 5 Ocak 2025 Arasında Kullanılan Krediler
+    - 6 Ocak 2025 Sonrası Kullanılan Krediler
+    - Nakdi Kredi Erken Kapama (Sabit Faizli Türk Lirası Krediler)(1.7.2024 Tarihinden İtibaren Kullandırılan Kredilerde)
+    ... (13 toplam)
+
+  [Üye İşyeri Ücretleri]
+    - Hesaptan Hesaba İşyeri Ödemeleri Ücreti
+    - Hesaptan Hesaba İşyeri Ödemeleri Ücreti
+    - Özel Sistem Uyumlu Ekstreler
+    - Üye İşyeri Ücreti Taksit (İlave Taksit Oranı)
+    - Üye İşyeri Ücreti Peşin (Kapalı Devre Kart Sistemleri)
+    ... (13 toplam)
+
+  [Esnek Ticari Hesap]
+    - Kredi Kullandırım Ücreti
+    - Faiz Oranı
+    - Basılı Ticari KMH Hesap Özeti (Esnek Ticari Hesap Özeti Ücreti)
+
+  [Borçlu Cari Hesap]
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+
+  [Spot Kredi]
+    - 1 Temmuz 2024 - 5 Ocak 2025 Arasında Kullanılan Krediler
+    - 6 Ocak 2025 Sonrası Kullanılan Krediler
+    - Nakdi Kredi Erken Kapama (Sabit Faizli Türk Lirası Krediler)  (1.7.2024 Tarihinden İtibaren Kullandırılan Kredilerde)
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+    ... (6 toplam)
+
+  [İskonto İştira Kredisi]
+    - 1 Temmuz 2024 - 5 Ocak 2025 Arasında Kullanılan Krediler
+    - 6 Ocak 2025 Sonrası Kullanılan Krediler
+    - Nakdi Kredi Erken Kapama Ücreti (Sabit Faizli Türk Lirası Krediler) (1.7.2024 Tarihinden İtibaren Kullandırılan Kredilerde)
+    - Faiz Oranı
+    - Kredi Kullandırım Ücreti
+    ... (6 toplam)
+
+  [Teminat Mektubu]
+    - TL Teminat Mektubu
+    - YP Teminat Mektubu
+    - Doğrudan Borçlandırma Sistemi (Yıllık)
+
+  [Yapı Kredi BANKO]
+    - Banko Devir Ücreti (Garantili Ödeme Sistemi Ücreti)
+    - Banko Ücreti (Garantili Ödeme Sistemi Ücreti)
+    - Kredi Kullandırım Ücreti
+    - Kredi Kullandırım Ücreti
+    - Kredi Tahsis Ücreti
+    ... (6 toplam)
+
+  [Ödeme Planı]
+    - Döviz Cinsi
+    - Faiz Oranı (Aylık)
+    - BSMV Oranı
+    - Aylık Maliyet Oranı
+    - Müşteri Tipi
+    ... (6 toplam)
+
+  [Hazır Kredi Paketleri]
+    - 12
+    - 24
+    - 36
+    - 36
+    - 36
+    ... (8 toplam)
