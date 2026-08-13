@@ -1,6 +1,5 @@
 """
-Her bankadan gelen kategori ve masraf adlarını yazdırır.
-python debug_kategoriler.py
+Her bankadan gelen kategori ve masraf adlarını debug_output.txt dosyasına yazar.
 """
 import sys
 from scraper_garanti   import scrape_garanti_bbva
@@ -15,20 +14,29 @@ BANKALAR = {
     "YAPIKREDI": scrape_yapikredi,
 }
 
+lines = []
 for banka, fn in BANKALAR.items():
-    print(f"\n{'='*60}")
-    print(f"  {banka}")
-    print(f"{'='*60}")
+    lines.append(f"\n{'='*60}")
+    lines.append(f"  {banka}")
+    lines.append(f"{'='*60}")
     try:
         satirlar = fn()
         kategoriler = {}
         for s in satirlar:
             kategoriler.setdefault(s.kategori, []).append(s.masraf)
         for kat, masraflar in kategoriler.items():
-            print(f"\n  [{kat}]")
-            for m in masraflar[:5]:   # ilk 5 masraf
-                print(f"    - {m}")
+            lines.append(f"\n  [{kat}]")
+            for m in masraflar[:5]:
+                lines.append(f"    - {m}")
             if len(masraflar) > 5:
-                print(f"    ... ({len(masraflar)} toplam)")
+                lines.append(f"    ... ({len(masraflar)} toplam)")
     except Exception as e:
-        print(f"  HATA: {e}", file=sys.stderr)
+        lines.append(f"  HATA: {e}")
+
+output = "\n".join(lines)
+print(output)
+
+with open("debug_output.txt", "w", encoding="utf-8") as f:
+    f.write(output)
+
+print("\n[debug] debug_output.txt kaydedildi.", file=sys.stderr)
