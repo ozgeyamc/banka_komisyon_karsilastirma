@@ -40,38 +40,11 @@ jobs:
             cp komisyon_karsilastirma.xlsx komisyon_karsilastirma_eski.xlsx
           fi
 
-            - name: Debug - Kategori adlarını göster
+      - name: Debug - Kategori adlarını göster
         run: python debug_kategoriler.py
-          python -c "
-import sys
-from scraper_garanti   import scrape_garanti_bbva
-from scraper_isbank    import scrape_isbank
-from scraper_akbank    import scrape_akbank
-from scraper_yapikredi import scrape_yapikredi
 
-bankalar = {
-    'GARANTİ':   scrape_garanti_bbva,
-    'İŞBANKASI': scrape_isbank,
-    'AKBANK':    scrape_akbank,
-    'YAPIKREDI': scrape_yapikredi,
-}
-for banka, fn in bankalar.items():
-    print(f'\n=== {banka} ===')
-    try:
-        satirlar = fn()
-        kategoriler = {}
-        for s in satirlar:
-            kategoriler.setdefault(s.kategori, []).append(s.masraf)
-        for kat, masraflar in list(kategoriler.items())[:20]:
-            print(f'  [{kat}]')
-            for m in masraflar[:4]:
-                print(f'    - {m}')
-    except Exception as e:
-        print(f'  HATA: {e}')
-"
-
-           - name: Debug - Kategori adlarını göster
-        run: python debug_kategoriler.py
+      - name: Scraper'ları çalıştır ve Excel üret
+        run: python main.py
 
       - name: Değişiklik kontrolü ve mail bildirimi
         env:
@@ -81,15 +54,9 @@ for banka, fn in bankalar.items():
         run: |
           TEST_MODE="${{ github.event.inputs.test_mail }}"
           if [ "$TEST_MODE" = "true" ]; then
-            python -c "
-from notify import check_and_notify
-check_and_notify('komisyon_karsilastirma_eski.xlsx', 'komisyon_karsilastirma.xlsx', test_mode=True)
-"
+            python -c "from notify import check_and_notify; check_and_notify('komisyon_karsilastirma_eski.xlsx', 'komisyon_karsilastirma.xlsx', test_mode=True)"
           elif [ -f komisyon_karsilastirma_eski.xlsx ]; then
-            python -c "
-from notify import check_and_notify
-check_and_notify('komisyon_karsilastirma_eski.xlsx', 'komisyon_karsilastirma.xlsx')
-"
+            python -c "from notify import check_and_notify; check_and_notify('komisyon_karsilastirma_eski.xlsx', 'komisyon_karsilastirma.xlsx')"
           else
             echo "[notify] İlk çalışma, karşılaştırma yapılmadı."
           fi
