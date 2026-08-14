@@ -1111,7 +1111,7 @@
     - Mastercard Gold Ek Kart Yıllık Ücreti
     - Mastercard Gold Temassız Ek Kart Yıllık Ücreti
     - Mastercard Platinum Asıl Kart Yıllık Ücreti
-    ... (48 toplam)
+    ... (45 toplam)
 
   [Kredi Kartları ve Banka Kartları - Kredi Kartları - Kredi Kartı Yıllık Ücreti / Maximiles]
     - Mastercard Maximiles Asıl Kart Yıllık Ücreti
@@ -1119,7 +1119,7 @@
     - Mastercard Maximiles Ek KartYıllık Ücreti
     - Mastercard Maximiles Temassız Ek Kart Yıllık Ücreti
     - Mastercard Maximiles Select Asıl Kart Yıllık Ücreti
-    ... (30 toplam)
+    ... (25 toplam)
 
   [Kredi Kartları ve Banka Kartları - Kredi Kartları - Alışveriş Faiz Oranı]
     - Hesap Özeti Borcu 30.000 TL Altında Olan Kredi Kartları İçin Alışveriş Faiz Oranı TL
