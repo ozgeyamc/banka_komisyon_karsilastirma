@@ -1,13 +1,15 @@
 """
 Banka komisyon karşılaştırma - Excel çıktısı.
 
-Kategori eşleştirmesi ARTIK sabit string sözlüğüyle değil, anahtar kelime
-tabanlı bir sınıflandırıcı ile yapılıyor. Sebep: bankaların kategori adları
-birbirinden çok farklı ve bazen çok katmanlı (örn. İş Bankası:
-"Para Aktarma - EFT / FAST - EFT-FAST Ücreti / Şube-Çözüm Merkezi").
-Sabit sözlükle her varyasyonu yakalamak mümkün değil; kelime bazlı öncelikli
-kurallar hem daha sağlam hem de kredi/kart/yatırım gibi alakasız binlerce
-satırı otomatik eler (hiçbir kural eşleşmediği için).
+Kategori eşleştirmesi anahtar kelime tabanlı bir sınıflandırıcı ile yapılıyor.
+ÖNEMLİ: Tüm anahtar kelime kontrolleri KELİME SINIRI (\\b) ile yapılır, düz
+substring ("in") kontrolü YAPILMAZ. Sebep: düz substring kontrolü ciddi
+yanlış eşleşmelere yol açıyordu, örn:
+  - "Çek Defteri" kelimesindeki "defteri" -> içinde "eft" geçiyor, düz
+    substring kontrolüyle yanlışlıkla "EFT Gönderimi" kategorisine düşüyordu.
+  - "Gerçek Kişi" ifadesindeki "gerçek" -> içinde "çek" geçiyor, düz
+    substring kontrolüyle yanlışlıkla "Çek" kategorisine düşebilirdi.
+Bu yüzden _kelime_var() fonksiyonu regex \\b...\\b kullanır.
 """
 
 import os
@@ -76,16 +78,15 @@ KATEGORI_SIRA = [
 # ── Anahtar kelime tabanlı sınıflandırma kuralları ──
 # Sıra önemli: yukarıdan aşağıya ilk eşleşen kural kazanır.
 # Her kural: (dışlama_kelimeleri, dahil_etme_kelimeleri (herhangi biri), standart_kategori)
-# Metin = (kategori + " " + masraf) küçük harfe çevrilmiş hali üzerinde çalışır.
 SINIFLANDIRMA_KURALLARI: List[Tuple[List[str], List[str], str]] = [
     # Kıymetli maden - havale/eft kelimelerinden önce kontrol edilmeli
-    ([], ["kıymetli maden", "altın transfer", "ats ile altın", "fiziki altın teslim",
-          "külçe altın"], "Kıymetli Maden Teslimleri"),
+    ([], ["kıymetli maden", "altın transfer", "ats ile altın gönderimi",
+          "fiziki altın teslim", "külçe altın"], "Kıymetli Maden Teslimleri"),
 
     # FAST - eft'den önce kontrol edilmeli
     ([], ["fast"], "FAST"),
 
-    # EFT
+    # EFT (kelime sınırlı - "defteri" gibi kelimelerdeki "eft" yakalanmaz)
     ([], ["eft"], "EFT Gönderimi"),
 
     # Havale (uluslararası/swift/western union hariç)
@@ -113,7 +114,7 @@ SINIFLANDIRMA_KURALLARI: List[Tuple[List[str], List[str], str]] = [
     ([], ["özel okul"], "Özel Okul Ödeme"),
 
     # Telefon operatör ödemeleri
-    ([], ["telefon operatör", "tl/paket yükleme", "paket yükleme"], "Telefon Ödemeleri Aracılık"),
+    ([], ["telefon operatör", "paket yükleme"], "Telefon Ödemeleri Aracılık"),
 
     # Vergi tahsilat
     ([], ["vergi tahsil"], "Vergi Tahsilat Aracılık"),
@@ -122,8 +123,7 @@ SINIFLANDIRMA_KURALLARI: List[Tuple[List[str], List[str], str]] = [
     ([], ["sgk"], "SGK Prim Ödemeleri"),
 
     # Fatura / Kurum ödemeleri (kart üzerinden)
-    ([], ["fatura ödeme", "fatura/kurum", "kurum ödeme", "kurum tahsilat",
-          "kurum/kurum"], "Fatura Ödemeleri - Kart"),
+    ([], ["fatura ödeme", "fatura/kurum", "kurum ödeme", "kurum tahsilat"], "Fatura Ödemeleri - Kart"),
 
     # Arşiv Araştırma
     ([], ["arşiv araştırma", "belge ve bilgilendirme", "borcu yoktur"], "Arşiv Araştırma Ücreti"),
@@ -131,24 +131,42 @@ SINIFLANDIRMA_KURALLARI: List[Tuple[List[str], List[str], str]] = [
     # Mevduat Araştırma / Referans Mektubu / Mutabakat
     ([], ["referans mektubu", "mutabakat", "teyit yazı", "mevduat araştırma"], "Mevduat Araştırma"),
 
-    # Çek - alt kategoriler (özelden genele)
-    ([], ["çek iade", "çek muamelesiz iade"], "Çek İade Ücreti"),
+    # Çek - alt kategoriler (özelden genele; hepsi kelime sınırlı "çek" arar)
+    ([], ["çek iade", "muamelesiz iade"], "Çek İade Ücreti"),
     ([], ["çek belgelendirme", "karşılıksız çek", "çek düzeltme"], "Çek Belgelendirme ve Düzeltme Ücreti"),
     ([], ["çek defter", "çek düzenleme", "bloke çek", "karekodlu çek",
           "karşılıklı çek düzenleme", "hediye çeki", "seyahat çeki"], "Çek Defteri ve Çek Düzenleme Ücreti"),
     ([], ["çek tahsil", "çek ödeme", "çek takas", "dövizli çek"], "Çek Tahsilat Ücreti"),
-    ([], ["çek"], "Çek Tahsilat Ücreti"),  # genel fallback
+    ([], ["çek"], "Çek Tahsilat Ücreti"),  # genel fallback (kelime sınırlı, "gerçek" gibi kelimeleri yakalamaz)
 
     # Senet - alt kategoriler
-    ([], ["senet iade", "senet protestosuz"], "Senet İade Ücreti"),
-    ([], ["senet protesto"], "Senet Protesto İşlemleri Ücreti"),
+    ([], ["senet iade", "protestosuz"], "Senet İade Ücreti"),
+    ([], ["senet protesto", "protesto kaldırma"], "Senet Protesto İşlemleri Ücreti"),
     ([], ["senet tahsil"], "Senet Tahsile Alma Ücreti"),
     ([], ["senet"], "Senet Tahsile Alma Ücreti"),  # genel fallback
 ]
 
-# Bakiye sorma özel kural: yurt içi/yurt dışı ayrımı ayrı fonksiyonla yapılıyor.
+# Bakiye sorma özel kural: yurt içi/yurt dışı ayrımı ayrı kontrol ediliyor.
 _BAKIYE_ANAHTAR = ["bakiye sorgulama", "bakiye sorma", "vach bakiye", "limit sorgulama"]
 _YURTDISI_ANAHTAR = ["yurtdışı", "yurt dışı", "yurt dişi"]
+
+# Kelime sınırı regex önbelleği (performans için)
+_PATTERN_CACHE: Dict[str, re.Pattern] = {}
+
+
+def _kelime_var(kelime: str, metin: str) -> bool:
+    """Kelime sınırlarına saygılı arama. Düz 'in' kontrolünden farklı olarak
+    'defteri' içindeki 'eft' veya 'gerçek' içindeki 'çek' gibi yanlış
+    eşleşmeleri engeller."""
+    pat = _PATTERN_CACHE.get(kelime)
+    if pat is None:
+        pat = re.compile(r"\b" + re.escape(kelime) + r"\b", re.UNICODE)
+        _PATTERN_CACHE[kelime] = pat
+    return bool(pat.search(metin))
+
+
+def _herhangi_biri_var(kelimeler: List[str], metin: str) -> bool:
+    return any(_kelime_var(k, metin) for k in kelimeler)
 
 
 def _normalize_metin(kategori: str, masraf: str) -> str:
@@ -160,15 +178,15 @@ def _standart_kategori(kategori: str, masraf: str) -> Optional[str]:
     metin = _normalize_metin(kategori, masraf)
 
     # Bakiye sorma önce kontrol edilsin (kendi içinde yurtiçi/yurtdışı ayrımı var)
-    if any(k in metin for k in _BAKIYE_ANAHTAR):
-        if any(k in metin for k in _YURTDISI_ANAHTAR):
+    if _herhangi_biri_var(_BAKIYE_ANAHTAR, metin):
+        if _herhangi_biri_var(_YURTDISI_ANAHTAR, metin):
             return "Bakiye Sorma - Yurtdışı - ATM"
         return "Bakiye Sorma - Yurtiçi - ATM"
 
     for disla, dahil, standart in SINIFLANDIRMA_KURALLARI:
-        if disla and any(k in metin for k in disla):
+        if disla and _herhangi_biri_var(disla, metin):
             continue
-        if any(k in metin for k in dahil):
+        if _herhangi_biri_var(dahil, metin):
             return standart
 
     return None
@@ -179,12 +197,12 @@ def _kanal_bul(kategori: str, masraf: str, scraper_kanal: str) -> str:
     if scraper_kanal in ("mobil", "sube"):
         return scraper_kanal
     metin = _normalize_metin(kategori, masraf)
-    if any(k in metin for k in ["mobil", "internet", "iscep", "işcep", "online",
-                                  "dijital", "e-", "e devlet", "asistan"]):
+    if _herhangi_biri_var(["mobil", "internet", "iscep", "işcep", "online",
+                            "dijital", "asistan"], metin):
         return "mobil"
-    if any(k in metin for k in ["şube", "gişe", "çözüm merkezi", "müşteri iletişim"]):
+    if _herhangi_biri_var(["şube", "gişe", "çözüm merkezi", "müşteri iletişim"], metin):
         return "sube"
-    if "atm" in metin:
+    if _kelime_var("atm", metin):
         return "mobil"
     return "mobil"
 
