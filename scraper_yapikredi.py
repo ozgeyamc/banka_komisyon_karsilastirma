@@ -31,12 +31,18 @@ def _parse_aciklama(raw):
     return raw, ""
 
 def _find_cat(el, fallback):
+    """
+    Kategori bilgisini bulmak için daha agresif arama yapıyor.
+    Tablonun üstündeki heading'leri kontrol ediyor.
+    """
     p = el.parent
-    for _ in range(10):
+    for _ in range(15):  # Daha derin arama
         if p is None: break
-        for sib in p.find_all_previous(["h1","h2","h3","h4","h5"], limit=3):
+        # Önceki h2/h3/h4 elementlerini kontrol et
+        for sib in p.find_all_previous(["h2","h3","h4"], limit=5):
             t = _normalize(sib.get_text())
-            if len(t) > 5 and t not in ["Müşteri Ol","Ara","Kapat","Menü","Ana Sayfa"]: return t
+            if len(t) > 3 and t not in ["Müşteri Ol","Ara","Kapat","Menü","Ana Sayfa"]: 
+                return t
         p = p.parent
     return fallback
 
@@ -46,7 +52,7 @@ def _kanal_tespit(kategori: str, masraf: str) -> str:
     metninde geçer. Her ikisi birlikte kontrol edilir.
     """
     kaynak = f"{kategori} {masraf}".lower()
-    if any(k in kaynak for k in ["mobil", "internet şube", "i̇nternet şube", "işcep", "iscep", "online", "dijital"]):
+    if any(k in kaynak for k in ["mobil", "internet şube", "i̇nternet şube", "işcep", "iscep", "online", "dijital", "app"]):
         return "mobil"
     if any(k in kaynak for k in ["şube", "sube", "çözüm merkezi", "cozum merkezi", "gişe", "gise"]):
         return "sube"
@@ -72,22 +78,29 @@ def _extract(table, kat):
         if not headers:
             headers = [_normalize(c.get_text(strip=True)).lower() for c in all_rows[0].find_all(["th","td"])]
         rows = all_rows[1:]
+    
+    # Boş header varsa atla
+    if not headers or len(headers) < 2:
+        return satirlar
+    
     def fc(keys):
         for i,h in enumerate(headers):
             if all(k in h for k in keys): return i
         return -1
+    
     cm=fc(["masraf"]); ca1=fc(["asgari","tutar"]); ca2=fc(["asgari","oran"])
     cz1=fc(["azami","tutar"]); cz2=fc(["azami","oran"])
     cac=fc(["açıklama"]) if fc(["açıklama"])>=0 else fc(["aciklama"])
     ct=fc(["güncelleme"]) if fc(["güncelleme"])>=0 else fc(["guncelleme"])
     if cm==-1: cm,ca1,ca2,cz1,cz2 = 0,1,2,3,4
+    
     for row in rows:
         cells=row.find_all(["th","td"])
         if len(cells)<2: continue
         v=[_normalize(c.get_text(strip=True)) for c in cells]
         def g(i): return v[i] if 0<=i<len(v) else ""
         masraf=g(cm)
-        if not masraf: continue
+        if not masraf or masraf in ["Masraf","masraf","-","–"]: continue  # Başlık satırlarını atla
         tarih=g(ct) if ct>=0 else ""
         aciklama,at=_parse_aciklama(g(cac))
         if not tarih: tarih=at
@@ -159,7 +172,7 @@ def scrape_yapikredi(url=YAPIKREDI_URL) -> List[UcretSatiri]:
                     except:
                         pass
 
-            page.wait_for_timeout(3000)
+            page.wait_for_timeout(4000)  # Daha uzun bekleme süresi
             html = page.content()
         finally:
             browser.close()
