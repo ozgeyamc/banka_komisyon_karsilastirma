@@ -1,7 +1,13 @@
 """
 Banka komisyon karşılaştırma - Excel çıktısı.
-Masraf adları standart geldiği için olduğu gibi kullanılır.
-Kategori eşleştirmesi kategori adından yapılır.
+
+Kategori eşleştirmesi ARTIK sabit string sözlüğüyle değil, anahtar kelime
+tabanlı bir sınıflandırıcı ile yapılıyor. Sebep: bankaların kategori adları
+birbirinden çok farklı ve bazen çok katmanlı (örn. İş Bankası:
+"Para Aktarma - EFT / FAST - EFT-FAST Ücreti / Şube-Çözüm Merkezi").
+Sabit sözlükle her varyasyonu yakalamak mümkün değil; kelime bazlı öncelikli
+kurallar hem daha sağlam hem de kredi/kart/yatırım gibi alakasız binlerce
+satırı otomatik eler (hiçbir kural eşleşmediği için).
 """
 
 import os
@@ -15,7 +21,10 @@ from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 
 EXCEL_DOSYA_ADI = "komisyon_karsilastirma.xlsx"
-SHEET_ADI = "karşılaştırma"
+
+# NOT: notify.py bu sabiti buradan import ediyor. Burada değiştirirsen
+# notify.py otomatik senkron kalır - iki dosyada ayrı ayrı tutmayın.
+SHEET_ADI = "KARŞILAŞTIRMA"
 
 BANKALAR = ["GARANTİ", "İŞBANKASI", "AKBANK", "YAPIKREDI"]
 BANKA_TAMAD = {
@@ -34,7 +43,7 @@ BANKA_RENKLER = {
 thin = Side(style="thin", color="CCCCCC")
 BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
 
-# Standart kategori adları ve sırası
+# ── Standart kategori adları ve Excel'deki sırası ──
 KATEGORI_SIRA = [
     "EFT Gönderimi",
     "Havale Gönderimi",
@@ -50,6 +59,7 @@ KATEGORI_SIRA = [
     "Özel Okul Ödeme",
     "Telefon Ödemeleri Aracılık",
     "Vergi Tahsilat Aracılık",
+    "Güvenli Araç Alım Satım",
     "Arşiv Araştırma Ücreti",
     "Mevduat Araştırma",
     "Bakiye Sorma - Yurtiçi - ATM",
@@ -63,147 +73,134 @@ KATEGORI_SIRA = [
     "Senet Tahsile Alma Ücreti",
 ]
 
-# Scraper'dan gelen kategori adı → standart kategori adı eşleştirmesi
-# Her bankanın farklı kategori adlarını standart ada map'le
-KATEGORI_MAP = {
+# ── Anahtar kelime tabanlı sınıflandırma kuralları ──
+# Sıra önemli: yukarıdan aşağıya ilk eşleşen kural kazanır.
+# Her kural: (dışlama_kelimeleri, dahil_etme_kelimeleri (herhangi biri), standart_kategori)
+# Metin = (kategori + " " + masraf) küçük harfe çevrilmiş hali üzerinde çalışır.
+SINIFLANDIRMA_KURALLARI: List[Tuple[List[str], List[str], str]] = [
+    # Kıymetli maden - havale/eft kelimelerinden önce kontrol edilmeli
+    ([], ["kıymetli maden", "altın transfer", "ats ile altın", "fiziki altın teslim",
+          "külçe altın"], "Kıymetli Maden Teslimleri"),
+
+    # FAST - eft'den önce kontrol edilmeli
+    ([], ["fast"], "FAST"),
+
     # EFT
-    "elektronik fon transferi (eft) ücreti": "EFT Gönderimi",
-    "eft ücreti": "EFT Gönderimi",
-    "eft-fast ücreti": "EFT Gönderimi",
-    "eft- fast  ücreti": "EFT Gönderimi",
-    "eft gönderimi": "EFT Gönderimi",
-    "fonların anlık ve sürekli transferi (fast)": "FAST",
-    "fast": "FAST",
-    # Havale
-    "havale ücreti": "Havale Gönderimi",
-    "havale": "Havale Gönderimi",
-    "havale gönderimi": "Havale Gönderimi",
-    "atm kartlı/kartsız havale": "Havale Gönderimi",
-    # Kıymetli Maden
-    "kıymetli maden transfer ücreti": "Kıymetli Maden Teslimleri",
-    "kıymetli maden transferi - altın transfer sistemi ücreti": "Kıymetli Maden Teslimleri",
-    "kıymetli maden teslimleri -": "Kıymetli Maden Teslimleri",
-    "kıymetli maden teslimleri": "Kıymetli Maden Teslimleri",
+    ([], ["eft"], "EFT Gönderimi"),
+
+    # Havale (uluslararası/swift/western union hariç)
+    (["swift", "uluslararası", "western union", "global fast"], ["havale"], "Havale Gönderimi"),
+
     # Kiralık Kasa
-    "kiralık kasa ücreti": "Kiralık Kasa",
-    "kiralık kasa": "Kiralık Kasa",
-    "kasa24 ücretleri": "Kiralık Kasa",
-    # Kredi Risk
-    "üçüncü kişi ve kuruluşlardan temin edilecek rapor ücretleri - kredi risk raporu": "Kredi Risk Raporu",
-    "kredi risk raporu": "Kredi Risk Raporu",
-    "findeks paket ücretleri": "Kredi Risk Raporu",
-    # Fatura
-    "fatura ödemeleri - kart": "Fatura Ödemeleri - Kart",
-    "kredi kartı işlem ücretleri": "Fatura Ödemeleri - Kart",
-    "kurum tahsilatları": "Fatura Ödemeleri - Kart",
-    # SGK
-    "sgk prim ödemeleri": "SGK Prim Ödemeleri",
+    ([], ["kiralık kasa", "kasa24", "kasa 24"], "Kiralık Kasa"),
+
+    # Kredi Risk Raporu
+    ([], ["risk raporu", "kkb", "findeks"], "Kredi Risk Raporu"),
+
     # HGS
-    "geçiş ürünleri ücretleri": "HGS Etiket Bedeli",
-    "hgs etiket bedeli": "HGS Etiket Bedeli",
-    "hgs": "HGS Etiket Bedeli",
+    ([], ["hgs"], "HGS Etiket Bedeli"),
+
     # Şans Oyunu
-    "şans oyunu ödemeleri aracılık": "Şans Oyunu Ödemeleri Aracılık",
+    ([], ["şans oyun"], "Şans Oyunu Ödemeleri Aracılık"),
+
+    # Güvenli Araç Alım Satım
+    ([], ["güvenli araç"], "Güvenli Araç Alım Satım"),
+
     # Aidat
-    "aidat ödemeleri aracılık": "Aidat Ödemeleri Aracılık",
+    ([], ["aidat ödeme"], "Aidat Ödemeleri Aracılık"),
+
     # Özel Okul
-    "özel okul ödeme": "Özel Okul Ödeme",
-    # Telefon
-    "telefon ödemeleri aracılık": "Telefon Ödemeleri Aracılık",
-    # Vergi
-    "vergi tahsilat aracılık": "Vergi Tahsilat Aracılık",
-    # Arşiv
-    "belge ve bilgilendirme ücreti": "Arşiv Araştırma Ücreti",
-    "arşiv araştırma ücreti": "Arşiv Araştırma Ücreti",
-    # Mevduat Araştırma
-    "mevduat araştırma": "Mevduat Araştırma",
-    "referans mektubu": "Mevduat Araştırma",
-    "mutabakat / teyit yazıları": "Mevduat Araştırma",
-    # Bakiye ATM
-    "bakiye sorma - yurtiçi - atm": "Bakiye Sorma - Yurtiçi - ATM",
-    "bakiye sorma - yurtdışı - atm": "Bakiye Sorma - Yurtdışı - ATM",
-    "ortak atm kullanımı": "Bakiye Sorma - Yurtiçi - ATM",
-    # Çek
-    "çek defteri ve çek düzenleme ücreti": "Çek Defteri ve Çek Düzenleme Ücreti",
-    "çekler": "Çek Defteri ve Çek Düzenleme Ücreti",
-    "çek iade ücreti": "Çek İade Ücreti",
-    "çek tahsilat ücreti": "Çek Tahsilat Ücreti",
-    "çek belgelendirme ve düzeltme ücreti": "Çek Belgelendirme ve Düzeltme Ücreti",
-    "çek belgelendirme ve düzeltme i̇şlemleri ücreti": "Çek Belgelendirme ve Düzeltme Ücreti",
-    # Senet
-    "senet iade ücreti": "Senet İade Ücreti",
-    "senetler": "Senet İade Ücreti",
-    "senet protesto i̇şlemleri ücreti": "Senet Protesto İşlemleri Ücreti",
-    "senet protesto işlemleri ücreti": "Senet Protesto İşlemleri Ücreti",
-    "senet tahsile alma ücreti": "Senet Tahsile Alma Ücreti",
-}
+    ([], ["özel okul"], "Özel Okul Ödeme"),
 
-# Masraf adı → standart kategori (kategori eşleşmezse masraf adından bul)
-MASRAF_KATEGORI_MAP = {
-    "arşiv araştırma ücreti": "Arşiv Araştırma Ücreti",
-    "bakiye sorma - yurtiçi - atm": "Bakiye Sorma - Yurtiçi - ATM",
-    "bakiye sorma - yurtdışı - atm": "Bakiye Sorma - Yurtdışı - ATM",
-    "hgs etiket ücreti": "HGS Etiket Bedeli",
-    "hgs kart ücreti": "HGS Etiket Bedeli",
-    "şans oyunu ödemeleri aracılık": "Şans Oyunu Ödemeleri Aracılık",
-    "senet iade ücreti": "Senet İade Ücreti",
-    "senet protesto -": "Senet Protesto İşlemleri Ücreti",
-    "senet protesto kaldırma -": "Senet Protesto İşlemleri Ücreti",
-    "aynı banka senet tahsili -": "Senet Tahsile Alma Ücreti",
-    "muhabir banka senet tahsili -": "Senet Tahsile Alma Ücreti",
-    "çek iade ücreti": "Çek İade Ücreti",
-    "çek defteri (yaprak başı) -": "Çek Defteri ve Çek Düzenleme Ücreti",
-    "çek düzenleme -": "Çek Defteri ve Çek Düzenleme Ücreti",
-    "özel nitelikli çek düzenleme -": "Çek Defteri ve Çek Düzenleme Ücreti",
-    "aynı banka çeki -": "Çek Tahsilat Ücreti",
-    "diğer banka çeki -": "Çek Tahsilat Ücreti",
-    "döviz çekleri tahsilatı (diğer banka) -": "Çek Tahsilat Ücreti",
-    "karşılıksız çek belgelendirme -": "Çek Belgelendirme ve Düzeltme Ücreti",
-    "çek düzeltme hakkı -": "Çek Belgelendirme ve Düzeltme Ücreti",
-    "üçüncü kişi ve kuruluşlardan temin edilecek rapor ücretleri - kredi risk raporu": "Kredi Risk Raporu",
-}
+    # Telefon operatör ödemeleri
+    ([], ["telefon operatör", "tl/paket yükleme", "paket yükleme"], "Telefon Ödemeleri Aracılık"),
 
-# Masraf adı → standart kanal (masraf adında kanal bilgisi varsa)
-def _kanal_bul(masraf: str, scraper_kanal: str) -> str:
+    # Vergi tahsilat
+    ([], ["vergi tahsil"], "Vergi Tahsilat Aracılık"),
+
+    # SGK
+    ([], ["sgk"], "SGK Prim Ödemeleri"),
+
+    # Fatura / Kurum ödemeleri (kart üzerinden)
+    ([], ["fatura ödeme", "fatura/kurum", "kurum ödeme", "kurum tahsilat",
+          "kurum/kurum"], "Fatura Ödemeleri - Kart"),
+
+    # Arşiv Araştırma
+    ([], ["arşiv araştırma", "belge ve bilgilendirme", "borcu yoktur"], "Arşiv Araştırma Ücreti"),
+
+    # Mevduat Araştırma / Referans Mektubu / Mutabakat
+    ([], ["referans mektubu", "mutabakat", "teyit yazı", "mevduat araştırma"], "Mevduat Araştırma"),
+
+    # Çek - alt kategoriler (özelden genele)
+    ([], ["çek iade", "çek muamelesiz iade"], "Çek İade Ücreti"),
+    ([], ["çek belgelendirme", "karşılıksız çek", "çek düzeltme"], "Çek Belgelendirme ve Düzeltme Ücreti"),
+    ([], ["çek defter", "çek düzenleme", "bloke çek", "karekodlu çek",
+          "karşılıklı çek düzenleme", "hediye çeki", "seyahat çeki"], "Çek Defteri ve Çek Düzenleme Ücreti"),
+    ([], ["çek tahsil", "çek ödeme", "çek takas", "dövizli çek"], "Çek Tahsilat Ücreti"),
+    ([], ["çek"], "Çek Tahsilat Ücreti"),  # genel fallback
+
+    # Senet - alt kategoriler
+    ([], ["senet iade", "senet protestosuz"], "Senet İade Ücreti"),
+    ([], ["senet protesto"], "Senet Protesto İşlemleri Ücreti"),
+    ([], ["senet tahsil"], "Senet Tahsile Alma Ücreti"),
+    ([], ["senet"], "Senet Tahsile Alma Ücreti"),  # genel fallback
+]
+
+# Bakiye sorma özel kural: yurt içi/yurt dışı ayrımı ayrı fonksiyonla yapılıyor.
+_BAKIYE_ANAHTAR = ["bakiye sorgulama", "bakiye sorma", "vach bakiye", "limit sorgulama"]
+_YURTDISI_ANAHTAR = ["yurtdışı", "yurt dışı", "yurt dişi"]
+
+
+def _normalize_metin(kategori: str, masraf: str) -> str:
+    return f"{kategori} {masraf}".lower().replace("i̇", "i")
+
+
+def _standart_kategori(kategori: str, masraf: str) -> Optional[str]:
+    """Anahtar kelime tabanlı sınıflandırma. İlk eşleşen kural kazanır."""
+    metin = _normalize_metin(kategori, masraf)
+
+    # Bakiye sorma önce kontrol edilsin (kendi içinde yurtiçi/yurtdışı ayrımı var)
+    if any(k in metin for k in _BAKIYE_ANAHTAR):
+        if any(k in metin for k in _YURTDISI_ANAHTAR):
+            return "Bakiye Sorma - Yurtdışı - ATM"
+        return "Bakiye Sorma - Yurtiçi - ATM"
+
+    for disla, dahil, standart in SINIFLANDIRMA_KURALLARI:
+        if disla and any(k in metin for k in disla):
+            continue
+        if any(k in metin for k in dahil):
+            return standart
+
+    return None
+
+
+def _kanal_bul(kategori: str, masraf: str, scraper_kanal: str) -> str:
+    """Kanal (mobil/şube) tespiti - hem kategori hem masraf metnine bakar."""
     if scraper_kanal in ("mobil", "sube"):
         return scraper_kanal
-    ml = masraf.lower()
-    if any(k in ml for k in ["mobil", "internet", "iscep", "online", "dijital", "e-"]):
+    metin = _normalize_metin(kategori, masraf)
+    if any(k in metin for k in ["mobil", "internet", "iscep", "işcep", "online",
+                                  "dijital", "e-", "e devlet", "asistan"]):
         return "mobil"
-    if any(k in ml for k in ["şube", "gişe", "çözüm merkezi", "müşteri iletişim"]):
+    if any(k in metin for k in ["şube", "gişe", "çözüm merkezi", "müşteri iletişim"]):
         return "sube"
-    if "atm" in ml:
+    if "atm" in metin:
         return "mobil"
     return "mobil"
 
 
-def _standart_kategori(kat: str, masraf: str) -> Optional[str]:
-    """Kategori adından standart kategori bul."""
-    k = kat.lower().strip()
-    # Direkt eşleşme
-    if k in KATEGORI_MAP:
-        return KATEGORI_MAP[k]
-    # Kısmi eşleşme
-    for anahtar, standart in KATEGORI_MAP.items():
-        if anahtar in k or k in anahtar:
-            return standart
-    # Masraf adından bul
-    m = masraf.lower().strip()
-    if m in MASRAF_KATEGORI_MAP:
-        return MASRAF_KATEGORI_MAP[m]
-    for anahtar, standart in MASRAF_KATEGORI_MAP.items():
-        if anahtar in m:
-            return standart
-    return None
+def _sayi_temizle(v: str) -> str:
+    v = (v or "").strip()
+    if v in ("-", "", "nan", "None"):
+        return ""
+    return v
 
 
 def _deger(s: UcretSatiri) -> str:
-    t = (s.asgari_tutar or "").strip()
-    o = (s.asgari_oran or "").strip()
-    if t in ("-", ""):
-        t = ""
-    if o in ("-", ""):
-        o = ""
+    """Tutar/oran değerini biçimlendir. Asgari boşsa azami'ye düşer
+    (bazı bankalarda tek kolonluk ücretler 'azami' başlığı altına düşebiliyor)."""
+    t = _sayi_temizle(s.asgari_tutar) or _sayi_temizle(s.azami_tutar)
+    o = _sayi_temizle(s.asgari_oran) or _sayi_temizle(s.azami_oran)
     parts = [x for x in [t, o] if x]
     return " / ".join(parts)
 
@@ -265,9 +262,7 @@ def karsilastirma_excel_yaz(
     ws.freeze_panes = "A3"
 
     # ── Veri işleme ──
-    # kat_satirlar: standart_kat → [masraf_adi sırası]
     kat_satirlar: Dict[str, List[str]] = {}
-    # veri: (standart_kat, masraf_adi) → {banka: {kanal: deger}}
     veri: Dict[Tuple[str, str], Dict[str, Dict[str, str]]] = {}
 
     for banka in BANKALAR:
@@ -285,15 +280,12 @@ def karsilastirma_excel_yaz(
             if not masraf:
                 continue
 
-            # Standart kategori bul
             std_kat = _standart_kategori(kategori, masraf)
             if std_kat is None:
                 continue
 
-            # Kanal bul
-            kanal = _kanal_bul(masraf, s.kanal or "")
+            kanal = _kanal_bul(kategori, masraf, s.kanal or "")
 
-            # Değer
             d = _deger(s)
             if not d:
                 continue
