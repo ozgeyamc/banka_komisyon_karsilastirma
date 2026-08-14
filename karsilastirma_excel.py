@@ -57,6 +57,11 @@ def _bugun() -> str:
 def _deger(s: UcretSatiri) -> str:
     t = (s.asgari_tutar or "").strip()
     o = (s.asgari_oran  or "").strip()
+    
+    # % işaretlerini kaldır
+    t = t.replace("%", "")
+    o = o.replace("%", "")
+    
     parts = []
     if t: parts.append(t)
     if o: parts.append(o)
@@ -447,8 +452,6 @@ def karsilastirma_excel_yaz(
             ws.row_dimensions[row].height = 20
             row += 1
             toplam += 1
-
-        row += 1
 
     for kat in KATEGORI_SIRA:
         yaz_kategori_blogu(kat)
