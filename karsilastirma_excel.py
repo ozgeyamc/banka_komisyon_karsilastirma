@@ -56,16 +56,11 @@ def _bugun() -> str:
 
 def _deger(s: UcretSatiri) -> str:
     t = (s.asgari_tutar or "").strip()
-    o = (s.asgari_oran  or "").strip()
-    
-    # % işaretlerini kaldır
-    t = t.replace("%", "")
-    o = o.replace("%", "")
+    # Yüzdelik oranları tamamen ignore et, sadece tutar göster
     
     parts = []
     if t: parts.append(t)
-    if o: parts.append(o)
-    return " / ".join(parts) if parts else ""
+    return parts[0] if parts else ""
 
 
 def _norm(m: str) -> str:
@@ -134,7 +129,8 @@ def _norm_deger(d: str) -> str:
     d = d.strip().upper()
     d = re.sub(r"(\d),(\d)", r"\1.\2", d)
     d = d.replace(" ", "").replace("TL", "TRY")
-    d = d.replace("%", "")  # % işaretlerini kaldır
+    # % ve oransal ifadeleri kaldır
+    d = d.replace("%", "")
     d = re.sub(r"[^0-9A-Z./]", "", d)
     try:
         num = re.search(r"[\d.]+", d)
