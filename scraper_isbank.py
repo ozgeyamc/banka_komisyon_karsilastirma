@@ -20,6 +20,22 @@ def _meta(el, cls="UHU_icerik_meta"):
     return _normalize(span.get_text()) if span else ""
 
 
+def _kanal_tespit(kategori: str, masraf: str) -> str:
+    """
+    Kanal bilgisi çoğunlukla `masraf` metninde değil, tablo/kategori başlığında
+    geçer (örn: 'Şube-Çözüm Merkezi', 'İnternet Şube ve Mobil Bankacılık Kanalları',
+    'ATM Kanalı'). Bu yüzden hem kategori hem masraf birlikte kontrol edilir.
+    """
+    kaynak = f"{kategori} {masraf}".lower()
+    if any(k in kaynak for k in ["mobil", "internet şube", "i̇nternet şube", "işcep", "iscep", "online", "dijital"]):
+        return "mobil"
+    if any(k in kaynak for k in ["şube", "sube", "çözüm merkezi", "cozum merkezi", "gişe", "gise"]):
+        return "sube"
+    if "atm" in kaynak:
+        return "mobil"
+    return ""
+
+
 def scrape_isbank(url=ISBANK_URL) -> List[UcretSatiri]:
     from playwright.sync_api import sync_playwright
     from bs4 import BeautifulSoup
@@ -61,10 +77,7 @@ def scrape_isbank(url=ISBANK_URL) -> List[UcretSatiri]:
                     masraf_el = blok.find(class_="UHU_item_icerikH")
                     masraf = _normalize(masraf_el.get_text()) if masraf_el else ""
                     if not masraf: continue
-                    ml = masraf.lower()
-                    if "mobil" in ml or "internet" in ml: kanal = "mobil"
-                    elif "şube" in ml: kanal = "sube"
-                    else: kanal = ""
+                    kanal = _kanal_tespit(tam_kat, masraf)
                     result.append(UcretSatiri(
                         kategori=tam_kat, masraf=masraf,
                         asgari_tutar=_meta(blok.find(class_="UHU_item_icerik1")),
