@@ -16,12 +16,11 @@ from openpyxl.utils import get_column_letter
 EXCEL_DOSYA_ADI = "komisyon_karsilastirma.xlsx"
 SHEET_ADI = "karşılaştırma"
 
-BANKALAR = ["GARANTİ", "İŞBANKASI", "AKBANK", "YAPIKREDI"]
+BANKALAR = ["GARANTİ", "İŞBANKASI", "AKBANK"]
 BANKA_TAMAD = {
     "GARANTİ":   "Garanti BBVA",
     "İŞBANKASI": "İş Bankası",
     "AKBANK":    "Akbank",
-    "YAPIKREDI": "Yapı ve Kredi Bankası",
 }
 
 # Başlık (satır 1) renkleri
@@ -29,29 +28,26 @@ BANKA_RENKLER = {
     "GARANTİ":   {"bg": "00B050", "fg": "FFFFFF"},
     "İŞBANKASI": {"bg": "012169", "fg": "FFFFFF"},
     "AKBANK":    {"bg": "FF0000", "fg": "FFFFFF"},
-    "YAPIKREDI": {"bg": "003087", "fg": "FFD700"},
 }
 
-# Alt başlık (Mobil/Şube - satır 2) renkleri - görseldeki pastel tonlar
+# Alt başlık (Mobil/Şube - satır 2) renkleri
 BANKA_ALT_RENKLER = {
     "GARANTİ":   {"bg": "C6E0B4", "fg": "FFFFFF"},
     "İŞBANKASI": {"bg": "BDD7EE", "fg": "FFFFFF"},
     "AKBANK":    {"bg": "F4B183", "fg": "FFFFFF"},
-    "YAPIKREDI": {"bg": "8EA9C1", "fg": "FFFFFF"},
 }
 
-# Hücre veri metni rengi - bankaya göre (görseldeki gibi)
+# Hücre veri metni rengi - bankaya göre
 BANKA_VERI_RENK = {
     "GARANTİ":   "00B050",
     "İŞBANKASI": "0070C0",
     "AKBANK":    "FF0000",
-    "YAPIKREDI": "1F3864",
 }
 
 thin = Side(style="thin", color="CCCCCC")
 BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
 YELLOW = PatternFill(start_color="FFFF00", end_color="FFFF00", fill_type="solid")
-NOT_KOLONU = 12  # L sütunu - notlar buraya yazılır
+NOT_KOLONU = 8  # H sütunu - notlar buraya yazılır
 
 
 def _bugun() -> str:
@@ -79,14 +75,6 @@ def _norm(m: str) -> str:
 def _extract_tutar(m: str) -> Optional[str]:
     """
     Metindeki tutar aralığını standart bir etikete çevirir.
-
-    Eski yaklaşım "8300-399000" gibi bir alt-string arıyordu. Ancak Akbank
-    ("8.300,01 TL - 399.000 TL arasında") ve Yapı Kredi ("8.300,01 TL – 399.000 TL")
-    gibi formatlarda sayılar arasına "TL" gibi metin girdiği için bu substring
-    hiç oluşmuyor ve tutar tespiti başarısız oluyordu (rakamlar "830001TL..."
-    şeklinde birbirine yapışıyordu). Yeni yaklaşım: metindeki sayıları çıkarıp
-    büyüklüklerine göre, ve "ve altı"/"ve üstü" gibi anahtar kelimelere göre
-    bandı belirler.
     """
     t = m.replace("–", "-").replace("—", "-").lower()
     tn = _norm(m)
@@ -154,7 +142,10 @@ def _norm_deger(d: str) -> str:
 
 
 def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
-    # ... (değişmedi, önceki koddaki mantık aynen korunur)
+    """
+    Masraf adını standard kategorilere ve alt kategorilere eşleştir.
+    Tüm bankalar arasında tutarlı karşılaştırma yapabilmek için.
+    """
     yk_kat = ""
     if " | " in masraf:
         parts = masraf.split(" | ", 1)
@@ -173,189 +164,125 @@ def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
             return "mobil"
         return ""
 
-    if yk_kat:
-        if "eft" in yk_kat or "fast" in yk_kat:
-            if "fast" in yk_kat:
-                label = f"FAST - {tutar} TRY" if tutar else "FAST"
-                return "FAST", label, kanal()
-            label = f"EFT - {tutar} TRY" if tutar else "EFT Gönderimi"
-            return "EFT Gönderimi", label, kanal()
-        if "havale" in yk_kat and "atm" not in yk_kat:
-            if "duzenli" in n or "talimat" in n:
-                label = f"Düzenli Havale - {tutar} TRY" if tutar else "Düzenli Havale"
-                return "Havale Gönderimi", label, kanal()
-            label = f"Havale - {tutar} TRY" if tutar else "Havale Gönderimi"
-            return "Havale Gönderimi", label, kanal()
-        if "atm" in yk_kat and "havale" in yk_kat:
-            label = f"Havale - {tutar} TRY" if tutar else "Havale Gönderimi"
-            return "Havale Gönderimi", label, "mobil"
-        if "kiralik kasa" in yk_kat or "kiralık kasa" in yk_kat:
-            if "depozito" in n:
-                return "Kiralık Kasa", f"Kasa Depozito - {tutar or n}", ""
-            return "Kiralık Kasa", f"Yıllık Kasa Ücreti - {tutar or n}", ""
-        if "senet" in yk_kat:
-            if "iade" in n:
-                return "Senet İade Ücreti", "Senet İade Ücreti", ""
-            if "protesto" in n and "kaldir" in n:
-                return "Senet Protesto İşlemleri Ücreti", "Senet Protesto Kaldırma -", ""
-            if "protesto" in n:
-                return "Senet Protesto İşlemleri Ücreti", "Senet Protesto -", ""
-            if "bankamizda" in n or "bankamızda" in n:
-                return "Senet Tahsile Alma Ücreti", "Aynı Banka Senet Tahsili -", ""
-            return "Senet Tahsile Alma Ücreti", "Muhabir Banka Senet Tahsili -", ""
-        if "cek" in yk_kat or "çek" in yk_kat:
-            if "ayni sube" in n or "aynı şube" in n:
-                return "Çek Tahsilat Ücreti", "Aynı Banka Çeki -", ""
-            if "baska sube" in n or "başka şube" in n:
-                return "Çek Tahsilat Ücreti", "Diğer Banka Çeki -", ""
-            if "karsiliksiz" in n:
-                return "Çek Belgelendirme ve Düzeltme Ücreti", "Karşılıksız Çek Belgelendirme -", ""
-            if "iade" in n:
-                return "Çek İade Ücreti", "Çek İade Ücreti", ""
-            if "yaprak" in n or "defteri" in n:
-                return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Defteri (Yaprak Başı) -", ""
-            if "duzenleme" in n:
-                return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Düzenleme -", ""
-            return "Çek Tahsilat Ücreti", "Çek Tahsilat", ""
-        if "ortak atm" in yk_kat:
-            if "bakiye" in n:
-                return "Bakiye Sorma - Yurtiçi - ATM", "Bakiye Sorma - Yurtiçi - ATM", ""
-        if "kurum tahsilat" in yk_kat or "kredi karti islem" in yk_kat:
-            if "fatura" in n:
-                return "Fatura Ödemeleri - Kart", "Fatura Ödemeleri", kanal()
-            if "sgk" in n or "prim" in n:
-                return "SGK Prim Ödemeleri", "SGK Prim Ödemeleri", kanal()
-        if "findeks" in yk_kat or ("kredi" in yk_kat and "risk" in yk_kat):
-            return ("Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
-                    "Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
-                    kanal())
-        if "referans" in yk_kat:
-            return "Mevduat Araştırma", "Referans Mektubu -", kanal()
-        return None, None, ""
-
-    if "eft" in n and "swift" not in n and "uluslararasi" not in n:
+    # Kategori + Kanal + Tutar ile başlık oluştur
+    
+    # EFT / FAST
+    if "eft" in n or "fast" in n:
+        if "fast" in n:
+            label = f"FAST - {tutar} TRY" if tutar else "FAST"
+            return "FAST", label, kanal()
         if "duzenli" in n or "supurme" in n:
             label = f"Düzenli EFT - {tutar} TRY" if tutar else "Düzenli EFT"
             return "EFT Gönderimi", label, kanal()
-        if "odenmesi" in n or "isme gelen" in n:
-            return "EFT Gönderimi", "EFT İsme Gelen", "sube"
         label = f"EFT - {tutar} TRY" if tutar else "EFT Gönderimi"
         return "EFT Gönderimi", label, kanal()
 
-    if "havale" in n and "uluslararasi" not in n and "swift" not in n:
+    # HAVALE
+    if "havale" in n and "swift" not in n and "uluslararasi" not in n:
         if "duzenli" in n or "supurme" in n:
             label = f"Düzenli Havale - {tutar} TRY" if tutar else "Düzenli Havale"
             return "Havale Gönderimi", label, kanal()
-        if "cebe para" in n:
-            return "Havale Gönderimi", "Cebe Para Gönderme", kanal()
         label = f"Havale - {tutar} TRY" if tutar else "Havale Gönderimi"
         return "Havale Gönderimi", label, kanal()
 
-    if "fast" in n:
-        label = f"FAST - {tutar} TRY" if tutar else "FAST"
-        return "FAST", label, kanal()
+    # SWIFT / Uluslararası
+    if "swift" in n or "uluslararasi" in n:
+        label = f"Uluslararası Transfer - {tutar}" if tutar else "Uluslararası Transfer"
+        return "Uluslararası Transfer", label, kanal()
 
+    # KIYMETLİ MADEN / ALTIN
+    if "altin" in n or "kiymetli maden" in n or "ats" in n:
+        label = f"Altın Transfer - {tutar}" if tutar else "Altın Transfer"
+        return "Kıymetli Maden", label, kanal()
+
+    # KIRALıK KASA
     if "kasa" in n:
         if "depozito" in n:
             return "Kiralık Kasa", f"Kasa Depozito - {tutar or 'genel'}", ""
         return "Kiralık Kasa", f"Yıllık Kasa Ücreti - {tutar or 'genel'}", ""
 
-    if "altin" in n or "kiymetli maden" in n or "ats" in n:
-        label = f"Altın Transfer - {tutar}" if tutar else "Altın Transfer"
-        return "Kıymetli Maden", label, kanal()
-
+    # HGS
     if "hgs" in n:
         if "etiket" in n:
             return "HGS Etiket Bedeli", "HGS Etiket Bedeli", ""
         return "HGS", "HGS Kart Ücreti", ""
 
-    if "sans oyunu" in n or "piyango" in n:
-        return "Şans Oyunu Ödemeleri Aracılık", "Şans Oyunu Ödemeleri Aracılık", kanal()
+    # ÇEK
+    if "cek" in n or "çek" in n:
+        if "defteri" in n or "yaprak" in n or "teslim" in n:
+            return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Defteri (Yaprak Başı) -", ""
+        if "duzenleme" in n:
+            return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Düzenleme -", ""
+        if "iade" in n:
+            return "Çek İade Ücreti", "Çek İade Ücreti", ""
+        if "tahsil" in n or "odeme" in n:
+            if "ayni" in n or "aynı" in n:
+                return "Çek Tahsilat Ücreti", "Aynı Banka Çeki -", ""
+            if "diger" in n or "başka" in n or "baska" in n:
+                return "Çek Tahsilat Ücreti", "Diğer Banka Çeki -", ""
+            return "Çek Tahsilat Ücreti", "Çek Tahsilat", ""
+        if "belgelend" in n or "karsiliksiz" in n:
+            return "Çek Belgelendirme ve Düzeltme Ücreti", "Çek Belgelendirme -", ""
+        return "Çek Tahsilat Ücreti", "Çek Tahsilat", ""
 
-    if "fatura" in n and "kredi" not in n and "ekstre" not in n:
-        return "Fatura Ödemeleri - Kart", "Fatura Ödemeleri", kanal()
+    # SENET
+    if "senet" in n:
+        if "iade" in n:
+            return "Senet İade Ücreti", "Senet İade Ücreti", ""
+        if "protesto" in n:
+            if "kaldir" in n:
+                return "Senet Protesto İşlemleri Ücreti", "Senet Protesto Kaldırma -", ""
+            return "Senet Protesto İşlemleri Ücreti", "Senet Protesto -", ""
+        if "tahsil" in n or "tahsile" in n:
+            return "Senet Tahsile Alma Ücreti", "Senet Tahsile Alma -", ""
+        return "Senet İade Ücreti", "Senet İade Ücreti", ""
 
-    if "sgk" in n:
-        label = f"SGK - {tutar} TRY" if tutar else "SGK Prim Ödemeleri"
-        return "SGK Prim Ödemeleri", label, kanal()
-
-    if "vergi" in n and "kredi" not in n:
-        label = f"Vergi - {tutar} TRY" if tutar else "Vergi Tahsilat"
-        return "Vergi Tahsilat Aracılık", label, kanal()
-
+    # FATURA / SGK / VERGİ / AIDAT
+    if "fatura" in n and "kredi" not in n:
+        return "Fatura Ödemeleri", "Fatura Ödemeleri", kanal()
+    
+    if "sgk" in n or "prim" in n:
+        return "SGK Prim Ödemeleri", "SGK Prim Ödemeleri", kanal()
+    
+    if "vergi" in n:
+        return "Vergi Tahsilat", "Vergi Tahsilat", kanal()
+    
     if "aidat" in n:
-        label = f"Aidat - {tutar} TRY" if tutar else "Aidat Ödemeleri"
-        return "Aidat Ödemeleri Aracılık", label, kanal()
+        return "Aidat Ödemeleri", "Aidat Ödemeleri", kanal()
 
-    if "okul" in n:
-        label = f"Özel Okul - {tutar} TRY" if tutar else "Özel Okul Ödeme"
-        return "Özel Okul Ödeme", label, kanal()
+    # ŞANS OYUNU
+    if "sans oyunu" in n or "piyango" in n:
+        return "Şans Oyunu Ödemeleri", "Şans Oyunu Ödemeleri", kanal()
 
+    # TELEFON
     if "telefon" in n:
-        label = f"Telefon - {tutar} TRY" if tutar else "Telefon Ödemeleri"
-        return "Telefon Ödemeleri Aracılık", label, kanal()
+        return "Telefon Ödemeleri", "Telefon Ödemeleri", kanal()
 
-    if "arsiv" in n:
-        return "Arşiv Araştırma Ücreti", "Arşiv Araştırma Ücreti", kanal()
+    # OKUL
+    if "okul" in n:
+        return "Özel Okul Ödeme", "Özel Okul Ödeme", kanal()
 
-    if "referans" in n or "itibar" in n or "niyet" in n:
-        return "Mevduat Araştırma", "Referans Mektubu -", kanal()
-    if "hesap ozeti" in n:
-        return "Mevduat Araştırma", "Hesap Özeti Verilmesi -", kanal()
-    if "hesap arastirma" in n:
-        return "Mevduat Araştırma", "Hesap Araştırma Talebi -", kanal()
-    if "borcu yok" in n:
-        return "Mevduat Araştırma", "Borcu Yoktur Yazısı", kanal()
-    if "vize" in n and "okul" in n:
-        return "Mevduat Araştırma", "Vize ve Özel Okullar için Düzenlenen Mektuplar -", kanal()
-
+    # BAKIYE SORMA
     if "bakiye" in n and "atm" in n:
         if "yurtici" in n or ("yurt" in n and "dis" not in n):
             return "Bakiye Sorma - Yurtiçi - ATM", "Bakiye Sorma - Yurtiçi - ATM", ""
         return "Bakiye Sorma - Yurtdışı - ATM", "Bakiye Sorma - Yurtdışı - ATM", ""
 
-    if "kkb" in n or ("kredi" in n and "risk" in n) or ("ucuncu" in n and "rapor" in n):
-        return ("Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
-                "Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
-                kanal())
+    # KREDİ RISK RAPORU / KKB
+    if "kkb" in n or ("kredi" in n and "risk" in n):
+        return "Kredi Risk Raporu", "Kredi Risk Raporu", kanal()
 
-    if ("cek" in n or "çek" in n) and ("defteri" in n or "yaprak" in n or "teslim" in n):
-        return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Defteri (Yaprak Başı) -", ""
-    if ("cek" in n or "çek" in n) and "duzenleme" in n:
-        if "ozel" in n or "nitelik" in n:
-            return "Çek Defteri ve Çek Düzenleme Ücreti", "Özel Nitelikli Çek Düzenleme -", ""
-        return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Düzenleme -", ""
+    # REFERANS / ARŞIV
+    if "referans" in n or "itibar" in n or "niyet" in n:
+        return "Referans Mektubu", "Referans Mektubu", kanal()
+    
+    if "arsiv" in n:
+        return "Arşiv Araştırma", "Arşiv Araştırma", kanal()
+    
+    if "hesap" in n and "ozeti" in n:
+        return "Hesap Özeti", "Hesap Özeti", kanal()
 
-    if ("cek" in n or "çek" in n) and "iade" in n:
-        return "Çek İade Ücreti", "Çek İade Ücreti", ""
-
-    if ("cek" in n or "çek" in n) and ("tahsil" in n or "odeme" in n):
-        if "ayni banka" in n or "aynı banka" in n:
-            return "Çek Tahsilat Ücreti", "Aynı Banka Çeki -", ""
-        if "diger banka" in n or "baska banka" in n:
-            return "Çek Tahsilat Ücreti", "Diğer Banka Çeki -", ""
-        if "doviz" in n or "yp" in n:
-            return "Çek Tahsilat Ücreti", "Döviz Çekleri Tahsilatı (Diğer Banka) -", ""
-        return "Çek Tahsilat Ücreti", "Çek Tahsilat", ""
-
-    if ("cek" in n or "çek" in n) and ("belgelend" in n or "karsiliksiz" in n or "duzeltme" in n):
-        if "karsiliksiz" in n:
-            return "Çek Belgelendirme ve Düzeltme Ücreti", "Karşılıksız Çek Belgelendirme -", ""
-        return "Çek Belgelendirme ve Düzeltme Ücreti", "Çek Düzeltme Hakkı -", ""
-
-    if "senet" in n and "iade" in n:
-        return "Senet İade Ücreti", "Senet İade Ücreti", ""
-
-    if "senet" in n and "protesto" in n:
-        if "kaldir" in n:
-            return "Senet Protesto İşlemleri Ücreti", "Senet Protesto Kaldırma -", ""
-        return "Senet Protesto İşlemleri Ücreti", "Senet Protesto -", ""
-
-    if "senet" in n and ("tahsil" in n or "tahsile" in n):
-        if "ayni" in n:
-            return "Senet Tahsile Alma Ücreti", "Aynı Banka Senet Tahsili -", ""
-        return "Senet Tahsile Alma Ücreti", "Muhabir Banka Senet Tahsili -", ""
-
+    # Eşleştirilemeyenler None dön
     return None, None, ""
 
 
@@ -363,21 +290,10 @@ KATEGORI_SIRA = [
     "EFT Gönderimi",
     "Havale Gönderimi",
     "FAST",
-    "Kiralık Kasa",
+    "Uluslararası Transfer",
     "Kıymetli Maden",
-    "Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
-    "Fatura Ödemeleri - Kart",
-    "SGK Prim Ödemeleri",
+    "Kiralık Kasa",
     "HGS Etiket Bedeli",
-    "Şans Oyunu Ödemeleri Aracılık",
-    "Aidat Ödemeleri Aracılık",
-    "Özel Okul Ödeme",
-    "Telefon Ödemeleri Aracılık",
-    "Vergi Tahsilat Aracılık",
-    "Arşiv Araştırma Ücreti",
-    "Mevduat Araştırma",
-    "Bakiye Sorma - Yurtiçi - ATM",
-    "Bakiye Sorma - Yurtdışı - ATM",
     "Çek Defteri ve Çek Düzenleme Ücreti",
     "Çek İade Ücreti",
     "Çek Tahsilat Ücreti",
@@ -385,23 +301,20 @@ KATEGORI_SIRA = [
     "Senet İade Ücreti",
     "Senet Protesto İşlemleri Ücreti",
     "Senet Tahsile Alma Ücreti",
+    "Fatura Ödemeleri",
+    "SGK Prim Ödemeleri",
+    "Vergi Tahsilat",
+    "Aidat Ödemeleri",
+    "Şans Oyunu Ödemeleri",
+    "Telefon Ödemeleri",
+    "Özel Okul Ödeme",
+    "Bakiye Sorma - Yurtiçi - ATM",
+    "Bakiye Sorma - Yurtdışı - ATM",
+    "Kredi Risk Raporu",
+    "Referans Mektubu",
+    "Arşiv Araştırma",
+    "Hesap Özeti",
 ]
-
-# Görselde sağ tarafta görülen kırmızı italik notlar. Kategoriye göre eşlenir.
-KATEGORI_NOTLARI: Dict[str, List[str]] = {
-    "EFT Gönderimi": [
-        "Para çekmeyi, para yatırmayı eklemedim",
-        "Akbank'ta bireysel kotalar var havale/EFT için",
-        "Kredi Risk Raporumuz zamanlanabilir",
-        "Şubeden kıymetli maden teslimi %10'a kadar",
-    ],
-    "Fatura Ödemeleri - Kart": [
-        "Fatura ödemeleri üst tier için %3,5'a çıkabiliyor",
-        "Borcu Yoktur Yazısı almak için ücret alınabiliyor",
-        "Mevduat Araştırma Ücretleri zamlanabilir",
-        "Güvenli Araç Alım Satım YKB 97,53 TRY",
-    ],
-}
 
 
 def karsilastirma_excel_yaz(
@@ -414,7 +327,7 @@ def karsilastirma_excel_yaz(
     wb = Workbook()
     ws = wb.active
     ws.title = SHEET_ADI
-    MAX_COL = 9  # A..I (A=masraf, B-I=4 banka x 2 kanal)
+    MAX_COL = 7  # A..G (A=masraf, B-G=3 banka x 2 kanal)
 
     def sb(cell):
         cell.border = BORDER
@@ -451,11 +364,9 @@ def karsilastirma_excel_yaz(
             sb(c2)
         col += 2
 
-    ws.column_dimensions["A"].width = 42
+    ws.column_dimensions["A"].width = 45
     for i in range(2, MAX_COL + 1):
-        ws.column_dimensions[get_column_letter(i)].width = 15
-    # Notlar sütunu daha geniş
-    ws.column_dimensions[get_column_letter(NOT_KOLONU)].width = 55
+        ws.column_dimensions[get_column_letter(i)].width = 14
     ws.row_dimensions[1].height = 22
     ws.row_dimensions[2].height = 18
     ws.freeze_panes = "A3"
@@ -484,24 +395,15 @@ def karsilastirma_excel_yaz(
                 veri[key][banka] = {"mobil": "", "sube": ""}
 
             d = _deger(s)
-            depozito = getattr(s, "depozito", "") or ""
             if d:
-                mevcut = veri[key][banka][kanal]
-                if depozito:
-                    d = f"{d}\nDepozito {depozito}"
-                if mevcut and depozito and "Depozito" not in mevcut:
-                    veri[key][banka][kanal] = d
-                else:
-                    veri[key][banka][kanal] = d if d else mevcut
+                veri[key][banka][kanal] = d
 
     KAT_FONT = Font(bold=True, size=10)
-    DATA_FONT = Font(size=10)
     MASRAF_FONT = Font(size=10)
 
     yazilan = set()
     row = 3
     toplam = 0
-    kategori_baslangic_satiri: Dict[str, int] = {}
 
     def yaz_kategori_blogu(kat):
         nonlocal row, toplam
@@ -509,9 +411,8 @@ def karsilastirma_excel_yaz(
         if kat not in kat_satirlar:
             return
         yazilan.add(kat)
-        kategori_baslangic_satiri[kat] = row + 1
 
-        # Kategori başlığı - görseldeki gibi düz metin, sadece A sütununda, kalın
+        # Kategori başlığı
         cc = ws.cell(row=row, column=1, value=kat)
         cc.font = KAT_FONT
         cc.alignment = Alignment(horizontal="left", vertical="center")
@@ -538,7 +439,7 @@ def karsilastirma_excel_yaz(
             sube_fark  = len(set(sube_norm)) > 1
 
             for i, (banka, kanal, d) in enumerate(degerler):
-                cell_value = d if d else ("N/A" if not d and any(v for (_, _, v) in degerler) else "")
+                cell_value = d if d else ""
                 c = ws.cell(row=row, column=col, value=cell_value)
                 c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
                 sb(c)
@@ -552,7 +453,7 @@ def karsilastirma_excel_yaz(
                                   bold=(kanal == "mobil"))
                 col += 1
 
-            ws.row_dimensions[row].height = 30 if any("\n" in v for (_, _, v) in degerler) else 20
+            ws.row_dimensions[row].height = 20
             row += 1
             toplam += 1
 
@@ -564,16 +465,6 @@ def karsilastirma_excel_yaz(
     for kat in list(kat_satirlar.keys()):
         if kat not in yazilan:
             yaz_kategori_blogu(kat)
-
-    # ---- Notlar sütunu (kırmızı italik, görseldeki gibi) ----
-    for kat, notlar in KATEGORI_NOTLARI.items():
-        baslangic = kategori_baslangic_satiri.get(kat)
-        if not baslangic:
-            continue
-        for i, not_metni in enumerate(notlar):
-            nc = ws.cell(row=baslangic + i, column=NOT_KOLONU, value=not_metni)
-            nc.font = Font(size=9, color="FF0000", italic=True)
-            nc.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
 
     ws.cell(row=row, column=1,
             value=f"Son güncelleme: {_bugun()}").font = Font(size=9, color="888888")
