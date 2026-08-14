@@ -24,6 +24,7 @@ BANKA_TAMAD = {
     "YAPIKREDI": "Yapı ve Kredi Bankası",
 }
 
+# Başlık (satır 1) renkleri
 BANKA_RENKLER = {
     "GARANTİ":   {"bg": "00B050", "fg": "FFFFFF"},
     "İŞBANKASI": {"bg": "012169", "fg": "FFFFFF"},
@@ -31,9 +32,26 @@ BANKA_RENKLER = {
     "YAPIKREDI": {"bg": "003087", "fg": "FFD700"},
 }
 
+# Alt başlık (Mobil/Şube - satır 2) renkleri - görseldeki pastel tonlar
+BANKA_ALT_RENKLER = {
+    "GARANTİ":   {"bg": "C6E0B4", "fg": "FFFFFF"},
+    "İŞBANKASI": {"bg": "BDD7EE", "fg": "FFFFFF"},
+    "AKBANK":    {"bg": "F4B183", "fg": "FFFFFF"},
+    "YAPIKREDI": {"bg": "8EA9C1", "fg": "FFFFFF"},
+}
+
+# Hücre veri metni rengi - bankaya göre (görseldeki gibi)
+BANKA_VERI_RENK = {
+    "GARANTİ":   "00B050",
+    "İŞBANKASI": "0070C0",
+    "AKBANK":    "FF0000",
+    "YAPIKREDI": "1F3864",
+}
+
 thin = Side(style="thin", color="CCCCCC")
 BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
 YELLOW = PatternFill(start_color="FFFF00", end_color="FFFF00", fill_type="solid")
+NOT_KOLONU = 12  # L sütunu - notlar buraya yazılır
 
 
 def _bugun() -> str:
@@ -95,6 +113,7 @@ def _norm_deger(d: str) -> str:
 
 
 def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
+    # ... (değişmedi, önceki koddaki mantık aynen korunur)
     yk_kat = ""
     if " | " in masraf:
         parts = masraf.split(" | ", 1)
@@ -327,6 +346,22 @@ KATEGORI_SIRA = [
     "Senet Tahsile Alma Ücreti",
 ]
 
+# Görselde sağ tarafta görülen kırmızı italik notlar. Kategoriye göre eşlenir.
+KATEGORI_NOTLARI: Dict[str, List[str]] = {
+    "EFT Gönderimi": [
+        "Para çekmeyi, para yatırmayı eklemedim",
+        "Akbank'ta bireysel kotalar var havale/EFT için",
+        "Kredi Risk Raporumuz zamanlanabilir",
+        "Şubeden kıymetli maden teslimi %10'a kadar",
+    ],
+    "Fatura Ödemeleri - Kart": [
+        "Fatura ödemeleri üst tier için %3,5'a çıkabiliyor",
+        "Borcu Yoktur Yazısı almak için ücret alınabiliyor",
+        "Mevduat Araştırma Ücretleri zamlanabilir",
+        "Güvenli Araç Alım Satım YKB 97,53 TRY",
+    ],
+}
+
 
 def karsilastirma_excel_yaz(
     banka_verileri: Dict[str, List[UcretSatiri]],
@@ -338,11 +373,12 @@ def karsilastirma_excel_yaz(
     wb = Workbook()
     ws = wb.active
     ws.title = SHEET_ADI
-    MAX_COL = 9
+    MAX_COL = 9  # A..I (A=masraf, B-I=4 banka x 2 kanal)
 
     def sb(cell):
         cell.border = BORDER
 
+    # ---- A1 boş üst-sol köşe ----
     ws.merge_cells("A1:A2")
     c = ws["A1"]
     c.fill = PatternFill(start_color="1F3864", end_color="1F3864", fill_type="solid")
@@ -350,10 +386,13 @@ def karsilastirma_excel_yaz(
     c.alignment = Alignment(horizontal="center", vertical="center")
     sb(c)
 
+    # ---- Banka başlıkları (satır 1) + Mobil/Şube alt başlıkları (satır 2, italik) ----
     col = 2
     for banka in BANKALAR:
         r = BANKA_RENKLER[banka]
+        ar = BANKA_ALT_RENKLER[banka]
         fill = PatternFill(start_color=r["bg"], end_color=r["bg"], fill_type="solid")
+        alt_fill = PatternFill(start_color=ar["bg"], end_color=ar["bg"], fill_type="solid")
         l1, l2 = get_column_letter(col), get_column_letter(col + 1)
         ws.merge_cells(f"{l1}1:{l2}1")
         c1 = ws[f"{l1}1"]
@@ -365,15 +404,17 @@ def karsilastirma_excel_yaz(
         for j, kanal_adi in enumerate(["Mobil", "Şube"]):
             c2 = ws.cell(row=2, column=col + j)
             c2.value = kanal_adi
-            c2.fill = fill
-            c2.font = Font(color=r["fg"], bold=True, size=10)
+            c2.fill = alt_fill
+            c2.font = Font(color=ar["fg"], bold=True, italic=True, size=10)
             c2.alignment = Alignment(horizontal="center", vertical="center")
             sb(c2)
         col += 2
 
     ws.column_dimensions["A"].width = 42
     for i in range(2, MAX_COL + 1):
-        ws.column_dimensions[get_column_letter(i)].width = 18
+        ws.column_dimensions[get_column_letter(i)].width = 15
+    # Notlar sütunu daha geniş
+    ws.column_dimensions[get_column_letter(NOT_KOLONU)].width = 55
     ws.row_dimensions[1].height = 22
     ws.row_dimensions[2].height = 18
     ws.freeze_panes = "A3"
@@ -402,8 +443,15 @@ def karsilastirma_excel_yaz(
                 veri[key][banka] = {"mobil": "", "sube": ""}
 
             d = _deger(s)
+            depozito = getattr(s, "depozito", "") or ""
             if d:
-                veri[key][banka][kanal] = d
+                mevcut = veri[key][banka][kanal]
+                if depozito:
+                    d = f"{d}\nDepozito {depozito}"
+                if mevcut and depozito and "Depozito" not in mevcut:
+                    veri[key][banka][kanal] = d
+                else:
+                    veri[key][banka][kanal] = d if d else mevcut
 
     KAT_FONT = Font(bold=True, size=10)
     DATA_FONT = Font(size=10)
@@ -412,20 +460,21 @@ def karsilastirma_excel_yaz(
     yazilan = set()
     row = 3
     toplam = 0
+    kategori_baslangic_satiri: Dict[str, int] = {}
 
     def yaz_kategori_blogu(kat):
         nonlocal row, toplam
+
         if kat not in kat_satirlar:
             return
         yazilan.add(kat)
+        kategori_baslangic_satiri[kat] = row + 1
 
-        ws.merge_cells(f"A{row}:{get_column_letter(MAX_COL)}{row}")
-        cc = ws[f"A{row}"]
-        cc.value = kat
+        # Kategori başlığı - görseldeki gibi düz metin, sadece A sütununda, kalın
+        cc = ws.cell(row=row, column=1, value=kat)
         cc.font = KAT_FONT
-        cc.alignment = Alignment(horizontal="center", vertical="center")
-        sb(cc)
-        ws.row_dimensions[row].height = 16
+        cc.alignment = Alignment(horizontal="left", vertical="center")
+        ws.row_dimensions[row].height = 18
         row += 1
 
         for isim in kat_satirlar[kat]:
@@ -439,28 +488,30 @@ def karsilastirma_excel_yaz(
             degerler = []
             for banka in BANKALAR:
                 bd = veri.get(key, {}).get(banka, {"mobil": "", "sube": ""})
-                degerler.append(bd.get("mobil", ""))
-                degerler.append(bd.get("sube", ""))
+                degerler.append((banka, "mobil", bd.get("mobil", "")))
+                degerler.append((banka, "sube",  bd.get("sube", "")))
 
-            mobil_norm = [_norm_deger(degerler[i]) for i in range(0, 8, 2) if degerler[i]]
-            sube_norm  = [_norm_deger(degerler[i]) for i in range(1, 8, 2) if degerler[i]]
+            mobil_norm = [_norm_deger(v.split("\n")[0]) for (_, k, v) in degerler if k == "mobil" and v]
+            sube_norm  = [_norm_deger(v.split("\n")[0]) for (_, k, v) in degerler if k == "sube"  and v]
             mobil_fark = len(set(mobil_norm)) > 1
             sube_fark  = len(set(sube_norm)) > 1
 
-            for i, d in enumerate(degerler):
-                c = ws.cell(row=row, column=col, value=d)
-                c.font = DATA_FONT
+            for i, (banka, kanal, d) in enumerate(degerler):
+                cell_value = d if d else ("N/A" if not d and any(v for (_, _, v) in degerler) else "")
+                c = ws.cell(row=row, column=col, value=cell_value)
                 c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
                 sb(c)
-                if i % 2 == 0 and mobil_fark and d:
+
+                fark = mobil_fark if kanal == "mobil" else sube_fark
+                if fark and d:
                     c.fill = YELLOW
                     c.font = Font(size=10, color="FF0000", bold=True)
-                elif i % 2 == 1 and sube_fark and d:
-                    c.fill = YELLOW
-                    c.font = Font(size=10, color="FF0000", bold=True)
+                else:
+                    c.font = Font(size=10, color=BANKA_VERI_RENK[banka],
+                                  bold=(kanal == "mobil"))
                 col += 1
 
-            ws.row_dimensions[row].height = 20
+            ws.row_dimensions[row].height = 30 if any("\n" in v for (_, _, v) in degerler) else 20
             row += 1
             toplam += 1
 
@@ -472,6 +523,16 @@ def karsilastirma_excel_yaz(
     for kat in list(kat_satirlar.keys()):
         if kat not in yazilan:
             yaz_kategori_blogu(kat)
+
+    # ---- Notlar sütunu (kırmızı italik, görseldeki gibi) ----
+    for kat, notlar in KATEGORI_NOTLARI.items():
+        baslangic = kategori_baslangic_satiri.get(kat)
+        if not baslangic:
+            continue
+        for i, not_metni in enumerate(notlar):
+            nc = ws.cell(row=baslangic + i, column=NOT_KOLONU, value=not_metni)
+            nc.font = Font(size=9, color="FF0000", italic=True)
+            nc.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
 
     ws.cell(row=row, column=1,
             value=f"Son güncelleme: {_bugun()}").font = Font(size=9, color="888888")
