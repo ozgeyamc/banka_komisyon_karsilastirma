@@ -34,31 +34,19 @@ def _parse_aciklama(raw):
 def _find_cat(el, fallback):
     """
     Kategori bilgisini bulmak için HTML yapısında yukarıya doğru arama yapıyor.
-    Tablonun parent'ı olan div/section'ın üstündeki heading'leri kontrol ediyor.
     """
     p = el.parent
     for _ in range(20):
         if p is None: 
             break
         
-        # Tablonun direkt üstündeki h2/h3 bul
-        for sib in p.find_all_previous(["h1", "h2", "h3", "h4", "h5", "div"], limit=10):
-            if sib.name in ["h1", "h2", "h3", "h4", "h5"]:
-                t = _normalize(sib.get_text())
-                if len(t) > 3 and t not in ["Müşteri Ol","Ara","Kapat","Menü","Ana Sayfa"]: 
-                    print(f"[yapikredi-debug] Kategori bulundu: {t}", file=sys.stderr)
-                    return t
-            elif sib.name == "div" and ("class" in sib.attrs):
-                # div'in içindeki h2/h3 ara
-                for h in sib.find_all(["h1", "h2", "h3", "h4", "h5"], limit=1):
-                    t = _normalize(h.get_text())
-                    if len(t) > 3 and t not in ["Müşteri Ol","Ara","Kapat","Menü","Ana Sayfa"]:
-                        print(f"[yapikredi-debug] Kategori bulundu (div içinde): {t}", file=sys.stderr)
-                        return t
+        for sib in p.find_all_previous(["h1", "h2", "h3", "h4", "h5"], limit=10):
+            t = _normalize(sib.get_text())
+            if len(t) > 3 and t not in ["Müşteri Ol","Ara","Kapat","Menü","Ana Sayfa"]: 
+                return t
         
         p = p.parent
     
-    print(f"[yapikredi-debug] Kategori bulunamadı, fallback kullanılıyor: {fallback}", file=sys.stderr)
     return fallback
 
 def _kanal_tespit(kategori: str, masraf: str) -> str:
@@ -75,35 +63,54 @@ def _kanal_tespit(kategori: str, masraf: str) -> str:
         return "mobil"
     return ""
 
+def _is_header_row(cells):
+    """
+    Satırın başlık satırı mı yoksa veri satırı mı olduğunu kontrol et.
+    Başlık satırları genellikle text içerir, veri satırları sayı/oran içerir.
+    """
+    if len(cells) < 2:
+        return True
+    
+    first_cell = _normalize(cells[0].get_text()).lower()
+    
+    # Başlık satırı göstergeleri
+    if any(k in first_cell for k in ["asgari", "azami", "mobil", "şube", "tutar", "oran", "ücreti", "bedel"]):
+        return True
+    
+    # Çok kısa veya çok uzun metinler
+    if len(first_cell) < 2 or len(first_cell) > 200:
+        return True
+    
+    return False
+
 def _extract(table, kat):
     satirlar = []
-    thead = table.find("thead")
     tbody = table.find("tbody")
-    headers = []
+    all_rows = table.find_all("tr")
     
-    if thead:
-        hr = thead.find("tr")
-        if hr: 
-            headers = [_normalize(c.get_text(strip=True)).lower() for c in hr.find_all(["th","td"])]
-    
-    if tbody:
-        rows = tbody.find_all("tr")
-        if not headers and rows:
-            headers = [_normalize(c.get_text(strip=True)).lower() for c in rows[0].find_all(["th","td"])]
-            rows = rows[1:]
-    else:
-        all_rows = table.find_all("tr")
-        if not all_rows: 
-            return satirlar
-        if not headers:
-            headers = [_normalize(c.get_text(strip=True)).lower() for c in all_rows[0].find_all(["th","td"])]
-        rows = all_rows[1:]
-    
-    # Boş header varsa atla
-    if not headers or len(headers) < 2:
+    if not all_rows:
         return satirlar
     
-    print(f"[yapikredi-debug] Tablo headers: {headers[:3]}", file=sys.stderr)
+    # Başlık satırını atla (ilk satır)
+    rows = all_rows[1:] if tbody is None else tbody.find_all("tr")
+    
+    if not rows:
+        return satirlar
+    
+    # İlk veri satırından headers belirle
+    headers = []
+    for i, row in enumerate(rows):
+        cells = row.find_all(["th","td"])
+        if not _is_header_row(cells):
+            # İlk veri satırı bulundu, bunu header olarak kullan
+            headers = [_normalize(c.get_text(strip=True)).lower() for c in cells]
+            rows = rows[i+1:]  # Kalan satırları işle
+            break
+    
+    if not headers:
+        return satirlar
+    
+    print(f"[yapikredi-debug] Tablo headers: {headers[:4]}", file=sys.stderr)
     
     def fc(keys):
         for i,h in enumerate(headers):
@@ -111,7 +118,10 @@ def _extract(table, kat):
                 return i
         return -1
     
-    cm = fc(["masraf"])
+    cm = fc(["işlem", "masraf", "gönderim", "döviz", "havale"])  # Masraf sütununu bul
+    if cm == -1:
+        cm = 0  # İlk sütun masraf
+    
     ca1 = fc(["asgari","tutar"])
     ca2 = fc(["asgari","oran"])
     cz1 = fc(["azami","tutar"])
@@ -119,14 +129,16 @@ def _extract(table, kat):
     cac = fc(["açıklama"]) if fc(["açıklama"]) >= 0 else fc(["aciklama"])
     ct = fc(["güncelleme"]) if fc(["güncelleme"]) >= 0 else fc(["guncelleme"])
     
-    if cm == -1: 
-        cm, ca1, ca2, cz1, cz2 = 0, 1, 2, 3, 4
-    
-    print(f"[yapikredi-debug] Kolon indeksleri - Masraf:{cm} AsgariT:{ca1} AsgariO:{ca2} AzamiT:{cz1} AzamiO:{cz2}", file=sys.stderr)
+    print(f"[yapikredi-debug] Kolon indeksleri - Masraf:{cm} AsgariT:{ca1} AsgariO:{ca2}", file=sys.stderr)
     
     satir_sayisi = 0
     for row in rows:
         cells = row.find_all(["th","td"])
+        
+        # Başlık satırını atla
+        if _is_header_row(cells):
+            continue
+        
         if len(cells) < 2: 
             continue
         
@@ -136,8 +148,8 @@ def _extract(table, kat):
         
         masraf = g(cm)
         
-        # Boş satırları ve başlık satırlarını atla
-        if not masraf or masraf in ["Masraf","masraf","-","–",""] or len(masraf) < 2:
+        # Boş satırları atla
+        if not masraf or len(masraf) < 2:
             continue
         
         tarih = g(ct) if ct >= 0 else ""
@@ -187,12 +199,10 @@ def _cerez_kapat(page):
 
 def _scroll_aciklama_basliklari(page):
     """
-    Accordion/collapsible başlıkları açmak için daha sağlam yöntem.
-    Sayfa üzerinde scroll yaparak tüm elementleri render et.
+    Accordion/collapsible başlıkları açmak için sağlam yöntem.
     """
     print("[yapikredi] Sayfa scroll ediliyor ve tüm accordion'lar açılıyor...", file=sys.stderr)
     
-    # Tüm olası accordion/tab seçicileri
     selectors = [
         "button[aria-expanded='false']",
         "button[data-bs-toggle='collapse']",
@@ -215,11 +225,8 @@ def _scroll_aciklama_basliklari(page):
             except:
                 pass
     
-    # Sayfayı aşağıya doğru scroll et
     page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
     page.wait_for_timeout(2000)
-    
-    # Tekrar yukarıya
     page.evaluate("window.scrollTo(0, 0)")
     page.wait_for_timeout(1000)
 
@@ -242,10 +249,7 @@ def scrape_yapikredi(url=YAPIKREDI_URL) -> List[UcretSatiri]:
             page.goto(url, timeout=120000, wait_until="domcontentloaded")
             page.wait_for_timeout(5000)
 
-            # Çerez banner'ını kapat
             _cerez_kapat(page)
-            
-            # Accordion/tab'ları aç
             _scroll_aciklama_basliklari(page)
             
             page.wait_for_timeout(5000)
