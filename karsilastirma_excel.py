@@ -46,7 +46,6 @@ BANKA_VERI_RENK = {
 
 thin = Side(style="thin", color="CCCCCC")
 BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
-YELLOW = PatternFill(start_color="FFFF00", end_color="FFFF00", fill_type="solid")
 NOT_KOLONU = 8  # H sütunu - notlar buraya yazılır
 
 
@@ -130,7 +129,8 @@ def _norm_deger(d: str) -> str:
     d = d.strip().upper()
     d = re.sub(r"(\d),(\d)", r"\1.\2", d)
     d = d.replace(" ", "").replace("TL", "TRY")
-    d = re.sub(r"[^0-9A-Z%./]", "", d)
+    d = d.replace("%", "")  # % işaretlerini kaldır
+    d = re.sub(r"[^0-9A-Z./]", "", d)
     try:
         num = re.search(r"[\d.]+", d)
         if num:
@@ -433,24 +433,15 @@ def karsilastirma_excel_yaz(
                 degerler.append((banka, "mobil", bd.get("mobil", "")))
                 degerler.append((banka, "sube",  bd.get("sube", "")))
 
-            mobil_norm = [_norm_deger(v.split("\n")[0]) for (_, k, v) in degerler if k == "mobil" and v]
-            sube_norm  = [_norm_deger(v.split("\n")[0]) for (_, k, v) in degerler if k == "sube"  and v]
-            mobil_fark = len(set(mobil_norm)) > 1
-            sube_fark  = len(set(sube_norm)) > 1
-
             for i, (banka, kanal, d) in enumerate(degerler):
                 cell_value = d if d else ""
                 c = ws.cell(row=row, column=col, value=cell_value)
                 c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
                 sb(c)
 
-                fark = mobil_fark if kanal == "mobil" else sube_fark
-                if fark and d:
-                    c.fill = YELLOW
-                    c.font = Font(size=10, color="FF0000", bold=True)
-                else:
-                    c.font = Font(size=10, color=BANKA_VERI_RENK[banka],
-                                  bold=(kanal == "mobil"))
+                # Tüm hücreler aynı renkte yazılır (banka renginde), vurgulama yok
+                c.font = Font(size=10, color=BANKA_VERI_RENK[banka],
+                             bold=(kanal == "mobil"))
                 col += 1
 
             ws.row_dimensions[row].height = 20
