@@ -99,6 +99,30 @@ def _extract(table, kat):
                                     site_guncelleme_tarihi=tarih, kanal=kanal))
     return satirlar
 
+def _cerez_kapat(page):
+    """
+    Sayfanın altında beliren çerez izni banner'ı ("Tümünü Kabul Et" vb.)
+    accordion'ların üzerine bindiği için Playwright'ın click() çağrıları
+    sessizce başarısız olabiliyor (except: pass ile yutuluyor). Bu yüzden
+    accordion'lara tıklamadan ÖNCE banner'ı kapatmak gerekiyor.
+    """
+    for sel in [
+        "#onetrust-accept-btn-handler",
+        "button:has-text('Tümünü Kabul Et')",
+        "text=Tümünü Kabul Et",
+        "button:has-text('Kabul Et')",
+        ".cookie-accept",
+        "[class*='cookie'] button",
+    ]:
+        try:
+            page.click(sel, timeout=3000)
+            page.wait_for_timeout(500)
+            print("[yapikredi] çerez banner'ı kapatıldı.", file=sys.stderr)
+            return
+        except:
+            pass
+    print("[yapikredi] çerez banner'ı bulunamadı/kapatılamadı (devam ediliyor).", file=sys.stderr)
+
 def scrape_yapikredi(url=YAPIKREDI_URL) -> List[UcretSatiri]:
     from playwright.sync_api import sync_playwright
     from bs4 import BeautifulSoup
@@ -113,9 +137,12 @@ def scrape_yapikredi(url=YAPIKREDI_URL) -> List[UcretSatiri]:
             page.goto(url, timeout=120000, wait_until="domcontentloaded")
             page.wait_for_timeout(5000)
 
-            # Accordion/tab'ları aç (Garanti/Akbank'ta olduğu gibi) - EFT gibi
-            # tablolar varsayılan kapalı accordion içinde olduğu için tıklanmazsa
-            # DOM'a hiç render edilmiyor ve scraper hiçbir satır bulamıyor.
+            # 1) Çerez banner'ını kapat - accordion tıklamalarını engelleyebiliyor.
+            _cerez_kapat(page)
+
+            # 2) Accordion/tab'ları aç (Garanti/Akbank'ta olduğu gibi) - EFT gibi
+            #    tablolar varsayılan kapalı accordion içinde olduğu için tıklanmazsa
+            #    DOM'a hiç render edilmiyor ve scraper hiçbir satır bulamıyor.
             for sel in [
                 "button[aria-expanded='false']",
                 ".accordion-button.collapsed",
