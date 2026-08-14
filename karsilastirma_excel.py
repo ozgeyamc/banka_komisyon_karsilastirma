@@ -77,8 +77,32 @@ def _norm(m: str) -> str:
 
 
 def _extract_tutar(m: str) -> Optional[str]:
+    """
+    Metindeki tutar aralığını standart bir etikete çevirir.
+
+    Önceki hatalı yaklaşım tüm nokta/virgül/boşlukları tek seferde siliyordu.
+    Bu, "8.300,01" gibi ondalıklı sayılarda binlik ayracı (nokta) ile ondalık
+    ayracının (virgül) aynı anda kaybolmasına ve rakamların birbirine
+    yapışmasına (8.300,01 -> 830001) sebep oluyordu. Böylece "8300-399000"
+    deseni artık eşleşemiyor ve tutar tespiti başarısız oluyordu.
+
+    Düzeltme: önce binlik ayracı olan nokta gruplarını kaldır (8.300 -> 8300),
+    sonra kalan ondalık virgülleri (,01 gibi) at, en son boşlukları temizle.
+    """
     m2 = m.replace("–", "-").replace("—", "-")
-    m2 = re.sub(r"[.,\s]", "", m2)
+
+    # 1) Binlik ayracı olan nokta gruplarını kaldır (örn: 8.300 -> 8300,
+    #    399.000 -> 399000, 1.399.000 -> 1399000). global re.sub tüm
+    #    eşleşmeleri değiştirir, ardışık gruplar için de doğru çalışır.
+    while re.search(r"\d\.\d{3}(\D|$)", m2):
+        m2 = re.sub(r"(\d)\.(\d{3})", r"\1\2", m2)
+
+    # 2) Kalan ondalık virgülleri (örn: ,01) at
+    m2 = re.sub(r",\d+", "", m2)
+
+    # 3) Boşlukları temizle
+    m2 = re.sub(r"\s", "", m2)
+
     patterns = [
         (r"0[-]8300",        "0-8300"),
         (r"8300[-]399000",   "8300-399000"),
