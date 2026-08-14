@@ -111,7 +111,28 @@ def scrape_yapikredi(url=YAPIKREDI_URL) -> List[UcretSatiri]:
                                        extra_http_headers={"Accept-Language":"tr-TR,tr;q=0.9"})
             page = ctx.new_page()
             page.goto(url, timeout=120000, wait_until="domcontentloaded")
-            page.wait_for_timeout(8000)
+            page.wait_for_timeout(5000)
+
+            # Accordion/tab'ları aç (Garanti/Akbank'ta olduğu gibi) - EFT gibi
+            # tablolar varsayılan kapalı accordion içinde olduğu için tıklanmazsa
+            # DOM'a hiç render edilmiyor ve scraper hiçbir satır bulamıyor.
+            for sel in [
+                "button[aria-expanded='false']",
+                ".accordion-button.collapsed",
+                "[data-bs-toggle='collapse']",
+                ".card-header button",
+                "[class*='accordion']",
+                "[class*='tab-']",
+                "[role='tab']",
+            ]:
+                for el in page.query_selector_all(sel):
+                    try:
+                        el.click(timeout=1500)
+                        page.wait_for_timeout(300)
+                    except:
+                        pass
+
+            page.wait_for_timeout(3000)
             html = page.content()
         finally:
             browser.close()
