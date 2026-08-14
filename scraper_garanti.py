@@ -64,6 +64,21 @@ def _find_category_title(table) -> str:
     return "Genel"
 
 
+def _kanal_tespit(kategori: str, masraf: str) -> str:
+    """
+    Kanal bilgisi çoğu zaman masraf metninde değil, tablo başlığı/kategori
+    metninde geçer. Her ikisi birlikte kontrol edilir.
+    """
+    kaynak = f"{kategori} {masraf}".lower()
+    if any(k in kaynak for k in ["mobil", "internet şube", "i̇nternet şube", "işcep", "iscep", "online", "dijital"]):
+        return "mobil"
+    if any(k in kaynak for k in ["şube", "sube", "çözüm merkezi", "cozum merkezi", "gişe", "gise"]):
+        return "sube"
+    if "atm" in kaynak:
+        return "mobil"
+    return ""
+
+
 def _extract_rows(table, kategori) -> List[UcretSatiri]:
     satirlar = []
     thead = table.find("thead")
@@ -111,13 +126,7 @@ def _extract_rows(table, kategori) -> List[UcretSatiri]:
         aciklama, at = _parse_aciklama(g(cac))
         if not tarih: tarih = at
 
-        ml = masraf.lower()
-        if "mobil" in ml or "internet" in ml:
-            kanal = "mobil"
-        elif "şube" in ml:
-            kanal = "sube"
-        else:
-            kanal = ""
+        kanal = _kanal_tespit(kategori, masraf)
 
         satirlar.append(UcretSatiri(
             kategori=kategori, masraf=masraf,
