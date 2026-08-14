@@ -80,43 +80,63 @@ def _extract_tutar(m: str) -> Optional[str]:
     """
     Metindeki tutar aralığını standart bir etikete çevirir.
 
-    Önceki hatalı yaklaşım tüm nokta/virgül/boşlukları tek seferde siliyordu.
-    Bu, "8.300,01" gibi ondalıklı sayılarda binlik ayracı (nokta) ile ondalık
-    ayracının (virgül) aynı anda kaybolmasına ve rakamların birbirine
-    yapışmasına (8.300,01 -> 830001) sebep oluyordu. Böylece "8300-399000"
-    deseni artık eşleşemiyor ve tutar tespiti başarısız oluyordu.
+    Eski yaklaşım "8300-399000" gibi bir alt-string arıyordu. Ancak Akbank
+    ("8.300,01 TL - 399.000 TL arasında") ve Yapı Kredi ("8.300,01 TL – 399.000 TL")
+    sayılar arasına "TL" gibi metin soktuğu için bu substring hiç oluşmuyordu ve
+    tutar tespiti başarısız oluyordu. Ayrıca Akbank'ın "ve Altı" / "ve Üstü" gibi
+    kelime bazlı sınır ifadeleri de hiç yakalanmıyordu.
 
-    Düzeltme: önce binlik ayracı olan nokta gruplarını kaldır (8.300 -> 8300),
-    sonra kalan ondalık virgülleri (,01 gibi) at, en son boşlukları temizle.
+    Yeni yaklaşım: metindeki sayıları çıkarıp büyüklüklerine göre, ve
+    "ve altı"/"ve üstü" gibi anahtar kelimelere göre bandı belirler.
     """
-    m2 = m.replace("–", "-").replace("—", "-")
+    t = m.replace("–", "-").replace("—", "-").lower()
+    tn = _norm(m)  # türkçe karakterleri sadeleştirilmiş hali (anahtar kelime kontrolü için)
 
-    # 1) Binlik ayracı olan nokta gruplarını kaldır (örn: 8.300 -> 8300,
-    #    399.000 -> 399000, 1.399.000 -> 1399000). global re.sub tüm
-    #    eşleşmeleri değiştirir, ardışık gruplar için de doğru çalışır.
-    while re.search(r"\d\.\d{3}(\D|$)", m2):
-        m2 = re.sub(r"(\d)\.(\d{3})", r"\1\2", m2)
-
-    # 2) Kalan ondalık virgülleri (örn: ,01) at
-    m2 = re.sub(r",\d+", "", m2)
-
-    # 3) Boşlukları temizle
-    m2 = re.sub(r"\s", "", m2)
-
-    patterns = [
-        (r"0[-]8300",        "0-8300"),
-        (r"8300[-]399000",   "8300-399000"),
-        (r"399000",          "399000+"),
-        (r"buyuk|büyük",     "büyük"),
-        (r"orta(?!k)",       "orta"),
-        (r"kucuk|küçük",     "küçük"),
-        (r"1[-]10g",         "1-10gr"),
-        (r"11[-]100g",       "11-100gr"),
-    ]
-    for pat, label in patterns:
-        if re.search(pat, m2, re.IGNORECASE):
+    # Kasa boyutu / gram aralığı etiketleri (öncelikli, sayısal değil)
+    for pat, label in [
+        (r"buyuk|büyük", "büyük"),
+        (r"orta(?!k)", "orta"),
+        (r"kucuk|küçük", "küçük"),
+        (r"1[-\s]*10\s*g", "1-10gr"),
+        (r"11[-\s]*100\s*g", "11-100gr"),
+    ]:
+        if re.search(pat, t, re.IGNORECASE):
             return label
-    return None
+
+    # Metindeki tüm sayıları normalize ederek çıkar (binlik ayracı sil, ondalık at)
+    nums = []
+    for raw in re.findall(r"\d{1,3}(?:\.\d{3})*(?:,\d+)?", t):
+        cleaned = re.sub(r"\.(?=\d{3}(\D|$))", "", raw)
+        cleaned = re.sub(r",\d+$", "", cleaned)
+        if cleaned.isdigit():
+            nums.append(int(cleaned))
+    if not nums:
+        return None
+
+    ust_ifade = any(k in tn for k in ["ve ustu", "ve uzeri", "uzeri", "ustu"])
+    alt_ifade = any(k in tn for k in ["ve alti", "altinda", "ve altinda"])
+
+    if ust_ifade:
+        return "399000+"
+    if alt_ifade:
+        return "0-8300"
+
+    if len(nums) >= 2:
+        ilk = nums[0]
+        if ilk <= 0:
+            return "0-8300"
+        if ilk >= 300000:
+            return "399000+"
+        return "8300-399000"
+
+    ilk = nums[0]
+    if ilk <= 0:
+        return "0-8300"
+    if ilk >= 300000:
+        return "399000+"
+    if ilk <= 8300:
+        return "0-8300"
+    return "8300-399000"
 
 
 def _norm_deger(d: str) -> str:
