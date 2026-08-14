@@ -68,29 +68,64 @@ def _deger(s: UcretSatiri) -> str:
     return " / ".join(parts) if parts else ""
 
 
-def _norm(m: str) -> str:
-    m = m.lower().strip()
-    for a, b in [("ı","i"),("ğ","g"),("ü","u"),("ş","s"),("ö","o"),("ç","c"),
-                 ("â","a"),("î","i"),("û","u"),("i̇","i")]:
-        m = m.replace(a, b)
-    return re.sub(r"\s+", " ", m).strip()
-
-
 def _extract_tutar(m: str) -> Optional[str]:
     """
     Metindeki tutar aralığını standart bir etikete çevirir.
 
     Eski yaklaşım "8300-399000" gibi bir alt-string arıyordu. Ancak Akbank
     ("8.300,01 TL - 399.000 TL arasında") ve Yapı Kredi ("8.300,01 TL – 399.000 TL")
-    sayılar arasına "TL" gibi metin soktuğu için bu substring hiç oluşmuyordu ve
-    tutar tespiti başarısız oluyordu. Ayrıca Akbank'ın "ve Altı" / "ve Üstü" gibi
-    kelime bazlı sınır ifadeleri de hiç yakalanmıyordu.
-
-    Yeni yaklaşım: metindeki sayıları çıkarıp büyüklüklerine göre, ve
-    "ve altı"/"ve üstü" gibi anahtar kelimelere göre bandı belirler.
+    gibi formatlarda sayılar arasına "TL" gibi metin girdiği için bu substring
+    hiç oluşmuyor ve tutar tespiti başarısız oluyordu (rakamlar "830001TL..."
+    şeklinde birbirine yapışıyordu). Yeni yaklaşım: metindeki sayıları çıkarıp
+    büyüklüklerine göre, ve "ve altı"/"ve üstü" gibi anahtar kelimelere göre
+    bandı belirler.
     """
     t = m.replace("–", "-").replace("—", "-").lower()
-    tn = _norm(m)  # türkçe karakterleri sadeleştirilmiş hali (anahtar kelime kontrolü için)
+    tn = _norm(m)
+
+    for pat, label in [
+        (r"buyuk|büyük", "büyük"),
+        (r"orta(?!k)", "orta"),
+        (r"kucuk|küçük", "küçük"),
+        (r"1[-\s]*10\s*g", "1-10gr"),
+        (r"11[-\s]*100\s*g", "11-100gr"),
+    ]:
+        if re.search(pat, t, re.IGNORECASE):
+            return label
+
+    nums = []
+    for raw in re.findall(r"\d{1,3}(?:\.\d{3})*(?:,\d+)?", t):
+        cleaned = re.sub(r"\.(?=\d{3}(\D|$))", "", raw)
+        cleaned = re.sub(r",\d+$", "", cleaned)
+        if cleaned.isdigit():
+            nums.append(int(cleaned))
+    if not nums:
+        return None
+
+    ust_ifade = any(k in tn for k in ["ve ustu", "ve uzeri", "uzeri", "ustu"])
+    alt_ifade = any(k in tn for k in ["ve alti", "altinda", "ve altinda"])
+
+    if ust_ifade:
+        return "399000+"
+    if alt_ifade:
+        return "0-8300"
+
+    if len(nums) >= 2:
+        ilk = nums[0]
+        if ilk <= 0:
+            return "0-8300"
+        if ilk >= 300000:
+            return "399000+"
+        return "8300-399000"
+
+    ilk = nums[0]
+    if ilk <= 0:
+        return "0-8300"
+    if ilk >= 300000:
+        return "399000+"
+    if ilk <= 8300:
+        return "0-8300"
+    return "8300-399000"
 
     # Kasa boyutu / gram aralığı etiketleri (öncelikli, sayısal değil)
     for pat, label in [
