@@ -40,6 +40,20 @@ def _find_cat(el, fallback):
         p = p.parent
     return fallback
 
+def _kanal_tespit(kategori: str, masraf: str) -> str:
+    """
+    Kanal bilgisi çoğu zaman masraf metninde değil, tablo başlığı/kategori
+    metninde geçer. Her ikisi birlikte kontrol edilir.
+    """
+    kaynak = f"{kategori} {masraf}".lower()
+    if any(k in kaynak for k in ["mobil", "internet şube", "i̇nternet şube", "işcep", "iscep", "online", "dijital"]):
+        return "mobil"
+    if any(k in kaynak for k in ["şube", "sube", "çözüm merkezi", "cozum merkezi", "gişe", "gise"]):
+        return "sube"
+    if "atm" in kaynak:
+        return "mobil"
+    return ""
+
 def _extract(table, kat):
     satirlar = []
     thead = table.find("thead"); tbody = table.find("tbody")
@@ -77,8 +91,7 @@ def _extract(table, kat):
         tarih=g(ct) if ct>=0 else ""
         aciklama,at=_parse_aciklama(g(cac))
         if not tarih: tarih=at
-        ml=masraf.lower()
-        kanal="mobil" if ("mobil" in ml or "internet" in ml) else ("sube" if "şube" in ml else "")
+        kanal = _kanal_tespit(kat, masraf)
         satirlar.append(UcretSatiri(kategori=kat,masraf=masraf,asgari_tutar=g(ca1),asgari_oran=g(ca2),
                                     azami_tutar=g(cz1),azami_oran=g(cz2),aciklama=aciklama,
                                     site_guncelleme_tarihi=tarih,kanal=kanal))
