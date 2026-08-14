@@ -1,15 +1,6 @@
 """
-Banka komisyon karşılaştırma - Excel çıktısı.
-
-Kategori eşleştirmesi anahtar kelime tabanlı bir sınıflandırıcı ile yapılıyor.
-ÖNEMLİ: Tüm anahtar kelime kontrolleri KELİME SINIRI (\\b) ile yapılır, düz
-substring ("in") kontrolü YAPILMAZ. Sebep: düz substring kontrolü ciddi
-yanlış eşleşmelere yol açıyordu, örn:
-  - "Çek Defteri" kelimesindeki "defteri" -> içinde "eft" geçiyor, düz
-    substring kontrolüyle yanlışlıkla "EFT Gönderimi" kategorisine düşüyordu.
-  - "Gerçek Kişi" ifadesindeki "gerçek" -> içinde "çek" geçiyor, düz
-    substring kontrolüyle yanlışlıkla "Çek" kategorisine düşebilirdi.
-Bu yüzden _kelime_var() fonksiyonu regex \\b...\\b kullanır.
+Bankalardan çekilen verileri karşılaştırmalı Excel formatında yazan modül.
+Eşleştirme: işlem tipi + tutar aralığı standardizasyonu ile yapılır.
 """
 
 import os
@@ -23,10 +14,7 @@ from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 
 EXCEL_DOSYA_ADI = "komisyon_karsilastirma.xlsx"
-
-# NOT: notify.py bu sabiti buradan import ediyor. Burada değiştirirsen
-# notify.py otomatik senkron kalır - iki dosyada ayrı ayrı tutmayın.
-SHEET_ADI = "KARŞILAŞTIRMA"
+SHEET_ADI = "karşılaştırma"
 
 BANKALAR = ["GARANTİ", "İŞBANKASI", "AKBANK", "YAPIKREDI"]
 BANKA_TAMAD = {
@@ -35,6 +23,7 @@ BANKA_TAMAD = {
     "AKBANK":    "Akbank",
     "YAPIKREDI": "Yapı ve Kredi Bankası",
 }
+
 BANKA_RENKLER = {
     "GARANTİ":   {"bg": "00B050", "fg": "FFFFFF"},
     "İŞBANKASI": {"bg": "012169", "fg": "FFFFFF"},
@@ -44,15 +33,279 @@ BANKA_RENKLER = {
 
 thin = Side(style="thin", color="CCCCCC")
 BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
+YELLOW = PatternFill(start_color="FFFF00", end_color="FFFF00", fill_type="solid")
 
-# ── Standart kategori adları ve Excel'deki sırası ──
+
+def _bugun() -> str:
+    tz = timezone(timedelta(hours=3))
+    return datetime.now(tz).strftime("%d.%m.%Y %H:%M")
+
+
+def _deger(s: UcretSatiri) -> str:
+    t = (s.asgari_tutar or "").strip()
+    o = (s.asgari_oran  or "").strip()
+    parts = []
+    if t: parts.append(t)
+    if o: parts.append(o)
+    return " / ".join(parts) if parts else ""
+
+
+def _norm(m: str) -> str:
+    m = m.lower().strip()
+    for a, b in [("ı","i"),("ğ","g"),("ü","u"),("ş","s"),("ö","o"),("ç","c"),
+                 ("â","a"),("î","i"),("û","u"),("i̇","i")]:
+        m = m.replace(a, b)
+    return re.sub(r"\s+", " ", m).strip()
+
+
+def _extract_tutar(m: str) -> Optional[str]:
+    m2 = m.replace("–", "-").replace("—", "-")
+    m2 = re.sub(r"[.,\s]", "", m2)
+    patterns = [
+        (r"0[-]8300",        "0-8300"),
+        (r"8300[-]399000",   "8300-399000"),
+        (r"399000",          "399000+"),
+        (r"buyuk|büyük",     "büyük"),
+        (r"orta(?!k)",       "orta"),
+        (r"kucuk|küçük",     "küçük"),
+        (r"1[-]10g",         "1-10gr"),
+        (r"11[-]100g",       "11-100gr"),
+    ]
+    for pat, label in patterns:
+        if re.search(pat, m2, re.IGNORECASE):
+            return label
+    return None
+
+
+def _norm_deger(d: str) -> str:
+    if not d:
+        return ""
+    d = d.strip().upper()
+    d = re.sub(r"(\d),(\d)", r"\1.\2", d)
+    d = d.replace(" ", "").replace("TL", "TRY")
+    d = re.sub(r"[^0-9A-Z%./]", "", d)
+    try:
+        num = re.search(r"[\d.]+", d)
+        if num:
+            val = float(num.group())
+            d = d[:num.start()] + f"{val:.2f}" + d[num.end():]
+    except Exception:
+        pass
+    return d
+
+
+def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
+    yk_kat = ""
+    if " | " in masraf:
+        parts = masraf.split(" | ", 1)
+        yk_kat = _norm(parts[0])
+        masraf = parts[1]
+
+    n = _norm(masraf)
+    tutar = _extract_tutar(masraf)
+
+    def kanal():
+        if any(k in n for k in ["mobil","internet","iscep","online","dijital"]):
+            return "mobil"
+        if any(k in n for k in ["sube","şube","gise","gişe","cozum","çözüm","iletisim"]):
+            return "sube"
+        if "atm" in n:
+            return "mobil"
+        return ""
+
+    if yk_kat:
+        if "eft" in yk_kat or "fast" in yk_kat:
+            if "fast" in yk_kat:
+                label = f"FAST - {tutar} TRY" if tutar else "FAST"
+                return "FAST", label, kanal()
+            label = f"EFT - {tutar} TRY" if tutar else "EFT Gönderimi"
+            return "EFT Gönderimi", label, kanal()
+        if "havale" in yk_kat and "atm" not in yk_kat:
+            if "duzenli" in n or "talimat" in n:
+                label = f"Düzenli Havale - {tutar} TRY" if tutar else "Düzenli Havale"
+                return "Havale Gönderimi", label, kanal()
+            label = f"Havale - {tutar} TRY" if tutar else "Havale Gönderimi"
+            return "Havale Gönderimi", label, kanal()
+        if "atm" in yk_kat and "havale" in yk_kat:
+            label = f"Havale - {tutar} TRY" if tutar else "Havale Gönderimi"
+            return "Havale Gönderimi", label, "mobil"
+        if "kiralik kasa" in yk_kat or "kiralık kasa" in yk_kat:
+            if "depozito" in n:
+                return "Kiralık Kasa", f"Kasa Depozito - {tutar or n}", ""
+            return "Kiralık Kasa", f"Yıllık Kasa Ücreti - {tutar or n}", ""
+        if "senet" in yk_kat:
+            if "iade" in n:
+                return "Senet İade Ücreti", "Senet İade Ücreti", ""
+            if "protesto" in n and "kaldir" in n:
+                return "Senet Protesto İşlemleri Ücreti", "Senet Protesto Kaldırma -", ""
+            if "protesto" in n:
+                return "Senet Protesto İşlemleri Ücreti", "Senet Protesto -", ""
+            if "bankamizda" in n or "bankamızda" in n:
+                return "Senet Tahsile Alma Ücreti", "Aynı Banka Senet Tahsili -", ""
+            return "Senet Tahsile Alma Ücreti", "Muhabir Banka Senet Tahsili -", ""
+        if "cek" in yk_kat or "çek" in yk_kat:
+            if "ayni sube" in n or "aynı şube" in n:
+                return "Çek Tahsilat Ücreti", "Aynı Banka Çeki -", ""
+            if "baska sube" in n or "başka şube" in n:
+                return "Çek Tahsilat Ücreti", "Diğer Banka Çeki -", ""
+            if "karsiliksiz" in n:
+                return "Çek Belgelendirme ve Düzeltme Ücreti", "Karşılıksız Çek Belgelendirme -", ""
+            if "iade" in n:
+                return "Çek İade Ücreti", "Çek İade Ücreti", ""
+            if "yaprak" in n or "defteri" in n:
+                return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Defteri (Yaprak Başı) -", ""
+            if "duzenleme" in n:
+                return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Düzenleme -", ""
+            return "Çek Tahsilat Ücreti", "Çek Tahsilat", ""
+        if "ortak atm" in yk_kat:
+            if "bakiye" in n:
+                return "Bakiye Sorma - Yurtiçi - ATM", "Bakiye Sorma - Yurtiçi - ATM", ""
+        if "kurum tahsilat" in yk_kat or "kredi karti islem" in yk_kat:
+            if "fatura" in n:
+                return "Fatura Ödemeleri - Kart", "Fatura Ödemeleri", kanal()
+            if "sgk" in n or "prim" in n:
+                return "SGK Prim Ödemeleri", "SGK Prim Ödemeleri", kanal()
+        if "findeks" in yk_kat or ("kredi" in yk_kat and "risk" in yk_kat):
+            return ("Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
+                    "Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
+                    kanal())
+        if "referans" in yk_kat:
+            return "Mevduat Araştırma", "Referans Mektubu -", kanal()
+        return None, None, ""
+
+    if "eft" in n and "swift" not in n and "uluslararasi" not in n:
+        if "duzenli" in n or "supurme" in n:
+            label = f"Düzenli EFT - {tutar} TRY" if tutar else "Düzenli EFT"
+            return "EFT Gönderimi", label, kanal()
+        if "odenmesi" in n or "isme gelen" in n:
+            return "EFT Gönderimi", "EFT İsme Gelen", "sube"
+        label = f"EFT - {tutar} TRY" if tutar else "EFT Gönderimi"
+        return "EFT Gönderimi", label, kanal()
+
+    if "havale" in n and "uluslararasi" not in n and "swift" not in n:
+        if "duzenli" in n or "supurme" in n:
+            label = f"Düzenli Havale - {tutar} TRY" if tutar else "Düzenli Havale"
+            return "Havale Gönderimi", label, kanal()
+        if "cebe para" in n:
+            return "Havale Gönderimi", "Cebe Para Gönderme", kanal()
+        label = f"Havale - {tutar} TRY" if tutar else "Havale Gönderimi"
+        return "Havale Gönderimi", label, kanal()
+
+    if "fast" in n:
+        label = f"FAST - {tutar} TRY" if tutar else "FAST"
+        return "FAST", label, kanal()
+
+    if "kasa" in n:
+        if "depozito" in n:
+            return "Kiralık Kasa", f"Kasa Depozito - {tutar or 'genel'}", ""
+        return "Kiralık Kasa", f"Yıllık Kasa Ücreti - {tutar or 'genel'}", ""
+
+    if "altin" in n or "kiymetli maden" in n or "ats" in n:
+        label = f"Altın Transfer - {tutar}" if tutar else "Altın Transfer"
+        return "Kıymetli Maden", label, kanal()
+
+    if "hgs" in n:
+        if "etiket" in n:
+            return "HGS Etiket Bedeli", "HGS Etiket Bedeli", ""
+        return "HGS", "HGS Kart Ücreti", ""
+
+    if "sans oyunu" in n or "piyango" in n:
+        return "Şans Oyunu Ödemeleri Aracılık", "Şans Oyunu Ödemeleri Aracılık", kanal()
+
+    if "fatura" in n and "kredi" not in n and "ekstre" not in n:
+        return "Fatura Ödemeleri - Kart", "Fatura Ödemeleri", kanal()
+
+    if "sgk" in n:
+        label = f"SGK - {tutar} TRY" if tutar else "SGK Prim Ödemeleri"
+        return "SGK Prim Ödemeleri", label, kanal()
+
+    if "vergi" in n and "kredi" not in n:
+        label = f"Vergi - {tutar} TRY" if tutar else "Vergi Tahsilat"
+        return "Vergi Tahsilat Aracılık", label, kanal()
+
+    if "aidat" in n:
+        label = f"Aidat - {tutar} TRY" if tutar else "Aidat Ödemeleri"
+        return "Aidat Ödemeleri Aracılık", label, kanal()
+
+    if "okul" in n:
+        label = f"Özel Okul - {tutar} TRY" if tutar else "Özel Okul Ödeme"
+        return "Özel Okul Ödeme", label, kanal()
+
+    if "telefon" in n:
+        label = f"Telefon - {tutar} TRY" if tutar else "Telefon Ödemeleri"
+        return "Telefon Ödemeleri Aracılık", label, kanal()
+
+    if "arsiv" in n:
+        return "Arşiv Araştırma Ücreti", "Arşiv Araştırma Ücreti", kanal()
+
+    if "referans" in n or "itibar" in n or "niyet" in n:
+        return "Mevduat Araştırma", "Referans Mektubu -", kanal()
+    if "hesap ozeti" in n:
+        return "Mevduat Araştırma", "Hesap Özeti Verilmesi -", kanal()
+    if "hesap arastirma" in n:
+        return "Mevduat Araştırma", "Hesap Araştırma Talebi -", kanal()
+    if "borcu yok" in n:
+        return "Mevduat Araştırma", "Borcu Yoktur Yazısı", kanal()
+    if "vize" in n and "okul" in n:
+        return "Mevduat Araştırma", "Vize ve Özel Okullar için Düzenlenen Mektuplar -", kanal()
+
+    if "bakiye" in n and "atm" in n:
+        if "yurtici" in n or ("yurt" in n and "dis" not in n):
+            return "Bakiye Sorma - Yurtiçi - ATM", "Bakiye Sorma - Yurtiçi - ATM", ""
+        return "Bakiye Sorma - Yurtdışı - ATM", "Bakiye Sorma - Yurtdışı - ATM", ""
+
+    if "kkb" in n or ("kredi" in n and "risk" in n) or ("ucuncu" in n and "rapor" in n):
+        return ("Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
+                "Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
+                kanal())
+
+    if ("cek" in n or "çek" in n) and ("defteri" in n or "yaprak" in n or "teslim" in n):
+        return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Defteri (Yaprak Başı) -", ""
+    if ("cek" in n or "çek" in n) and "duzenleme" in n:
+        if "ozel" in n or "nitelik" in n:
+            return "Çek Defteri ve Çek Düzenleme Ücreti", "Özel Nitelikli Çek Düzenleme -", ""
+        return "Çek Defteri ve Çek Düzenleme Ücreti", "Çek Düzenleme -", ""
+
+    if ("cek" in n or "çek" in n) and "iade" in n:
+        return "Çek İade Ücreti", "Çek İade Ücreti", ""
+
+    if ("cek" in n or "çek" in n) and ("tahsil" in n or "odeme" in n):
+        if "ayni banka" in n or "aynı banka" in n:
+            return "Çek Tahsilat Ücreti", "Aynı Banka Çeki -", ""
+        if "diger banka" in n or "baska banka" in n:
+            return "Çek Tahsilat Ücreti", "Diğer Banka Çeki -", ""
+        if "doviz" in n or "yp" in n:
+            return "Çek Tahsilat Ücreti", "Döviz Çekleri Tahsilatı (Diğer Banka) -", ""
+        return "Çek Tahsilat Ücreti", "Çek Tahsilat", ""
+
+    if ("cek" in n or "çek" in n) and ("belgelend" in n or "karsiliksiz" in n or "duzeltme" in n):
+        if "karsiliksiz" in n:
+            return "Çek Belgelendirme ve Düzeltme Ücreti", "Karşılıksız Çek Belgelendirme -", ""
+        return "Çek Belgelendirme ve Düzeltme Ücreti", "Çek Düzeltme Hakkı -", ""
+
+    if "senet" in n and "iade" in n:
+        return "Senet İade Ücreti", "Senet İade Ücreti", ""
+
+    if "senet" in n and "protesto" in n:
+        if "kaldir" in n:
+            return "Senet Protesto İşlemleri Ücreti", "Senet Protesto Kaldırma -", ""
+        return "Senet Protesto İşlemleri Ücreti", "Senet Protesto -", ""
+
+    if "senet" in n and ("tahsil" in n or "tahsile" in n):
+        if "ayni" in n:
+            return "Senet Tahsile Alma Ücreti", "Aynı Banka Senet Tahsili -", ""
+        return "Senet Tahsile Alma Ücreti", "Muhabir Banka Senet Tahsili -", ""
+
+    return None, None, ""
+
+
 KATEGORI_SIRA = [
     "EFT Gönderimi",
     "Havale Gönderimi",
     "FAST",
     "Kiralık Kasa",
-    "Kıymetli Maden Teslimleri",
-    "Kredi Risk Raporu",
+    "Kıymetli Maden",
+    "Üçüncü Kişi ve Kuruluşlardan Temin Edilecek Rapor Ücretleri - Kredi Risk Raporu",
     "Fatura Ödemeleri - Kart",
     "SGK Prim Ödemeleri",
     "HGS Etiket Bedeli",
@@ -61,7 +314,6 @@ KATEGORI_SIRA = [
     "Özel Okul Ödeme",
     "Telefon Ödemeleri Aracılık",
     "Vergi Tahsilat Aracılık",
-    "Güvenli Araç Alım Satım",
     "Arşiv Araştırma Ücreti",
     "Mevduat Araştırma",
     "Bakiye Sorma - Yurtiçi - ATM",
@@ -74,158 +326,6 @@ KATEGORI_SIRA = [
     "Senet Protesto İşlemleri Ücreti",
     "Senet Tahsile Alma Ücreti",
 ]
-
-# ── Anahtar kelime tabanlı sınıflandırma kuralları ──
-# Sıra önemli: yukarıdan aşağıya ilk eşleşen kural kazanır.
-# Her kural: (dışlama_kelimeleri, dahil_etme_kelimeleri (herhangi biri), standart_kategori)
-SINIFLANDIRMA_KURALLARI: List[Tuple[List[str], List[str], str]] = [
-    # Kıymetli maden - havale/eft kelimelerinden önce kontrol edilmeli
-    ([], ["kıymetli maden", "altın transfer", "ats ile altın gönderimi",
-          "fiziki altın teslim", "külçe altın"], "Kıymetli Maden Teslimleri"),
-
-    # FAST - eft'den önce kontrol edilmeli
-    ([], ["fast"], "FAST"),
-
-    # EFT (kelime sınırlı - "defteri" gibi kelimelerdeki "eft" yakalanmaz)
-    ([], ["eft"], "EFT Gönderimi"),
-
-    # Havale (uluslararası/swift/western union hariç)
-    (["swift", "uluslararası", "western union", "global fast"], ["havale"], "Havale Gönderimi"),
-
-    # Kiralık Kasa
-    ([], ["kiralık kasa", "kasa24", "kasa 24"], "Kiralık Kasa"),
-
-    # Kredi Risk Raporu
-    ([], ["risk raporu", "kkb", "findeks"], "Kredi Risk Raporu"),
-
-    # HGS
-    ([], ["hgs"], "HGS Etiket Bedeli"),
-
-    # Şans Oyunu
-    ([], ["şans oyun"], "Şans Oyunu Ödemeleri Aracılık"),
-
-    # Güvenli Araç Alım Satım
-    ([], ["güvenli araç"], "Güvenli Araç Alım Satım"),
-
-    # Aidat
-    ([], ["aidat ödeme"], "Aidat Ödemeleri Aracılık"),
-
-    # Özel Okul
-    ([], ["özel okul"], "Özel Okul Ödeme"),
-
-    # Telefon operatör ödemeleri
-    ([], ["telefon operatör", "paket yükleme"], "Telefon Ödemeleri Aracılık"),
-
-    # Vergi tahsilat
-    ([], ["vergi tahsil"], "Vergi Tahsilat Aracılık"),
-
-    # SGK
-    ([], ["sgk"], "SGK Prim Ödemeleri"),
-
-    # Fatura / Kurum ödemeleri (kart üzerinden)
-    ([], ["fatura ödeme", "fatura/kurum", "kurum ödeme", "kurum tahsilat"], "Fatura Ödemeleri - Kart"),
-
-    # Arşiv Araştırma
-    ([], ["arşiv araştırma", "belge ve bilgilendirme", "borcu yoktur"], "Arşiv Araştırma Ücreti"),
-
-    # Mevduat Araştırma / Referans Mektubu / Mutabakat
-    ([], ["referans mektubu", "mutabakat", "teyit yazı", "mevduat araştırma"], "Mevduat Araştırma"),
-
-    # Çek - alt kategoriler (özelden genele; hepsi kelime sınırlı "çek" arar)
-    ([], ["çek iade", "muamelesiz iade"], "Çek İade Ücreti"),
-    ([], ["çek belgelendirme", "karşılıksız çek", "çek düzeltme"], "Çek Belgelendirme ve Düzeltme Ücreti"),
-    ([], ["çek defter", "çek düzenleme", "bloke çek", "karekodlu çek",
-          "karşılıklı çek düzenleme", "hediye çeki", "seyahat çeki"], "Çek Defteri ve Çek Düzenleme Ücreti"),
-    ([], ["çek tahsil", "çek ödeme", "çek takas", "dövizli çek"], "Çek Tahsilat Ücreti"),
-    ([], ["çek"], "Çek Tahsilat Ücreti"),  # genel fallback (kelime sınırlı, "gerçek" gibi kelimeleri yakalamaz)
-
-    # Senet - alt kategoriler
-    ([], ["senet iade", "protestosuz"], "Senet İade Ücreti"),
-    ([], ["senet protesto", "protesto kaldırma"], "Senet Protesto İşlemleri Ücreti"),
-    ([], ["senet tahsil"], "Senet Tahsile Alma Ücreti"),
-    ([], ["senet"], "Senet Tahsile Alma Ücreti"),  # genel fallback
-]
-
-# Bakiye sorma özel kural: yurt içi/yurt dışı ayrımı ayrı kontrol ediliyor.
-_BAKIYE_ANAHTAR = ["bakiye sorgulama", "bakiye sorma", "vach bakiye", "limit sorgulama"]
-_YURTDISI_ANAHTAR = ["yurtdışı", "yurt dışı", "yurt dişi"]
-
-# Kelime sınırı regex önbelleği (performans için)
-_PATTERN_CACHE: Dict[str, re.Pattern] = {}
-
-
-def _kelime_var(kelime: str, metin: str) -> bool:
-    """Kelime sınırlarına saygılı arama. Düz 'in' kontrolünden farklı olarak
-    'defteri' içindeki 'eft' veya 'gerçek' içindeki 'çek' gibi yanlış
-    eşleşmeleri engeller."""
-    pat = _PATTERN_CACHE.get(kelime)
-    if pat is None:
-        pat = re.compile(r"\b" + re.escape(kelime) + r"\b", re.UNICODE)
-        _PATTERN_CACHE[kelime] = pat
-    return bool(pat.search(metin))
-
-
-def _herhangi_biri_var(kelimeler: List[str], metin: str) -> bool:
-    return any(_kelime_var(k, metin) for k in kelimeler)
-
-
-def _normalize_metin(kategori: str, masraf: str) -> str:
-    return f"{kategori} {masraf}".lower().replace("i̇", "i")
-
-
-def _standart_kategori(kategori: str, masraf: str) -> Optional[str]:
-    """Anahtar kelime tabanlı sınıflandırma. İlk eşleşen kural kazanır."""
-    metin = _normalize_metin(kategori, masraf)
-
-    # Bakiye sorma önce kontrol edilsin (kendi içinde yurtiçi/yurtdışı ayrımı var)
-    if _herhangi_biri_var(_BAKIYE_ANAHTAR, metin):
-        if _herhangi_biri_var(_YURTDISI_ANAHTAR, metin):
-            return "Bakiye Sorma - Yurtdışı - ATM"
-        return "Bakiye Sorma - Yurtiçi - ATM"
-
-    for disla, dahil, standart in SINIFLANDIRMA_KURALLARI:
-        if disla and _herhangi_biri_var(disla, metin):
-            continue
-        if _herhangi_biri_var(dahil, metin):
-            return standart
-
-    return None
-
-
-def _kanal_bul(kategori: str, masraf: str, scraper_kanal: str) -> str:
-    """Kanal (mobil/şube) tespiti - hem kategori hem masraf metnine bakar."""
-    if scraper_kanal in ("mobil", "sube"):
-        return scraper_kanal
-    metin = _normalize_metin(kategori, masraf)
-    if _herhangi_biri_var(["mobil", "internet", "iscep", "işcep", "online",
-                            "dijital", "asistan"], metin):
-        return "mobil"
-    if _herhangi_biri_var(["şube", "gişe", "çözüm merkezi", "müşteri iletişim"], metin):
-        return "sube"
-    if _kelime_var("atm", metin):
-        return "mobil"
-    return "mobil"
-
-
-def _sayi_temizle(v: str) -> str:
-    v = (v or "").strip()
-    if v in ("-", "", "nan", "None"):
-        return ""
-    return v
-
-
-def _deger(s: UcretSatiri) -> str:
-    """Tutar/oran değerini biçimlendir. Asgari boşsa azami'ye düşer
-    (bazı bankalarda tek kolonluk ücretler 'azami' başlığı altına düşebiliyor)."""
-    t = _sayi_temizle(s.asgari_tutar) or _sayi_temizle(s.azami_tutar)
-    o = _sayi_temizle(s.asgari_oran) or _sayi_temizle(s.azami_oran)
-    parts = [x for x in [t, o] if x]
-    return " / ".join(parts)
-
-
-def _bugun() -> str:
-    tz = timezone(timedelta(hours=3))
-    return datetime.now(tz).strftime("%d.%m.%Y %H:%M")
 
 
 def karsilastirma_excel_yaz(
@@ -243,7 +343,6 @@ def karsilastirma_excel_yaz(
     def sb(cell):
         cell.border = BORDER
 
-    # ── Başlık ──
     ws.merge_cells("A1:A2")
     c = ws["A1"]
     c.fill = PatternFill(start_color="1F3864", end_color="1F3864", fill_type="solid")
@@ -274,51 +373,38 @@ def karsilastirma_excel_yaz(
 
     ws.column_dimensions["A"].width = 42
     for i in range(2, MAX_COL + 1):
-        ws.column_dimensions[get_column_letter(i)].width = 17
+        ws.column_dimensions[get_column_letter(i)].width = 18
     ws.row_dimensions[1].height = 22
     ws.row_dimensions[2].height = 18
     ws.freeze_panes = "A3"
 
-    # ── Veri işleme ──
     kat_satirlar: Dict[str, List[str]] = {}
     veri: Dict[Tuple[str, str], Dict[str, Dict[str, str]]] = {}
 
     for banka in BANKALAR:
         for s in banka_verileri.get(banka, []):
-            masraf = s.masraf or ""
-            kategori = s.kategori or ""
-
-            # Yapıkredi: "KategoriAdı | MasrafAdı" formatı
-            if " | " in masraf:
-                parca = masraf.split(" | ", 1)
-                kategori = parca[0]
-                masraf = parca[1]
-
-            masraf = masraf.strip()
-            if not masraf:
+            kat, isim, kanal = _standart_anahtar(s.masraf)
+            if kat is None:
                 continue
+            if kanal not in ("mobil", "sube"):
+                k2 = (s.kanal or "").lower()
+                kanal = k2 if k2 in ("mobil", "sube") else "mobil"
 
-            std_kat = _standart_kategori(kategori, masraf)
-            if std_kat is None:
-                continue
+            key = (kat, isim)
+            if kat not in kat_satirlar:
+                kat_satirlar[kat] = []
+            if isim not in kat_satirlar[kat]:
+                kat_satirlar[kat].append(isim)
 
-            kanal = _kanal_bul(kategori, masraf, s.kanal or "")
+            if key not in veri:
+                veri[key] = {}
+            if banka not in veri[key]:
+                veri[key][banka] = {"mobil": "", "sube": ""}
 
             d = _deger(s)
-            if not d:
-                continue
-
-            key = (std_kat, masraf)
-            kat_satirlar.setdefault(std_kat, [])
-            if masraf not in kat_satirlar[std_kat]:
-                kat_satirlar[std_kat].append(masraf)
-
-            veri.setdefault(key, {})
-            veri[key].setdefault(banka, {"mobil": "", "sube": ""})
             if d:
                 veri[key][banka][kanal] = d
 
-    # ── Excel yazma ──
     KAT_FONT = Font(bold=True, size=10)
     DATA_FONT = Font(size=10)
     MASRAF_FONT = Font(size=10)
@@ -327,7 +413,7 @@ def karsilastirma_excel_yaz(
     row = 3
     toplam = 0
 
-    def yaz_kat(kat: str):
+    def yaz_kategori_blogu(kat):
         nonlocal row, toplam
         if kat not in kat_satirlar:
             return
@@ -342,25 +428,37 @@ def karsilastirma_excel_yaz(
         ws.row_dimensions[row].height = 16
         row += 1
 
-        for masraf in kat_satirlar[kat]:
-            key = (kat, masraf)
-            mc = ws.cell(row=row, column=1, value=masraf)
+        for isim in kat_satirlar[kat]:
+            key = (kat, isim)
+            mc = ws.cell(row=row, column=1, value=isim)
             mc.font = MASRAF_FONT
-            mc.alignment = Alignment(horizontal="left", vertical="center",
-                                     wrap_text=True, indent=1)
+            mc.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True, indent=1)
             sb(mc)
 
             col = 2
+            degerler = []
             for banka in BANKALAR:
                 bd = veri.get(key, {}).get(banka, {"mobil": "", "sube": ""})
-                for kanal in ("mobil", "sube"):
-                    d = bd.get(kanal, "")
-                    c = ws.cell(row=row, column=col, value=d)
-                    c.font = DATA_FONT
-                    c.alignment = Alignment(horizontal="center", vertical="center",
-                                            wrap_text=True)
-                    sb(c)
-                    col += 1
+                degerler.append(bd.get("mobil", ""))
+                degerler.append(bd.get("sube", ""))
+
+            mobil_norm = [_norm_deger(degerler[i]) for i in range(0, 8, 2) if degerler[i]]
+            sube_norm  = [_norm_deger(degerler[i]) for i in range(1, 8, 2) if degerler[i]]
+            mobil_fark = len(set(mobil_norm)) > 1
+            sube_fark  = len(set(sube_norm)) > 1
+
+            for i, d in enumerate(degerler):
+                c = ws.cell(row=row, column=col, value=d)
+                c.font = DATA_FONT
+                c.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+                sb(c)
+                if i % 2 == 0 and mobil_fark and d:
+                    c.fill = YELLOW
+                    c.font = Font(size=10, color="FF0000", bold=True)
+                elif i % 2 == 1 and sube_fark and d:
+                    c.fill = YELLOW
+                    c.font = Font(size=10, color="FF0000", bold=True)
+                col += 1
 
             ws.row_dimensions[row].height = 20
             row += 1
@@ -369,11 +467,11 @@ def karsilastirma_excel_yaz(
         row += 1
 
     for kat in KATEGORI_SIRA:
-        yaz_kat(kat)
+        yaz_kategori_blogu(kat)
 
     for kat in list(kat_satirlar.keys()):
         if kat not in yazilan:
-            yaz_kat(kat)
+            yaz_kategori_blogu(kat)
 
     ws.cell(row=row, column=1,
             value=f"Son güncelleme: {_bugun()}").font = Font(size=9, color="888888")
