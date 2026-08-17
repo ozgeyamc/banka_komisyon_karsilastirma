@@ -182,18 +182,18 @@ def _standart_anahtar(masraf: str) -> Tuple[str, str, str]:
         label = f"EFT - {tutar} TRY" if tutar else "EFT Gönderimi"
         return "EFT Gönderimi", label, kanal()
 
-    # HAVALE
-    if "havale" in n and "swift" not in n and "uluslararasi" not in n:
+    # SWIFT / Uluslararası / Döviz - HAVALE ÖNCESİ KONTROL ET
+    if "swift" in n or "uluslararasi" in n or "döviz" in n or "doviz" in n or "yurtdisi" in n or "yurt disi" in n:
+        label = f"Uluslararası Transfer - {tutar}" if tutar else "Uluslararası Transfer"
+        return "Uluslararası Transfer", label, kanal()
+
+    # HAVALE - yalnızca YERLİ havale
+    if "havale" in n and "swift" not in n and "uluslararasi" not in n and "döviz" not in n and "doviz" not in n and "yurtdisi" not in n:
         if "duzenli" in n or "supurme" in n:
             label = f"Düzenli Havale - {tutar} TRY" if tutar else "Düzenli Havale"
             return "Havale Gönderimi", label, kanal()
         label = f"Havale - {tutar} TRY" if tutar else "Havale Gönderimi"
         return "Havale Gönderimi", label, kanal()
-
-    # SWIFT / Uluslararası
-    if "swift" in n or "uluslararasi" in n:
-        label = f"Uluslararası Transfer - {tutar}" if tutar else "Uluslararası Transfer"
-        return "Uluslararası Transfer", label, kanal()
 
     # KIYMETLİ MADEN / ALTIN
     if "altin" in n or "kiymetli maden" in n or "ats" in n:
