@@ -1926,7 +1926,7 @@
     - KKB Risk Raporu Hizmet Bedeli (Gerçek kişiler için)-Akbank Mobil
     - KKB Risk Raporu Hizmet Bedeli (Gerçek kişiler için)-Akbank İnternet
     - Fiziki Altın Teslim Etme
-    ... (11 toplam)
+    ... (12 toplam)
 
   [Kredi Kartları]
     - Axess Business
