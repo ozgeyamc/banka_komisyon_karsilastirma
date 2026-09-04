@@ -1918,7 +1918,7 @@
     - Ortak ATM Bakiye Sorgulama
     - Ortak ATM Para Yatırma
     - Düzey 1+ (Yurtiçi yerleşik müşterilerimiz için)
-    ... (36 toplam)
+    ... (35 toplam)
 
   [Kampanyalı Ürün veya Hizmetler Ücreti]
     - Şanj Bürosu Efektif Alış/Satış/Arbitraj İşlemleri
