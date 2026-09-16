@@ -1975,13 +1975,13 @@
   YAPIKREDI
 ============================================================
 
-  [Altın Transferi Ücreti]
-    - Altın Transferi Ücreti | Bankalararası Altın Transferi (11-100 gr)
-    - Altın Transferi Ücreti | Bankalararası Altın Transferi (101-200 gr)
-
   [Havale]
     - Havale | ATM – 8.300,01 TL – 399.000 TL
     - Havale | ATM – 399.000,01 TL ve Üzeri
+
+  [Altın Transferi Ücreti]
+    - Altın Transferi Ücreti | Bankalararası Altın Transferi (11-100 gr)
+    - Altın Transferi Ücreti | Bankalararası Altın Transferi (101-200 gr)
 
   [Konut Kredileri]
     - Konut Kredileri | Aylık Toplam Maliyet (1.000.000 TL; 120 Ay vade için)
