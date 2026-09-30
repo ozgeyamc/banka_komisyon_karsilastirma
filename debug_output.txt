@@ -1999,12 +1999,12 @@
     ... (6 toplam)
 
   [Kredi Kartı Yıllık Üyelik Ücreti]
+    - Kredi Kartı Yıllık Üyelik Ücreti | World Business Kart
     - Kredi Kartı Yıllık Üyelik Ücreti | Worldcard
     - Kredi Kartı Yıllık Üyelik Ücreti | World Gold
     - Kredi Kartı Yıllık Üyelik Ücreti | World Platinum
     - Kredi Kartı Yıllık Üyelik Ücreti | Crystal
-    - Kredi Kartı Yıllık Üyelik Ücreti | Crystal (Metal Kart)
-    ... (31 toplam)
+    ... (32 toplam)
 
   [Kredi Kartı İşlem Ücretleri]
     - Kredi Kartı İşlem Ücretleri | 150,01 TL ve üzeri anlaşmalı kurum fatura ödemeleri
