@@ -1974,6 +1974,132 @@
 ============================================================
   YAPIKREDI
 ============================================================
-  HATA: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.yapikredi.com.tr/bireysel-bankacilik/hesaplama-araclari/bireysel-urun-ve-hizmet-ucretleri
-Call log:
-  - navigating to "https://www.yapikredi.com.tr/bireysel-bankacilik/hesaplama-araclari/bireysel-urun-ve-hizmet-ucretleri", waiting until "domcontentloaded"
+
+  [Havale]
+    - Havale | ATM – 8.300,01 TL – 399.000 TL
+    - Havale | ATM – 399.000,01 TL ve Üzeri
+
+  [Altın Transferi Ücreti]
+    - Altın Transferi Ücreti | Bankalararası Altın Transferi (11-100 gr)
+    - Altın Transferi Ücreti | Bankalararası Altın Transferi (101-200 gr)
+
+  [Konut Kredileri]
+    - Konut Kredileri | Aylık Toplam Maliyet (1.000.000 TL; 120 Ay vade için)
+    - Konut Kredileri | Yıllık Toplam Maliyet (1.000.000 TL; 120 Ay vade için)
+    - Konut Kredileri | Aylık Toplam Maliyet (25.000 TL; 36 ay vade için)
+    - Konut Kredileri | Yıllık Toplam Maliyet (25.000 TL; 36 ay vade için)
+    - Konut Kredileri | Yıllık Toplam Maliyet(100.000 TL; 84 Ay vade için)
+
+  [Banka Kartı]
+    - Banka Kartı | Play TLcard
+    - Banka Kartı | Platinum TLcard
+    - Banka Kartı | Play TLcard
+    - Banka Kartı | Platinum TLcard
+    - Banka Kartı | Play TLcard
+    ... (6 toplam)
+
+  [Kredi Kartı Yıllık Üyelik Ücreti]
+    - Kredi Kartı Yıllık Üyelik Ücreti | World Business Kart
+    - Kredi Kartı Yıllık Üyelik Ücreti | Worldcard
+    - Kredi Kartı Yıllık Üyelik Ücreti | World Gold
+    - Kredi Kartı Yıllık Üyelik Ücreti | World Platinum
+    - Kredi Kartı Yıllık Üyelik Ücreti | Crystal
+    ... (32 toplam)
+
+  [Kredi Kartı İşlem Ücretleri]
+    - Kredi Kartı İşlem Ücretleri | 150,01 TL ve üzeri anlaşmalı kurum fatura ödemeleri
+
+  [Kredi Kartı Faiz Oranları]
+    - Kredi Kartı Faiz Oranları | Dönem borcu 30.000 TL altında olan bireysel kredi kartları
+    - Kredi Kartı Faiz Oranları | Dönem borcu 30.000 - 180.000 TL arasında olan bireysel kredi kartları
+    - Kredi Kartı Faiz Oranları | Dönem borcu 180.000 TL üzerinde olan bireysel kredi kartları
+    - Kredi Kartı Faiz Oranları | Dönem borcu 30.000 TL altında olan bireysel kredi kartları
+    - Kredi Kartı Faiz Oranları | Dönem borcu 30.000 - 180.000 TL arasında olan bireysel kredi kartları
+    ... (8 toplam)
+
+  [Para Çekme]
+    - Para Çekme | Külçe Altın Çekme
+
+  [Ekstre Masrafı]
+    - Ekstre Masrafı | Ekstre Masrafı (Merkezi Gönderim)
+
+  [ATM Kartlı/Kartsız Havale]
+    - ATM Kartlı/Kartsız Havale | ATM Kartlı Havale - 8.300 TL ve altı
+    - ATM Kartlı/Kartsız Havale | ATM Kartlı Havale - 8.300,01 TL - 399.000 TL
+    - ATM Kartlı/Kartsız Havale | ATM Kartsız Havale - 8.300 TL ve altı
+    - ATM Kartlı/Kartsız Havale | ATM Kartsız Havale - 8.300,01 TL - 399.000 TL
+
+  [Kiralık Kasa]
+    - Kiralık Kasa | Orta Boy
+    - Kiralık Kasa | Küçük Boy
+
+  [Merkezi Kayıt Kuruluşu Ücretleri]
+    - Merkezi Kayıt Kuruluşu Ücretleri | Yatırımcı Bilgilendirme Hizmeti
+    - Merkezi Kayıt Kuruluşu Ücretleri | Hesap Bakım
+    - Merkezi Kayıt Kuruluşu Ücretleri | Diğer Yatırım Fonları
+    - Merkezi Kayıt Kuruluşu Ücretleri | ÖSBA, VDMK, VTMK, Gayrimenkul Sertifikası, Kira Sertifikası ve DİBS Anapara
+    - Merkezi Kayıt Kuruluşu Ücretleri | ÖSBA, VDMK, VTMK, Kira Sertifikası ve DİBS Kuponlar
+    ... (19 toplam)
+
+  [Sabit Getirili Menkul Kıymet İşlem Ücretleri]
+    - Sabit Getirili Menkul Kıymet İşlem Ücretleri | Başka Kuruma Eurobond Virmanı
+
+  [Senetler]
+    - Senetler | Senet Tahsili (Bankamızda)
+    - Senetler | Senet Protesto Kaldırma
+    - Senetler | Senet Protestosu
+
+  [Çekler]
+    - Çekler | Karşılıksız Çek Düzeltme Hakkı Kullandırma
+    - Çekler | Hesaba Ödeme
+    - Çekler | Efektif Ödeme
+    - Çekler | Keşide Çeki / Bloke Çek Düzenleme
+    - Çekler | İştira Kaydıyla Alınan YP Çekler- Ülke ve Döviz Cinsi Farklı Olan
+    ... (15 toplam)
+
+  [Global Fast Para Aktarma İşlemleri]
+    - Global Fast Para Aktarma İşlemleri | Global Fast - Hesaba Para Gönderim İşlemleri
+
+  [Western Union Para Gönderme İşlemleri]
+    - Western Union Para Gönderme İşlemleri | USD Gönderimlerde
+    - Western Union Para Gönderme İşlemleri | TL Gönderimlerde
+    - Western Union Para Gönderme İşlemleri | USD Gönderimlerde
+    - Western Union Para Gönderme İşlemleri | EUR Gönderimlerde
+
+  [Findeks Paket Ücretleri]
+    - Findeks Paket Ücretleri | Yılda 50 Rapor
+    - Findeks Paket Ücretleri | Yılda 100 Rapor
+    - Findeks Paket Ücretleri | Yılda 500 Rapor
+    - Findeks Paket Ücretleri | Yılda 1.000 Rapor
+    - Findeks Paket Ücretleri | Yılda 5.000 Rapor
+    ... (16 toplam)
+
+  [Diğer]
+    - Diğer | Güvenli Ödeme Sistemi
+    - Diğer | Yurtdışı Araştırma (Swift'le)
+    - Diğer | Yurtdışı Araştırma (Telefonla)
+    - Diğer | Vergi Numarası Alma ( Yabancı müşteriler için)
+    - Diğer | İstihbarat Bilgisi Düzeltme (Düzeltme hakkını kullanan müşteriler)
+    ... (6 toplam)
+
+  [Taksitli Ticari Kredi]
+    - Taksitli Ticari Kredi | 6 Ocak 2025 Sonrası Kullanılan Krediler
+
+  [Spot Kredi]
+    - Spot Kredi | 6 Ocak 2025 Sonrası Kullanılan Krediler
+
+  [İskonto İştira Kredisi]
+    - İskonto İştira Kredisi | 6 Ocak 2025 Sonrası Kullanılan Krediler
+
+  [Ödeme Planı]
+    - Ödeme Planı | Döviz Cinsi
+    - Ödeme Planı | Müşteri Tipi
+    - Ödeme Planı | Kampanya
+
+  [Hazır Kredi Paketleri]
+    - Hazır Kredi Paketleri | 24
+    - Hazır Kredi Paketleri | 36
+    - Hazır Kredi Paketleri | 36
+    - Hazır Kredi Paketleri | 36
+    - Hazır Kredi Paketleri | 36
+    ... (7 toplam)
