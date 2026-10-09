@@ -750,6 +750,9 @@
   [Para Aktarma - Swift - Uluslararası Fon Transferi ve Mesajlaşma Ücreti / Giden SWIFT - NYDO Toplu Ödeme Kanalı]
     - Hesaptan Giden SWIFT
 
+  [Para Aktarma - Visa ile Yurt Dışı Para Transferi - Visa ile Yurt Dışı Para Transferi İşlem Ücreti]
+    - Transfer Ücreti
+
   [Bireysel Krediler - Konut Kredileri - Ev Kredisi]
     - Tahsis Ücreti
     - 1-120 Ay Vade Faiz Oranı
