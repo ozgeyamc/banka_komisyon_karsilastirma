@@ -2018,7 +2018,7 @@
     - Kredi Kartı Faiz Oranları | Dönem borcu 180.000 TL üzerinde olan bireysel kredi kartları
     - Kredi Kartı Faiz Oranları | Dönem borcu 30.000 TL altında olan bireysel kredi kartları
     - Kredi Kartı Faiz Oranları | Dönem borcu 30.000 - 180.000 TL arasında olan bireysel kredi kartları
-    ... (8 toplam)
+    ... (10 toplam)
 
   [Para Çekme]
     - Para Çekme | Külçe Altın Çekme
