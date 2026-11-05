@@ -1857,7 +1857,7 @@
     - Axess
     - Wings
     - Axess Klasik Kart Ücreti
-    ... (38 toplam)
+    ... (40 toplam)
 
   [Bireysel Kredi Kartları Faiz Oranları]
     - Nakit Çekim veya Kullanım İşlemleri Hariç Uygulanacak Akdi Faiz Oranı
