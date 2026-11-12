@@ -1853,11 +1853,11 @@
 
   [Kart ve Hizmet Ücretleri]
     - Free kart kampanya katılım ücreti (Anlık işlem olmayan)
-    - Kayıp Çalıntı Kart Basım Ücreti
-    - Axess
-    - Wings
+    - Kayıp Çalıntı Kart Basım Ücreti (Plastik)
+    - Kayıp Çalıntı Kart Basım Ücreti (Metal)
     - Axess Klasik Kart Ücreti
-    ... (40 toplam)
+    - Axess Gold Kart Ücreti
+    ... (39 toplam)
 
   [Bireysel Kredi Kartları Faiz Oranları]
     - Nakit Çekim veya Kullanım İşlemleri Hariç Uygulanacak Akdi Faiz Oranı
